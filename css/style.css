@@ -1,3 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* CSS DocumentProject: ProjectManager Website
+----------------------------------------------------------------------------------------------------------*/
+
+/*------------------Layout, Table of Contents-----------------------------------------------------------------
+1. BASIC STYLING FOR COMMON HTML ELEMENTS
+2. TYPOS
+3. COMMON CSS CLASSES
+4. HEADER SECTION
+5. BODY SECTION
+6. FOOTER SECTION
+7. MEDIA QUERIES
+-----------------------------------------------------------------------------------------------------------*/
+
+/*................................................
+    1. BASIC STYLING FOR COMMON HTML ELEMENTS
+.................................................*/
+
 /* VARIABLES */
 :root {
     --dark-blue: rgb(1, 18, 72); 
@@ -5,3 +25,134 @@
     --icy-blue: rgb(244, 248, 255);
     --white: rgb(255, 255, 255);
 }
+
+/*................................................
+    2. TYPOS/FONT
+.................................................*/
+
+/*................................................
+    3. COMMON CSS CLASSES
+.................................................*/
+.header, .main, .footer {margin: 0 0 25px 0;}
+.container {
+    max-width: 1300px;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+}
+* {color: var(--dark-blue);}
+body { background-color: var(--icy-blue);}
+/*................................................
+    4. HEADER SECTION
+.................................................*/
+.header {background-color: var(--dark-blue); height: 55px;}
+.header__logo {flex: 2;}
+.logo { height: 50px; flex: 1;}
+.user{color: var(--white); flex: 0.3;}
+.icon {height: 25px;}
+
+/*................................................
+    5. BODY SECTION
+.................................................*/
+
+/* 5.1. NEW PROJECT AREA SECTION */
+.banner__button {
+    border: 1.5px solid var(--dark-blue);
+    background-color: var(--icy-blue);
+    color: var(--dark-blue);
+    font: 14px color;
+    padding: 10px 20px;
+}
+
+.banner__button:hover , 
+.banner__button:hover > .plus {
+    color: var(--icy-blue);
+    background-color: var(--dark-blue);
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    z-index: 1; /* Sit on top */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(244, 248, 255, 0.4); 
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: var(--icy-blue);
+    margin: auto;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(1, 18, 72, 0.2), 0 6px 20px 0 rgba(1, 18, 72,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    
+}
+
+/* The Close Button */
+.close {font-size: 28px; font-weight: bold; }
+.close:hover {cursor: pointer;}
+
+.modal-header {
+    background-color: var(--dark-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.modal-header * {padding: 5px 20px; color: var(--white);}
+
+.modal-body {
+    padding: 20px 20px 0 20px;
+    display: flex; 
+    flex-direction: column;
+}
+
+.rounded-corners {border-radius: 3px; border: 0.5px solid;}
+.round-top-corners {border-radius: 3px 3px 0 0;}
+.modal-body__content {margin: 5px 0 20px 0; padding: 5px;}
+
+.form__button {
+    border: none;
+    background-color: var(--dark-blue);
+    color: var(--white);
+    font: 14px color;
+    padding: 8px 0;
+    width: 85%;
+    margin: auto;
+}
+.form__logo {width: 30px;}
+.form__button:hover {
+    width: 100%;
+    transition: all 0.4s;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-70px; opacity:0} 
+    to {top:0; opacity:1}
+}
+@keyframes animatetop {
+    from {top:-70px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/*................................................
+    6. FOOTER SECTION
+.................................................*/
+.footer {
+    background-color: var(--dark-blue);
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer__content {color: var(--white);}

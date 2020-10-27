@@ -4,33 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Dashboard</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- Header begins-->
-    <header>
-        <nav>
-        </nav>
+    <header id="header" class="header">
+        <div class="container">
+            <!-- Logo Section -->
+            <h1 class="header__logo"><a href="dashboard.html"><img src="images/logo.png" alt="ProjectManager Logo" class="logo"></a></h1>
+            <!-- User Section -->
+            <span class="user"> Welcome, User </span>
+            <a href="dashboard.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a>
+        </div>
     </header>
     <!-- Header ends-->
 
     <!-- Main content begins-->
-    <main>
+    <main id="main" class="main">
         <!-- New Project Button Area-->
-        <banner></banner>
+        <banner class="container">
+            <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span> &ensp; Add Project</button>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content rounded-corners">
+                    <span class="modal-header round-top-corners">
+                        <img src="images/logo.png" alt="ProjectManager Logo" class="form__logo">
+                        <h3>NEW PROJECT</h3>
+                        <span class="close">&times;</span>
+                    </span>
+                    <form class="modal-body">
+                        <label for="project-name">Project Name</label>
+                        <input type="text" name="project-name" id="project-name" required class="modal-body__content rounded-corners">
+                        
+                        <label for="client-name">Client Name</label>
+                        <input type="text" name="client-name" id="client-name" required class="modal-body__content rounded-corners">
 
+                        <label for="project-manager" >Project Manager</label>
+                        <input type="text" name="project-manager" id="project-manager" required class="modal-body__content rounded-corners">
+
+                        <label for="start-date" >Start Date</label>
+                        <input type="date" name="start-date" id="start-date" required class="modal-body__content rounded-corners">
+
+                        <label for="end-date" >End Date</label>
+                        <input type="date" name="end-date" id="end-date" required class="modal-body__content rounded-corners">
+
+                        <label for="technologies">Technologies</label>
+                        <input type="text" name="technologies" id="technologies" required class="modal-body__content rounded-corners">
+
+                        <label for="description">Project Description</label>
+                        <textarea name="description" id="description" rows="6" required class="modal-body__content rounded-corners"></textarea>
+
+                        <input type="submit" value="ADD PROJECT" class="form__button round-top-corners">
+                    </form>
+                </div>
+            </div>
+        </banner>
         <!-- Project List -->
         <aside></aside>
         
         <!-- Project Details -->
-        <div></div>
+        <section>
+
+        </section>
     </main>
     <!-- Main content ends-->
 
     <!-- Footer begins-->
-    <footer>
-        <span>Copyright &copy; 2020 ProjectManager</span>
+    <footer id="footer" class="footer">
+        <span class="footer__content"> Copyright &copy; 2020 ProjectManager </span>
     </footer>
     <!-- Footer ends-->
+
+    <script src="scripts/dashboard.js"></script>
 </body>
 </html>
