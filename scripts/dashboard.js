@@ -1,8 +1,6 @@
-
-var modal = document.getElementById("myModal");
-let body = document.getElementById("header");
-console.log(body)
+let modal = document.getElementById("myModal");
 const newProject = document.getElementById("new-project")
+
 newProject.addEventListener('click', event => {
     modal.style.display = "flex"
 })
