@@ -40,8 +40,11 @@
     margin: 0 auto;
     align-items: center;
 }
+
 * {color: var(--dark-blue);}
+
 body { background-color: var(--icy-blue);}
+
 /*................................................
     4. HEADER SECTION
 .................................................*/
@@ -126,7 +129,7 @@ body { background-color: var(--icy-blue);}
     color: var(--white);
     font: 14px color;
     padding: 8px 0;
-    width: 85%;
+    width: 95%;
     margin: auto;
 }
 .form__logo {width: 30px;}
