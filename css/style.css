@@ -68,8 +68,8 @@ body { background-color: var(--icy-blue);}
 /* 5.1. NEW PROJECT AREA SECTION */
 
 .banner__button {
-    border: 1.5px solid var(--dark-blue);
-    background-color: var(--icy-blue);
+    border: 1.5px solid var(--light-blue);
+    background-color: var(--light-blue);
     color: var(--dark-blue);
     font: 14px color;
     padding: 10px 20px;
@@ -173,12 +173,14 @@ body { background-color: var(--icy-blue);}
     padding: 5px 10px 5px 15px;
     border: 1px solid var(--white);
     border-radius: 30px;
+    
 }
 
 .project-list__item:hover {
-    transform: translateX(17px);
+    transform: translateX(15px);
     transition: all 0.5s;
     border-radius: 30px 0 0 30px;
+    border-right: 1px solid var(--light-blue);
 }
 
 .project-list__item:first-child { background-color: var(--white);}
@@ -214,6 +216,7 @@ body { background-color: var(--icy-blue);}
     width: 70px;
     text-align: center;
     cursor: pointer;
+    
 }
 
 .project-headings--details,
