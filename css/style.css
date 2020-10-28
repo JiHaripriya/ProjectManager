@@ -30,26 +30,33 @@
     2. TYPOS/FONT
 .................................................*/
 
+
 /*................................................
     3. COMMON CSS CLASSES
 .................................................*/
+
 .header, .main, .footer {margin: 0 0 25px 0;}
+
 .container {
     max-width: 1300px;
-    display: flex;
     margin: 0 auto;
     align-items: center;
 }
 
 * {color: var(--dark-blue);}
-
 body { background-color: var(--icy-blue);}
+.display-flex {display: flex;}
+.column-align {flex-direction: column;}
+.row-align {flex-direction: row;}
+.flex-center{align-items: center; justify-content: center;}
+.width-49 {width: 49%;}
 
 /*................................................
     4. HEADER SECTION
 .................................................*/
-.header {background-color: var(--dark-blue); height: 55px;}
-.header__logo {flex: 2;}
+
+.header {background-color: var(--dark-blue); height: 60px;}
+.header__logo {flex: 2; padding-top: 5px;}
 .logo { height: 50px; flex: 1;}
 .user{color: var(--white); flex: 0.3;}
 .icon {height: 25px;}
@@ -59,6 +66,7 @@ body { background-color: var(--icy-blue);}
 .................................................*/
 
 /* 5.1. NEW PROJECT AREA SECTION */
+
 .banner__button {
     border: 1.5px solid var(--dark-blue);
     background-color: var(--icy-blue);
@@ -106,22 +114,16 @@ body { background-color: var(--icy-blue);}
 
 .modal-header {
     background-color: var(--dark-blue);
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    
+    align-items: center;  
 }
+
 .modal-header * {padding: 5px 20px; color: var(--white);}
-
-.modal-body {
-    padding: 20px 20px 0 20px;
-    display: flex; 
-    flex-direction: column;
-}
-
+.modal-body { padding: 20px 20px 0 20px;}
 .rounded-corners {border-radius: 3px; border: 0.5px solid;}
-.round-top-corners {border-radius: 3px 3px 0 0;}
+.round-bottom-corners {border-radius: 0 0 3px 3px; border: 0.5px solid;}
 .modal-body__content {margin: 5px 0 20px 0; padding: 5px;}
+.dates {justify-content: space-between;}
 
 .form__button {
     border: none;
@@ -129,14 +131,9 @@ body { background-color: var(--icy-blue);}
     color: var(--white);
     font: 14px color;
     padding: 8px 0;
-    width: 95%;
-    margin: auto;
 }
+
 .form__logo {width: 30px;}
-.form__button:hover {
-    width: 100%;
-    transition: all 0.4s;
-}
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
@@ -148,14 +145,146 @@ body { background-color: var(--icy-blue);}
     to {top:0; opacity:1}
 }
 
+/* 5.2. PROJECT LIST SECTION */
+
+.section {
+    margin: 25px auto 0 auto;
+    align-items: flex-start;
+}
+
+.project-list {
+    background-color: var(--light-blue);
+    align-items: flex-start;
+    width: 20%;
+    margin: 50px 0 0 0;
+}
+
+.project-progress {
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+}
+
+.stretch-heading { flex: 0 0 50%;}
+
+.project-list__item {
+    margin: 12px;
+    padding: 5px 10px 5px 15px;
+    border: 1px solid var(--white);
+    border-radius: 30px;
+}
+
+.project-list__item:hover {
+    transform: translateX(17px);
+    transition: all 0.5s;
+    border-radius: 30px 0 0 30px;
+}
+
+.project-list__item:first-child { background-color: var(--white);}
+
+.circular {
+    height: 50px;
+    width: 50px;
+    background-color: var(--light-blue);
+    border-radius: 100%;
+}
+
+.circular .inner {
+    height: 40px;
+    width: 40px;
+    background-color: var(--white);
+    border-radius: 100%;
+}
+
+/* 5.3. PROJECT DETAILS SECTION */
+
+.project-details { width: 80%;}
+.project-headings { justify-content: space-between;}
+.project-headings--details,
+.project-headings--resources,
+.project-headings--invoice,
+.project-headings--edit {
+    background-color: var(--light-blue);
+    border-top: 2px solid  var(--light-blue);
+    border-left: 2px solid  var(--light-blue);
+    border-right: 2px solid var(--light-blue);
+    border-radius: 15px 15px 0 0;
+    padding: 15px;
+    width: 70px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.project-headings--details,
+.project-headings--resources,
+.project-headings--invoice {flex: 1;}
+
+.project-headings--details,
+.project-headings--edit { background-color: var(--white);}
+.project-headings--edit-logo {height: 20px; }
+
+.project-tabs {
+    padding: 20px; 
+    background-color: var(--white);
+    border-bottom: 2px solid  var(--light-blue);
+    border-left: 2px solid  var(--light-blue);
+    border-right: 2px solid var(--light-blue);
+}
+
+.main-details,
+.project-technology,
+.project-description {
+    padding: 15px; 
+    border: 2px solid  var(--light-blue);
+    border-radius: 6px;
+    margin: 0 0 10px 0;
+}
+
+.section1 {flex: 4;}
+.section1 span {margin: 0 0 20px 0;}
+.section2 {flex: 1.5;}
+.section3 {flex: 1; justify-content: space-between;}
+
+.project-progress--main {
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.circular--main {
+    height: 160px;
+    width: 160px;
+    background-color: var(--light-blue);
+    border-radius: 100%;
+}
+
+
+.circular--main .inner--main {
+    height: 110px;
+    width: 110px;
+    background-color: var(--white);
+    border-radius: 100%;
+    animation: none;
+}
+
+.tags {
+    padding: 6px;
+    background-color: var(--light-blue);
+    margin: 2px;
+    border-radius: 10px;
+}
+
+.project-technology--heading {flex: 1;}
+.project-technology--tags {flex: 9;}
+.display-content { margin: 10px 0 0 0;}
+
 /*................................................
     6. FOOTER SECTION
 .................................................*/
+
 .footer {
     background-color: var(--dark-blue);
     height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 0;
 }
 .footer__content {color: var(--white);}

@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script def></script>
 </head>
 <body>
     <!-- Header begins-->
     <header id="header" class="header">
-        <div class="container">
+        <div class="display-flex container">
             <!-- Logo Section -->
             <h1 class="header__logo"><a href="dashboard.html"><img src="images/logo.png" alt="ProjectManager Logo" class="logo"></a></h1>
             <!-- User Section -->
@@ -20,64 +21,141 @@
         </div>
     </header>
     <!-- Header ends-->
-
+    
     <!-- Main content begins-->
     <main id="main" class="main">
         <!-- New Project Button Area-->
-        <banner class="container">
+        <banner class="display-flex container">
             <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span> &ensp; Add Project</button>
             <!-- The Modal -->
-            <div id="myModal" class="modal">
+            <div id="new-project-modal" class="modal">
                 <!-- Modal content -->
-                <div class="modal-content rounded-corners">
-                    <span class="modal-header round-top-corners">
+                <div class="modal-content">
+                    <span class="display-flex modal-header round-top-corners">
                         <img src="images/logo.png" alt="ProjectManager Logo" class="form__logo">
                         <h3>NEW PROJECT</h3>
                         <span class="close" id="close">&times;</span>
                     </span>
-                    <form class="modal-body">
+                    <form class="modal-body display-flex column-align  round-bottom-corners" id="new-project-form">
                         <label for="project-name"> Project Name </label>
-                        <input type="text" name="project-name" id="project-name" required class="modal-body__content rounded-corners">
+                        <input type="text" name="project-name" id="project-name" required class="modal-body__content rounded-corners" minlength="5" maxlength="100">
                         
                         <label for="client-name"> Client Name </label>
-                        <input type="text" name="client-name" id="client-name" required class="modal-body__content rounded-corners">
+                        <input type="text" name="client-name" id="client-name" required class="modal-body__content rounded-corners" minlength="3" maxlength="50">
 
                         <label for="project-manager"> Project Manager </label>
-                        <input type="text" name="project-manager" id="project-manager" required class="modal-body__content rounded-corners">
+                        <input type="text" name="project-manager" id="project-manager" required class="modal-body__content rounded-corners" minlength="3" maxlength="50">
 
-                        <label for="start-date" >Start Date</label>
-                        <input type="date" name="start-date" id="start-date" required class="modal-body__content rounded-corners">
-
-                        <label for="end-date" >End Date</label>
-                        <input type="date" name="end-date" id="end-date" required class="modal-body__content rounded-corners">
+                        <label for="dates" class="display-flex row-align dates">
+                            <label for="start-date" class="display-flex column-align width-49">Start Date
+                                <input type="date" name="start-date" id="start-date" required class="modal-body__content rounded-corners" >
+                            </label>
+                            
+                            <label for="end-date" class="display-flex column-align width-49">End Date
+                                <input type="date" name="end-date" id="end-date" required class="modal-body__content rounded-corners">
+                            </label>
+                        </label>
 
                         <label for="technologies">Technologies</label>
-                        <input type="text" name="technologies" id="technologies" required class="modal-body__content rounded-corners">
+                        <input type="text" name="technologies" id="technologies" required class="modal-body__content rounded-corners" readonly>
 
                         <label for="description">Project Description</label>
-                        <textarea name="description" id="description" rows="6" required class="modal-body__content rounded-corners"></textarea>
+                        <textarea name="description" id="description" rows="6" required class="modal-body__content rounded-corners" minlength="1" maxlength="180"></textarea>
 
-                        <input type="submit" value="ADD PROJECT" class="form__button round-top-corners" id="add-project">
+                        <input type="submit" value="ADD PROJECT" class="modal-body__content form__button rounded-corners" id="add-project">
                     </form>
                 </div>
             </div>
         </banner>
         <!-- Project List -->
-        <aside></aside>
-        
-        <!-- Project Details -->
-        <section>
 
+        <!-- Project Details -->
+        <section class="display-flex container section">
+            <div class="project-list">
+                <!-- 1st project-->
+                <div class="project-list__item">
+                    <span class="display-flex project-progress">
+                        <span class="stretch-heading" id="project-list-project-name"> Lorem ipsum dolor  dolorum</span>
+                        <span id="progress-bar" class="circular display-flex flex-center">
+                            <span id="progress-percent" class="inner display-flex flex-center">0 %</span>
+                        </span>
+                    </span>                   
+                </div>
+            </div>
+
+            <div class="project-details">
+                <div class="project-headings display-flex">
+                    <div class="project-headings--main display-flex">
+                        <span class="project-headings--details"> Details</span>
+                        <span class="project-headings--resources"> Resources </span>
+                        <span class="project-headings--invoice"> Invoice </span>
+                    </div>
+                    <span class="project-headings--edit"> 
+                        <img src="images/edit.png" alt="Pen icon" class="project-headings--edit-logo">      
+                    </span>
+                </div>
+
+                <div class="project-tabs">
+                    <!-- Project Details Tab -->
+                    <div class="main-details display-flex">
+                        <div class="section1 display-flex column-align">
+                            <span style="font-size: 25px;">Project Name</span>
+                            <span>Client Name</span>
+                            <span>Project Manager</span>
+                            <span>Project Status</span>
+                        </div>
+                        <div class="section2">
+                            <span class="display-flex project-progress--main">
+                                <span id="progress-bar-main" class="circular--main display-flex flex-center">
+                                    <span id="progress-percent-main" class="inner--main display-flex flex-center">0 %</span>
+                                </span>
+                            </span>       
+                        </div>
+                        <div class="section3 display-flex column-align">
+                            <span>Start Date</span>
+                            <span>Days left</span>
+                            <span>End Date</span>
+                        </div>
+                    </div>
+
+                    <div class="project-technology display-flex">
+                        <span class="project-technology--heading"><i>Technology :</i> </span>
+                        <span class="project-technology--tags ">
+                            <i>
+                                <span class="tags">HTML</span>
+                                <span class="tags">CSS</span>
+                            </i>
+                        </span>
+                    </div>
+
+                    <div class="project-description">
+                        <div class="description-content display-flex column-align">
+                            <span>Project Description</span>
+                            <span id="display-content" class="display-content">
+                                <i>
+                                    iunkygbyubti <br>
+                                    jutfbiufiu <br>
+                                    hjtfjyfh <br>
+                                    kutiyfiu <br>
+                                    ytfytui <br>
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
+         
     </main>
     <!-- Main content ends-->
-
+    
     <!-- Footer begins-->
-    <footer id="footer" class="footer">
+    <footer id="footer" class="display-flex footer flex-center">
         <span class="footer__content"> Copyright &copy; 2020 ProjectManager </span>
     </footer>
     <!-- Footer ends-->
 
     <script src="scripts/dashboard.js"></script>
+    <script src="scripts/formValidations.js"></script>
 </body>
 </html>
