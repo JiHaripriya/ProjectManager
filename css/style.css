@@ -35,8 +35,8 @@
     3. COMMON CSS CLASSES
 .................................................*/
 
-html, body {margin: 0 auto; padding: 0;}
-body { background-color: var(--icy-blue);}
+html, body {margin: 0; padding: 0;}
+body { background-color: var(--icy-blue);  min-height: 100vh;}
 
 .header, .main, .footer {margin: 0 0 25px 0;}
 
@@ -137,17 +137,18 @@ body { background-color: var(--icy-blue);}
 .modal-body__content {margin: 5px 0 20px 0; padding: 5px;}
 .dates {justify-content: space-between;}
 
-.form__button {
-    border: none;
+.add-project {
     background-color: var(--dark-blue);
+    width: 40%;
     color: var(--white);
-    font: 14px color;
-    padding: 8px 0;
+    padding: 5px;
 }
-
-.form__logo {width: 30px;}
-
-
+.cancel-project {
+    color: var(--dark-blue);
+    width: 30%;
+    background-color: var(--white);
+    border: 0.6px solid var(--light-blue);
+}
 
 #dates-error {display: none;}
 .tooltip-text {
@@ -175,11 +176,7 @@ body { background-color: var(--icy-blue);}
 
 /* 5.2. PROJECT LIST SECTION */
 
-.section {
-    margin: 25px auto 0 auto;
-    align-items: flex-start;
-}
-
+.section { margin: 25px auto 0 auto; align-items: flex-start;}
 
 .project-list {
     background-color: var(--light-blue);
@@ -191,7 +188,10 @@ body { background-color: var(--icy-blue);}
     scrollbar-width: none;  /* Firefox */
 }
 
-.project-list::-webkit-scrollbar {display: none;}
+/* width */
+.project-list::-webkit-scrollbar {width: 6px; }
+.project-list::-webkit-scrollbar-thumb {background: var(--icy-blue); border-radius: 10px;}
+
 
 .project-progress {
     justify-content: space-between; 
@@ -308,6 +308,33 @@ body { background-color: var(--icy-blue);}
 .project-technology--heading {flex: 1;}
 .project-technology--tags {flex: 9;}
 .display-content { margin: 10px 0 0 0;}
+.progress{justify-content: space-between; align-items: center;}
+
+/* Slider */
+.range {flex: 0 0 96%; background: var(--white); height: 6px;}
+input[type=range]{
+    -webkit-appearance: none;
+}
+input[type=range]:focus{
+    outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--dark-blue);
+}
+
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--dark-blue);
+}
+
 
 /* 5.4. RESOURCES SECTION */
 
@@ -315,6 +342,8 @@ body { background-color: var(--icy-blue);}
 .add-resource {align-self: flex-end; cursor: pointer;}
 .add-resource:hover {transform: scale(1.2); transition: all 0.6s;}
 .resource-details {flex: 0 0 90%;}
+.billable {align-items: center; padding: 0;}
+#rate-label {display: none;}
 
 /* 5.5. INVOICE SECTION */
 
@@ -336,6 +365,7 @@ body { background-color: var(--icy-blue);}
     cursor: pointer;
 }
 .invoice-generate--button:hover {box-shadow: 0 3px 20px 0 rgba(1, 18, 72, 0.2);}
+.invoice-generate--button:focus{transform: scale(0.9);}
 .days {
     border-top: none; 
     border-right: none; 
@@ -354,7 +384,6 @@ tbody tr:nth-child(even) {background-color:  var(--light-blue);} /* Alternate co
 .remove-background {background-color: var(--white); border: none;}
 .table-icons {height: 1.3rem; background-color: var(--white); cursor: pointer;}
 
-
 /*................................................
     6. FOOTER SECTION
 .................................................*/
@@ -363,5 +392,6 @@ tbody tr:nth-child(even) {background-color:  var(--light-blue);} /* Alternate co
     background-color: var(--dark-blue);
     height: 55px;
     margin-bottom: 0;
+    margin-top: auto;
 }
 .footer__content {color: var(--white);}

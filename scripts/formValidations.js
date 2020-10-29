@@ -1,5 +1,11 @@
 // Add new project form validation
-const addProject = document.getElementById("add-project")
+const addProject = document.getElementById("add-project"),
+cancelProject = document.getElementById("cancel"),
+cancelResource = document.getElementById("cancel-resource"),
+progress = document.getElementById("range")
+
+// Project Progress
+progress.addEventListener("change", (e) => document.querySelector(".range-label").textContent = e.currentTarget.value)
 
 // Date validation
 const startDate = document.getElementById("start-date"),
@@ -24,7 +30,7 @@ const projectName = document.getElementById("project-name"), //keyup
 clientName = document.getElementById("client-name"), //keyup
 projectManager = document.getElementById("project-manager"), //keyup
 description = document.getElementById("description"), //keydown
-newProjectForm = document.getElementById("new-project-form")
+newProjectForm = document.getElementById("project-form")
 
 const displayTimedMessage = (htmlElement, color, displayType) => {
     if(displayType == "show") htmlElement.style.border = `1.6px solid ${color}`
@@ -71,8 +77,9 @@ newProjectForm.addEventListener('submit', (e) => {
             endDate: endDate.value,
             technologies: technologies.value,
             description: description.value
-        }, modal = document.getElementById("new-project-modal");
-        modal.style.display = "none";
+        }
+        window.location.reload()
+
         console.log(projectDetails)
 
     }
@@ -85,3 +92,6 @@ newProjectForm.addEventListener('submit', (e) => {
         }
     }
 })
+
+cancelProject.addEventListener('click', _ => modal.style.display = "none")
+cancelResource.addEventListener('click', _ => modal.style.display = "none")

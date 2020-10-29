@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <script def></script>
+    <script defer src="scripts/dashboard.js"></script>
+    <script defer src="scripts/formValidations.js"></script>
 </head>
-<body>
+<body class="display-flex column-align">
     <!-- Header begins-->
     <header id="header" class="header">
         <div class="display-flex container">
@@ -24,25 +25,25 @@
     
     <!-- Main content begins-->
     <main id="main" class="main">
+
         <!-- New Project Button Area-->
         <banner class="display-flex container">
             <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span> &ensp; Add Project</button>
             <!-- The Modal -->
             <div id="new-project-modal" class="modal">
 
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <span class="display-flex modal-header round-top-corners">
-                        <!-- <img src="images/logo.png" alt="ProjectManager Logo" class="form__logo"> -->
-                        <h3>NEW PROJECT</h3>
+                <!-- PROJECT FORMS -->
+                <div class="modal-content" id="modal-content-project">
+                    <span class="display-flex modal-header ">
+                        <h3>  </h3> <!-- ADD OR UPDATE PROJECT HEADING -->
                         <span class="close" id="close">&times;</span>
                     </span>
-                    <form class="modal-body display-flex column-align  round-bottom-corners" id="new-project-form">
+                    <form class="modal-body display-flex column-align  round-bottom-corners" id="project-form">
                         <label for="project-name"> Project Name </label>
-                        <input type="text" name="project-name" id="project-name" required class="modal-body__content rounded-corners" minlength="5" maxlength="100">
+                        <input type="text" name="project-name" id="project-name" required class="modal-body__content rounded-corners" minlength="5" maxlength="100" autocomplete="off"> <!-- If update project, Project Name is readonly-->
                         
                         <label for="client-name"> Client Name </label>
-                        <input type="text" name="client-name" id="client-name" required class="modal-body__content rounded-corners" minlength="3" maxlength="50">
+                        <input type="text" name="client-name" id="client-name" required class="modal-body__content rounded-corners" minlength="3" maxlength="50" autocomplete="off" ><!-- If update project, client Name is readonly-->
 
                         <label for="project-manager"> Project Manager </label>
                         <input type="text" name="project-manager" id="project-manager" required class="modal-body__content rounded-corners" autocomplete="off" pattern="^[A-Za-z ]*$" minlength="3" maxlength="50" oninvalid="this.setCustomValidity('Only alphabets and spaces are allowed')" oninput="this.setCustomValidity('')">
@@ -59,24 +60,63 @@
                         </label>
 
                         <label for="technologies">Technologies</label>
-                        <input type="text" name="technologies" id="technologies" required class="modal-body__content rounded-corners" readonly>
+                        <input type="text" name="technologies" id="technologies" required class="modal-body__content rounded-corners">
+
+                        <span id="form-project-progress">Progress
+                            <span class="display-flex progress modal-body__content"><input id="range" type="range" class="range" min="0" max="100" value="0"><label class="range-label" for="range">0</label></span> <!-- If new project, DO NOT DISPLAY progress bar -->
+                        </span>
 
                         <label for="description">Project Description</label>
                         <textarea name="description" id="description" rows="6" required class="modal-body__content rounded-corners" minlength="1" maxlength="180"></textarea>
 
-                        <input type="submit" value="ADD PROJECT" class="modal-body__content form__button rounded-corners" id="add-project">
+                        <label for="buttons" class="modal-body__content" style="  display: flex;justify-content: space-evenly;">
+                            <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel">
+                            <input type="submit" value="Update Project" class="add-project rounded-corners" id="add-project"> <!--If new project, button text should be ADD PROJECT-->
+                        </label>
                     </form>
                 </div>
+
+                <!-- RESOURCE FORM -->
+                <div class="modal-content" id="modal-content--resource">
+                    <span class="display-flex modal-header ">
+                       <h3> </h3> <!-- ADD OR UPDATE RESOURCE HEADING -->
+                       <span class="close" id="close-resource">&times;</span>
+                    </span>
+                   <form class="modal-body display-flex column-align  round-bottom-corners" id="resource-form">
+                       <label for="name"> Name </label> <!--Update resource : NAME CANNOT BE EDITED -->
+                       <input type="text" name="name" id="name" required class="modal-body__content rounded-corners" minlength="5" maxlength="100" autocomplete="off">
+                       
+                       <label for="email"> Email </label>
+                       <input type="email" name="email" id="email" required class="modal-body__content rounded-corners" minlength="3" maxlength="50" autocomplete="off"> <!-- Update resource : EMAIL CANNOT BE EDITED -->
+
+                       <label for="role">Role </label>
+                       <input type="text" name="role" id="role" required class="modal-body__content rounded-corners" autocomplete="off" pattern="^[A-Za-z ]*$" minlength="3" maxlength="50" oninvalid="this.setCustomValidity('Only alphabets and spaces are allowed')" oninput="this.setCustomValidity('')">
+
+                       <label for="billable" class="modal-body__content billable ">Billable 
+                           <input type="checkbox" name="billable" id="billable">
+                        </label>
+
+                       <label for="rate" id="rate-label" class="display-flex column-align">Rate per Hour
+                           <input type="number" name="rate" id="rate" class="modal-body__content rounded-corners" autocomplete="off">
+                       </label>
+                       
+                       <label for="buttons" class="modal-body__content" style="  display: flex;justify-content: space-evenly;">
+                           <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel-resource">
+                           <input type="submit" value="Add Resource" class="add-project rounded-corners" id="add-resource">
+                       </label>
+                   </form>
+               </div>
+               <!-- RESOURCE FORM ENDS-->
+
             </div>
         </banner>
-        <!-- Project List -->
 
         <!-- Project Details -->
         <section class="display-flex container section">
+
             <!-- Project List -->
             <div class="project-list" id="project-list">
-
-                <!-- 1st project-->
+                <!-- Each Project Project-->
                 <div class="project-list__item" id="project-1">
                     <span class="display-flex project-progress">
                         <span class="stretch-heading" id="project-list-project-name"> Lorem ipsum dolor  dolorum</span>
@@ -85,23 +125,26 @@
                         </span>
                     </span>                   
                 </div>
-
             </div>
 
             <!-- Details of each Project Section -->
             <div class="project-details" id="project-1--content" >
                 <div class="project-headings display-flex">
+                    <!-- Tabs availble for each project -->
                     <div class="project-headings--main display-flex" id="project-headings--main">
                         <span class="project-headings--details" id="project-headings--details"> Details</span>
                         <span class="project-headings--resources" id="project-headings--resources"> Resources </span>
                         <span class="project-headings--invoice" id="project-headings--invoice"> Invoice </span>
                     </div>
+
+                    <!-- Pencil edit icon -->
                     <span class="project-headings--edit" id="project-headings--edit"> 
                         <img src="images/edit.png" alt="Pen icon" class="project-headings--edit-logo">      
                     </span>
                 </div>
 
                 <div class="project-tabs" id="project-tabs">
+
                     <!-- Project Details Tab -->
                     <div class="project-details-tab" id="project-details-tab">
                         <div class="main-details display-flex" id="main-details">
@@ -150,9 +193,10 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Project Details Tab Ends -->
 
                     <!-- Resources Details Tab -->
-                    <div class="resource " id="resource">
+                    <div class="resource" id="resource">
                         <div class="display-flex column-align resource-details">
                             <div class=" display-flex column-align">
                                 <span style="font-size: 25px;padding: 5px;">Resource Name</span>
@@ -164,6 +208,7 @@
                                             <th>Name</th>
                                             <th>Role</th> 
                                             <th>Email</th>
+                                            <th>Billable</th>
                                             <th>Rate/hour</th>
                                             <th class="remove-background"></th>
                                             <th class="remove-background"></th>
@@ -174,26 +219,29 @@
                                             <td>Jill</td>
                                             <td>Smith</td>
                                             <td>smith@gmail.com</td>
+                                            <td>True</td>
                                             <td>50</td>
-                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons">   </td>
+                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon">   </td>
                                             <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons"> </td>
                                         </tr>
                                         <tr>
                                             <td>Eve</td>
                                             <td>Jackson</td>
                                             <td>jackson@gmail.com</td>
+                                            <td>True</td>
                                             <td>94</td>
-                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons"></td>
+                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon"></td>
                                             <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons"> </td>
                                         </tr>                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div class="add-resource">
-                            <img src="images/add-icon.png" alt="Plus symbol" class="logo">
+                        <div class="add-resource" id="add-resource-icon">
+                            <img src="images/add-icon.png" alt="Plus symbol" class="logo" >
                         </div>
                     </div>
+                    <!-- Resources Details Tab Ends -->
 
                     <!-- Invoice Details Tab -->
                     <div class="invoice" id="invoice">
@@ -204,7 +252,7 @@
                             <div class="display-flex invoice-generate">
                                 <span>
                                     Number of working days : 
-                                    <input type="tel" name="days" id="days" class="days" maxlength="3">
+                                    <input type="tel" name="days" id="days" class="days" maxlength="3" autocomplete="off">
                                 </span>
                                 <span class="invoice-generate--button" id="invoice-generate--button">Generate Invoice</span>
                             </div>
@@ -238,10 +286,10 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Invoice Details Tab Ends -->
 
                 </div>
             </div>
-
         </section>
          
     </main>
@@ -253,7 +301,5 @@
     </footer>
     <!-- Footer ends-->
 
-    <script src="scripts/dashboard.js"></script>
-    <script src="scripts/formValidations.js"></script>
 </body>
 </html>
