@@ -33,7 +33,7 @@
                 <!-- Modal content -->
                 <div class="modal-content">
                     <span class="display-flex modal-header round-top-corners">
-                        <img src="images/logo.png" alt="ProjectManager Logo" class="form__logo">
+                        <!-- <img src="images/logo.png" alt="ProjectManager Logo" class="form__logo"> -->
                         <h3>NEW PROJECT</h3>
                         <span class="close" id="close">&times;</span>
                     </span>
@@ -45,7 +45,7 @@
                         <input type="text" name="client-name" id="client-name" required class="modal-body__content rounded-corners" minlength="3" maxlength="50">
 
                         <label for="project-manager"> Project Manager </label>
-                        <input type="text" name="project-manager" id="project-manager" required class="modal-body__content rounded-corners" minlength="3" maxlength="50">
+                        <input type="text" name="project-manager" id="project-manager" required class="modal-body__content rounded-corners" autocomplete="off" pattern="^[A-Za-z ]*$" minlength="3" maxlength="50" oninvalid="this.setCustomValidity('Only alphabets and spaces are allowed')" oninput="this.setCustomValidity('')">
 
                         <label for="dates" class="display-flex row-align dates">
                             <label for="start-date" class="display-flex column-align width-49">Start Date
@@ -55,6 +55,7 @@
                             <label for="end-date" class="display-flex column-align width-49">End Date
                                 <input type="date" name="end-date" id="end-date" required class="modal-body__content rounded-corners">
                             </label>
+                            <span id="dates-error" class="tooltip-text">Please enter a valid End Date</span>
                         </label>
 
                         <label for="technologies">Technologies</label>
@@ -73,9 +74,10 @@
         <!-- Project Details -->
         <section class="display-flex container section">
             <!-- Project List -->
-            <div class="project-list">
+            <div class="project-list" id="project-list">
+
                 <!-- 1st project-->
-                <div class="project-list__item">
+                <div class="project-list__item" id="project-1">
                     <span class="display-flex project-progress">
                         <span class="stretch-heading" id="project-list-project-name"> Lorem ipsum dolor  dolorum</span>
                         <span id="progress-bar" class="circular display-flex flex-center">
@@ -83,77 +85,163 @@
                         </span>
                     </span>                   
                 </div>
+
             </div>
 
             <!-- Details of each Project Section -->
-            <div class="project-details">
+            <div class="project-details" id="project-1--content" >
                 <div class="project-headings display-flex">
-                    <div class="project-headings--main display-flex">
-                        <span class="project-headings--details"> Details</span>
-                        <span class="project-headings--resources"> Resources </span>
-                        <span class="project-headings--invoice"> Invoice </span>
+                    <div class="project-headings--main display-flex" id="project-headings--main">
+                        <span class="project-headings--details" id="project-headings--details"> Details</span>
+                        <span class="project-headings--resources" id="project-headings--resources"> Resources </span>
+                        <span class="project-headings--invoice" id="project-headings--invoice"> Invoice </span>
                     </div>
-                    <span class="project-headings--edit"> 
+                    <span class="project-headings--edit" id="project-headings--edit"> 
                         <img src="images/edit.png" alt="Pen icon" class="project-headings--edit-logo">      
                     </span>
                 </div>
 
-                <div class="project-tabs">
+                <div class="project-tabs" id="project-tabs">
                     <!-- Project Details Tab -->
-                    <div class="main-details display-flex">
-                        <div class="section1 display-flex column-align">
-                            <span style="font-size: 25px;">Project Name</span>
-                            <span>Client Name</span>
-                            <span>Project Manager</span>
-                            <span>Project Status</span>
+                    <div class="project-details-tab" id="project-details-tab">
+                        <div class="main-details display-flex" id="main-details">
+                            <div class="section1 display-flex column-align">
+                                <span style="font-size: 25px;">Project Name</span>
+                                <span>Client Name</span>
+                                <span>Project Manager</span>
+                                <span>Project Status</span>
+                            </div>
+                            <div class="section2">
+                                <span class="display-flex project-progress--main">
+                                    <span id="progress-bar-main" class="circular--main display-flex flex-center">
+                                        <span id="progress-percent-main" class="inner--main display-flex flex-center">0 %</span>
+                                    </span>
+                                </span>       
+                            </div>
+                            <div class="section3 display-flex column-align">
+                                <span>Start Date</span>
+                                <span>Days left</span>
+                                <span>End Date</span>
+                            </div>
                         </div>
-                        <div class="section2">
-                            <span class="display-flex project-progress--main">
-                                <span id="progress-bar-main" class="circular--main display-flex flex-center">
-                                    <span id="progress-percent-main" class="inner--main display-flex flex-center">0 %</span>
-                                </span>
-                            </span>       
-                        </div>
-                        <div class="section3 display-flex column-align">
-                            <span>Start Date</span>
-                            <span>Days left</span>
-                            <span>End Date</span>
-                        </div>
-                    </div>
-
-                    <div class="project-technology display-flex">
-                        <span class="project-technology--heading"><i>Technology :</i> </span>
-                        <span class="project-technology--tags ">
-                            <i>
-                                <span class="tags">HTML</span>
-                                <span class="tags">CSS</span>
-                            </i>
-                        </span>
-                    </div>
-
-                    <div class="project-description">
-                        <div class="description-content display-flex column-align">
-                            <span>Project Description</span>
-                            <span id="display-content" class="display-content">
+    
+                        <div class="project-technology display-flex">
+                            <span class="project-technology--heading"><i>Technology :</i> </span>
+                            <span class="project-technology--tags ">
                                 <i>
-                                    iunkygbyubti <br>
-                                    jutfbiufiu <br>
-                                    hjtfjyfh <br>
-                                    kutiyfiu <br>
-                                    ytfytui <br>
+                                    <span class="tags">HTML</span>
+                                    <span class="tags">CSS</span>
                                 </i>
                             </span>
+                        </div>
+    
+                        <div class="project-description">
+                            <div class="description-content display-flex column-align">
+                                <span>Project Description</span>
+                                <span id="display-content" class="display-content">
+                                    <i>
+                                        iunkygbyubti <br>
+                                        jutfbiufiu <br>
+                                        hjtfjyfh <br>
+                                        kutiyfiu <br>
+                                        ytfytui <br>
+                                    </i>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Resources Details Tab -->
-
+                    <div class="resource " id="resource">
+                        <div class="display-flex column-align resource-details">
+                            <div class=" display-flex column-align">
+                                <span style="font-size: 25px;padding: 5px;">Resource Name</span>
+                            </div>
+                            <div class="display-flex">
+                                <table class="tables">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Role</th> 
+                                            <th>Email</th>
+                                            <th>Rate/hour</th>
+                                            <th class="remove-background"></th>
+                                            <th class="remove-background"></th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Jill</td>
+                                            <td>Smith</td>
+                                            <td>smith@gmail.com</td>
+                                            <td>50</td>
+                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons">   </td>
+                                            <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Eve</td>
+                                            <td>Jackson</td>
+                                            <td>jackson@gmail.com</td>
+                                            <td>94</td>
+                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons"></td>
+                                            <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons"> </td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="add-resource">
+                            <img src="images/add-icon.png" alt="Plus symbol" class="logo">
+                        </div>
+                    </div>
 
                     <!-- Invoice Details Tab -->
+                    <div class="invoice" id="invoice">
+                        <!-- <div class="display-flex column-align invoice-details">
+                            
+                        </div> -->
+                        <div class="invoice-content display-flex column-align">
+                            <div class="display-flex invoice-generate">
+                                <span>
+                                    Number of working days : 
+                                    <input type="tel" name="days" id="days" class="days" maxlength="3">
+                                </span>
+                                <span class="invoice-generate--button" id="invoice-generate--button">Generate Invoice</span>
+                            </div>
+                            <div class="display-flex">
+                                <table class="tables">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Rate/hour</th>
+                                            <th>Amount</th> 
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Jill</td>
+                                            <td>50</td>
+                                            <td>50</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Eve</td>
+                                            <td>94</td>
+                                            <td>94</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="remove-background"></td>
+                                            <td>Total Amount</td>
+                                            <td>Amount in number</td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-                    
                 </div>
             </div>
+
         </section>
          
     </main>

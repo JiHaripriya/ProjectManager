@@ -35,6 +35,9 @@
     3. COMMON CSS CLASSES
 .................................................*/
 
+html, body {margin: 0 auto; padding: 0;}
+body { background-color: var(--icy-blue);}
+
 .header, .main, .footer {margin: 0 0 25px 0;}
 
 .container {
@@ -42,14 +45,13 @@
     margin: 0 auto;
     align-items: center;
 }
-
 * {color: var(--dark-blue);}
-body { background-color: var(--icy-blue);}
 .display-flex {display: flex;}
 .column-align {flex-direction: column;}
 .row-align {flex-direction: row;}
 .flex-center{align-items: center; justify-content: center;}
 .width-49 {width: 49%;}
+
 
 /*................................................
     4. HEADER SECTION
@@ -105,9 +107,17 @@ body { background-color: var(--icy-blue);}
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s;
-    
 }
 
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-70px; opacity:0} 
+    to {top:0; opacity:1}
+}
+@keyframes animatetop {
+    from {top:-70px; opacity:0}
+    to {top:0; opacity:1}
+}
 /* The Close Button */
 .close {font-size: 28px; font-weight: bold; }
 .close:hover {cursor: pointer;}
@@ -115,13 +125,15 @@ body { background-color: var(--icy-blue);}
 .modal-header {
     background-color: var(--dark-blue);
     justify-content: space-between;
-    align-items: center;  
+    align-items: center; 
+    box-shadow: 0 8px 10px 0 rgba(1, 18, 72, 0.2); 
 }
 
 .modal-header * {padding: 5px 20px; color: var(--white);}
 .modal-body { padding: 20px 20px 0 20px;}
-.rounded-corners {border-radius: 3px; border: 0.5px solid;}
-.round-bottom-corners {border-radius: 0 0 3px 3px; border: 0.5px solid;}
+.rounded-corners {border-radius: 3px; border: 0.3px solid;}
+.round-top-corners {border-radius: 3px 3px 0 0; }
+.round-bottom-corners {border-radius: 0 0 3px 3px;}
 .modal-body__content {margin: 5px 0 20px 0; padding: 5px;}
 .dates {justify-content: space-between;}
 
@@ -135,14 +147,30 @@ body { background-color: var(--icy-blue);}
 
 .form__logo {width: 30px;}
 
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-70px; opacity:0} 
-    to {top:0; opacity:1}
+
+
+#dates-error {display: none;}
+.tooltip-text {
+    width: 260px;
+    background-color: var(--white);
+    color: var(--dark-blue);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    top: 54%;
+    left: 51%;
+    border: 1px solid var(--dark-blue);
 }
-@keyframes animatetop {
-    from {top:-70px; opacity:0}
-    to {top:0; opacity:1}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    right: 90%;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent  var(--dark-blue) transparent;
 }
 
 /* 5.2. PROJECT LIST SECTION */
@@ -152,12 +180,18 @@ body { background-color: var(--icy-blue);}
     align-items: flex-start;
 }
 
+
 .project-list {
     background-color: var(--light-blue);
     align-items: flex-start;
     width: 20%;
     margin: 50px 0 0 0;
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+.project-list::-webkit-scrollbar {display: none;}
 
 .project-progress {
     justify-content: space-between; 
@@ -172,18 +206,11 @@ body { background-color: var(--icy-blue);}
     margin: 12px;
     padding: 5px 10px 5px 15px;
     border: 1px solid var(--white);
+    background-color: var(--white);
     border-radius: 30px;
-    
 }
 
-.project-list__item:hover {
-    transform: translateX(15px);
-    transition: all 0.5s;
-    border-radius: 30px 0 0 30px;
-    border-right: 1px solid var(--light-blue);
-}
-
-.project-list__item:first-child { background-color: var(--white);}
+.project-list__item:hover { box-shadow: inset  0 3px 20px 0 rgba(1, 18, 72, 0.2);}
 
 .circular {
     height: 50px;
@@ -201,6 +228,8 @@ body { background-color: var(--icy-blue);}
 
 /* 5.3. PROJECT DETAILS SECTION */
 
+.project-headings--main::-webkit-scrollbar {display: none;}
+.project-headings--main {overflow-y:hidden ;overflow-x: auto;}
 .project-details { width: 80%;}
 .project-headings { justify-content: space-between;}
 .project-headings--details,
@@ -216,7 +245,6 @@ body { background-color: var(--icy-blue);}
     width: 70px;
     text-align: center;
     cursor: pointer;
-    
 }
 
 .project-headings--details,
@@ -263,8 +291,8 @@ body { background-color: var(--icy-blue);}
 
 
 .circular--main .inner--main {
-    height: 110px;
-    width: 110px;
+    height: 100px;
+    width: 100px;
     background-color: var(--white);
     border-radius: 100%;
     animation: none;
@@ -280,6 +308,52 @@ body { background-color: var(--icy-blue);}
 .project-technology--heading {flex: 1;}
 .project-technology--tags {flex: 9;}
 .display-content { margin: 10px 0 0 0;}
+
+/* 5.4. RESOURCES SECTION */
+
+.resource {display: none;justify-content: space-between;}
+.add-resource {align-self: flex-end; cursor: pointer;}
+.add-resource:hover {transform: scale(1.2); transition: all 0.6s;}
+.resource-details {flex: 0 0 90%;}
+
+/* 5.5. INVOICE SECTION */
+
+.invoice {display: none;}
+.invoice-content{flex: 0 0 75%;}
+.invoice-generate { 
+    padding: 10px; 
+    align-items: center;
+    justify-content: space-between; 
+    margin: 15px 0; 
+    background-color: var(--icy-blue);
+    border-radius: 6px;
+}
+.invoice-generate--button {
+    border: 1px solid var(--white); 
+    background-color: var(--white); 
+    padding: 5px 15px; 
+    border-radius: 6px;
+    cursor: pointer;
+}
+.invoice-generate--button:hover {box-shadow: 0 3px 20px 0 rgba(1, 18, 72, 0.2);}
+.days {
+    border-top: none; 
+    border-right: none; 
+    border-left: none; 
+    width: 30px;
+    margin: 0 0 0 15px;
+}
+.days:focus{width: 50px; border-bottom: 0.6px solid var(--dark-blue); transition: all 0.5s;}
+
+/* 5.6. Resource / Invoice tables */
+.tables { width: 100%; border-collapse: separate; border-spacing: 5px;}
+th {background-color: var(--dark-blue); color: var(--white); border-radius: 3px;}
+th, td { padding: 5px ;}
+td {width: 25% ; border: 0.5px solid var(--light-blue); border-radius: 3px;}
+tbody tr:nth-child(even) {background-color:  var(--light-blue);} /* Alternate colors for table rows */
+.remove-background {background-color: var(--white); border: none;}
+.table-icons {height: 1.3rem; background-color: var(--white); cursor: pointer;}
+
 
 /*................................................
     6. FOOTER SECTION

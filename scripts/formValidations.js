@@ -27,8 +27,13 @@ description = document.getElementById("description"), //keydown
 newProjectForm = document.getElementById("new-project-form")
 
 const displayTimedMessage = (htmlElement, color, displayType) => {
-    if(displayType == "show") htmlElement.style.color = color
-    else if(displayType == "hide") setTimeout(() => { htmlElement.style.color = "rgb(1, 18, 72)"}, 3500) 
+    if(displayType == "show") htmlElement.style.border = `1.6px solid ${color}`
+    else if(displayType == "hide") setTimeout(() => { htmlElement.style.border = "1px solid rgb(1, 18, 72)"}, 5500) 
+}
+
+//Check whether input has only alphabets
+RegExp.prototype.isAlpha = function (input) {
+    return /^[A-Za-z ]*$/.test(input)
 }
 
 const checkTextLength = (textElement, minLength, maxLength) => {
@@ -38,10 +43,15 @@ const checkTextLength = (textElement, minLength, maxLength) => {
 
 newProjectForm.addEventListener('keyup', (e) => {
     if (checkTextLength(e.target.value, e.target.getAttribute('minlength'), e.target.getAttribute('maxlength'))) {
-        displayTimedMessage(e.target, "green", "show")
-        displayTimedMessage(e.target, "", "hide")
+        if(RegExp.prototype.isAlpha(e.target.value)) {
+            displayTimedMessage(e.target, "green", "show")
+            displayTimedMessage(e.target, "", "hide")
+        }
+        else displayTimedMessage(e.target, "red", "show")
     }
-    else displayTimedMessage(e.target, "red", "show")
+    else {
+        displayTimedMessage(e.target, "red", "show")
+    }
 })
 
 newProjectForm.addEventListener('submit', (e) => {
@@ -52,7 +62,7 @@ newProjectForm.addEventListener('submit', (e) => {
     projectManagerStatus = checkTextLength(projectManager.value, projectManager.getAttribute('minlength'), projectManager.getAttribute('maxlength')),
     descriptionStatus = checkTextLength(description.value, description.getAttribute('minlength'), description.getAttribute('maxlength'))
     
-    if(projectNameStatus && clientNameStatus && projectManagerStatus && descriptionStatus) {
+    if(projectNameStatus && clientNameStatus && projectManagerStatus && descriptionStatus && (startDate.value < endDate.value)) {
         const projectDetails = {
             projectName: projectName.value,
             clientName: clientName.value,
@@ -61,7 +71,17 @@ newProjectForm.addEventListener('submit', (e) => {
             endDate: endDate.value,
             technologies: technologies.value,
             description: description.value
-        }
+        }, modal = document.getElementById("new-project-modal");
+        modal.style.display = "none";
         console.log(projectDetails)
+
+    }
+    else {
+        if(!(startDate.value < endDate.value)) {
+            document.getElementById("dates-error").style.display = "block"
+            setTimeout(() => {  document.getElementById("dates-error").style.display = "none"}, 5500) 
+            displayTimedMessage(endDate, "red", "show")
+            displayTimedMessage(endDate, "", "hide")
+        }
     }
 })
