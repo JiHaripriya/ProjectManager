@@ -93,5 +93,5 @@ newProjectForm.addEventListener('submit', (e) => {
     }
 })
 
-cancelProject.addEventListener('click', _ => modal.style.display = "none")
-cancelResource.addEventListener('click', _ => modal.style.display = "none")
+cancelProject.addEventListener('click', _ => window.location.reload())
+cancelResource.addEventListener('click', _ => window.location.reload())

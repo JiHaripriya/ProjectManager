@@ -159,7 +159,7 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    top: 54%;
+    top: 53%;
     left: 51%;
     border: 1px solid var(--dark-blue);
 }
