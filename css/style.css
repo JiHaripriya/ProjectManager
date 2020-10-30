@@ -359,7 +359,7 @@ input[type=range]::-moz-range-thumb {
 .tables { width: 100%; border-collapse: separate; border-spacing: 5px;}
 th {background-color: var(--dark-blue); color: var(--white); border-radius: 3px;}
 th, td { padding: 5px ;}
-td {width: 25% ; border: 0.5px solid var(--light-blue); border-radius: 3px;}
+td {border: 0.5px solid var(--light-blue); border-radius: 3px;}
 tbody tr:nth-child(even) {background-color:  var(--light-blue);} /* Alternate colors for table rows */
 .remove-background {background-color: var(--white); border: none;}
 .table-icons {height: 1.3rem; background-color: var(--white); cursor: pointer;}
