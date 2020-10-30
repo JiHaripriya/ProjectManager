@@ -134,8 +134,11 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
 .rounded-corners {border-radius: 3px; border: 0.3px solid;}
 .round-top-corners {border-radius: 3px 3px 0 0; }
 .round-bottom-corners {border-radius: 0 0 3px 3px;}
-.modal-body__content {margin: 5px 0 20px 0; padding: 5px;}
+.margin-top5 {margin: 5px 0 0 0;}
+.margin-bottom20 {margin: 0 0 20px 0;}
+.modal-body__content {padding: 3px;}
 .dates {justify-content: space-between;}
+#pname-error, #cname-error, #pmname-error, #description-error, #dates-error {color: rgba(255, 0, 0, 0.639);}
 
 .add-project {
     background-color: var(--dark-blue);
@@ -148,30 +151,6 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
     width: 30%;
     background-color: var(--white);
     border: 0.6px solid var(--light-blue);
-}
-
-#dates-error {display: none;}
-.tooltip-text {
-    width: 260px;
-    background-color: var(--white);
-    color: var(--dark-blue);
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    top: 53%;
-    left: 51%;
-    border: 1px solid var(--dark-blue);
-}
-
-.tooltip-text::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    right: 90%;
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent transparent  var(--dark-blue) transparent;
 }
 
 /* 5.2. PROJECT LIST SECTION */
@@ -345,9 +324,9 @@ input[type=range]::-moz-range-thumb {
 .resource-details {flex: 0 0 90%;}
 .billable {align-items: center; padding: 0;}
 #rate-label {display: none;}
+#name-error, #email-error, #role-error, #rate-error {color: rgba(255, 0, 0, 0.639);}
 
 /* 5.5. INVOICE SECTION */
-
 .invoice {display: none;}
 .invoice-content{flex: 0 0 75%;}
 .invoice-generate { 

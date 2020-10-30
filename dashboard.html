@@ -39,37 +39,53 @@
                         <span class="close" id="close">&times;</span>
                     </span>
                     <form class="modal-body display-flex column-align  round-bottom-corners" id="project-form">
-                        <label for="project-name"> Project Name </label>
-                        <input type="text" name="project-name" id="project-name" required class="modal-body__content rounded-corners" minlength="5" maxlength="100" autocomplete="off"> <!-- If update project, Project Name is readonly-->
+
+                        <div class="display-flex column-align margin-bottom20">
+                            <label for="project-name"> Project Name </label>
+                            <input type="text" name="project-name" id="project-name" class="modal-body__content margin-top5 rounded-corners" maxlength="100" autocomplete="off"> <!-- If update project, Project Name is readonly-->
+                            <span id="pname-error" class="margin-top5"></span>
+                        </div>
                         
-                        <label for="client-name"> Client Name </label>
-                        <input type="text" name="client-name" id="client-name" required class="modal-body__content rounded-corners" minlength="3" maxlength="50" autocomplete="off" ><!-- If update project, client Name is readonly-->
+                        <div class="display-flex column-align margin-bottom20">
+                            <label for="client-name"> Client Name </label>
+                            <input type="text" name="client-name" id="client-name"  class="modal-body__content margin-top5 rounded-corners" maxlength="50" autocomplete="off" ><!-- If update project, client Name is readonly-->
+                            <span id="cname-error" class="margin-top5"></span>
+                        </div>
 
-                        <label for="project-manager"> Project Manager </label>
-                        <input type="text" name="project-manager" id="project-manager" required class="modal-body__content rounded-corners" autocomplete="off" pattern="^[A-Za-z ]*$" minlength="3" maxlength="50" oninvalid="this.setCustomValidity('Only alphabets and spaces are allowed')" oninput="this.setCustomValidity('')">
-
-                        <label for="dates" class="display-flex row-align dates">
-                            <label for="start-date" class="display-flex column-align width-49">Start Date
-                                <input type="date" name="start-date" id="start-date" required class="modal-body__content rounded-corners" >
+                        <div class="display-flex column-align margin-bottom20">
+                            <label for="project-manager"> Project Manager </label>
+                            <input type="text" name="project-manager" id="project-manager"  class="modal-body__content margin-top5 rounded-corners" autocomplete="off" >
+                            <span id="pmname-error" class="margin-top5"></span>
+                        </div>
+                        
+                        <div class="display-flex column-align margin-bottom20">
+                            <label for="dates" class="display-flex row-align dates">
+                                <label for="start-date" class="display-flex column-align width-49">Start Date
+                                    <input type="date" name="start-date" id="start-date" required class="modal-body__content margin-top5 rounded-corners" >
+                                </label>
+                                <label for="end-date" class="display-flex column-align width-49">End Date
+                                    <input type="date" name="end-date" id="end-date" required class="modal-body__content margin-top5 rounded-corners">
+                                </label>
                             </label>
-                            
-                            <label for="end-date" class="display-flex column-align width-49">End Date
-                                <input type="date" name="end-date" id="end-date" required class="modal-body__content rounded-corners">
-                            </label>
-                            <span id="dates-error" class="tooltip-text">Please enter a valid End Date</span>
-                        </label>
+                            <span id="dates-error" class="margin-top5"></span>
+                        </div>
 
-                        <label for="technologies">Technologies</label>
-                        <input type="text" name="technologies" id="technologies" required class="modal-body__content rounded-corners" readonly>
-
+                        <div class="display-flex column-align margin-bottom20">
+                            <label for="technologies">Technologies</label>
+                            <input type="text" name="technologies" id="technologies" required class="modal-body__content margin-top5 rounded-corners" readonly>
+                        </div>
+                        
                         <span id="form-project-progress">Progress
-                            <span class="display-flex progress modal-body__content"><input id="range" type="range" class="range" min="0" max="100" value="0"><label class="range-label" for="range">0</label></span> <!-- If new project, DO NOT DISPLAY progress bar -->
+                            <span class="display-flex progress modal-body__content margin-top5 margin-bottom20"><input id="range" type="range" class="range" min="0" max="100" value="0"><label class="range-label" for="range">0</label></span> <!-- If new project, DO NOT DISPLAY progress bar -->
                         </span>
-
-                        <label for="description">Project Description</label>
-                        <textarea name="description" id="description" rows="6" required class="modal-body__content rounded-corners" minlength="1" maxlength="180"></textarea>
-
-                        <label for="buttons" class="modal-body__content" style="  display: flex;justify-content: space-evenly;">
+                        
+                        <div class="display-flex column-align margin-bottom20">
+                            <label for="description">Project Description</label>
+                            <textarea name="description" id="description" rows="6" class="modal-body__content margin-top5 rounded-corners" maxlength="180"></textarea>
+                            <span id="description-error" class="margin-top5"></span>
+                        </div>
+                        
+                        <label for="buttons" class="modal-body__content margin-bottom20" style="  display: flex;justify-content: space-evenly;">
                             <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel">
                             <input type="submit" value="Update Project" class="add-project rounded-corners" id="add-project"> <!--If new project, button text should be ADD PROJECT-->
                         </label>
@@ -83,24 +99,37 @@
                        <span class="close" id="close-resource">&times;</span>
                     </span>
                    <form class="modal-body display-flex column-align  round-bottom-corners" id="resource-form">
-                       <label for="name"> Name </label> <!--Update resource : NAME CANNOT BE EDITED -->
-                       <input type="text" name="name" id="name" required class="modal-body__content rounded-corners" minlength="5" maxlength="100" autocomplete="off">
+                       <div class="display-flex column-align margin-bottom20">
+                            <label for="name"> Name </label> <!--Update resource : NAME CANNOT BE EDITED & Only alphabets are allowed-->
+                            <input type="text" name="name" id="name"  class="modal-body__content margin-top5 rounded-corners"  maxlength="100" autocomplete="off">
+                            <span id="name-error" class="margin-top5"></span>
+                       </div>
                        
-                       <label for="email"> Email </label>
-                       <input type="email" name="email" id="email" required class="modal-body__content rounded-corners" minlength="3" maxlength="50" autocomplete="off"> <!-- Update resource : EMAIL CANNOT BE EDITED -->
+                        <div class="display-flex column-align margin-bottom20">
+                            <label for="email"> Email </label>
+                            <input type="text" name="email" id="email"  class="modal-body__content margin-top5 rounded-corners" maxlength="50" autocomplete="off"> <!-- Update resource : EMAIL CANNOT BE EDITED -->
+                            <span id="email-error" class="margin-top5"></span>
+                        </div>
 
-                       <label for="role">Role </label>
-                       <input type="text" name="role" id="role" required class="modal-body__content rounded-corners" autocomplete="off" pattern="^[A-Za-z ]*$" minlength="3" maxlength="50" oninvalid="this.setCustomValidity('Only alphabets and spaces are allowed')" oninput="this.setCustomValidity('')">
+                        <div class="display-flex column-align margin-bottom20"> <!--Only alphabets are allowed-->
+                            <label for="role">Role </label>
+                            <input type="text" name="role" id="role"  class="modal-body__content margin-top5 rounded-corners" autocomplete="off"  maxlength="50" >
+                            <span id="role-error" class="margin-top5"></span>
+                        </div>
+                       
 
-                       <label for="billable" class="modal-body__content billable ">Billable 
+                       <label for="billable" class="modal-body__content billable margin-bottom20">Billable 
                            <input type="checkbox" name="billable" id="billable">
                         </label>
 
-                       <label for="rate" id="rate-label" class="display-flex column-align">Rate per Hour
-                           <input type="number" name="rate" id="rate" class="modal-body__content rounded-corners" autocomplete="off">
-                       </label>
+                       <div class="display-flex column-align margin-bottom20">
+                            <label for="rate" id="rate-label" class="display-flex column-align">Rate per Hour
+                                <input type="number" name="rate" id="rate" class="modal-body__content margin-top5 rounded-corners" autocomplete="off">
+                            </label>
+                            <span id="rate-error" class="margin-top5"></span>
+                       </div>
                        
-                       <label for="buttons" class="modal-body__content" style="  display: flex;justify-content: space-evenly;">
+                       <label for="buttons" class="modal-body__content margin-bottom20" style="  display: flex;justify-content: space-evenly;">
                            <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel-resource">
                            <input type="submit" value="Add Resource" class="add-project rounded-corners" id="add-resource">
                        </label>
@@ -366,102 +395,9 @@
                         </div>
                     </div>
                     <!-- Project Details Tab Ends -->
-
-                    <!-- Resources Details Tab -->
-                    <div class="resource" id="resource">
-                        <div class="display-flex column-align resource-details">
-                            <div class=" display-flex column-align">
-                                <span style="font-size: 25px;padding: 5px;">Resource Name</span>
-                            </div>
-                            <div class="display-flex">
-                                <table class="tables">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Role</th> 
-                                            <th>Email</th>
-                                            <th>Billable</th>
-                                            <th>Rate/hour</th>
-                                            <th class="remove-background"></th>
-                                            <th class="remove-background"></th>
-                                          </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Jill</td>
-                                            <td>Smith</td>
-                                            <td>smith@gmail.com</td>
-                                            <td>True</td>
-                                            <td>50</td>
-                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon">   </td>
-                                            <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons"> </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eve</td>
-                                            <td>Jackson</td>
-                                            <td>jackson@gmail.com</td>
-                                            <td>True</td>
-                                            <td>94</td>
-                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon"></td>
-                                            <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons"> </td>
-                                        </tr>                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="add-resource" id="add-resource-icon">
-                            <img src="images/add-icon.png" alt="Plus symbol" class="logo" >
-                        </div>
-                    </div>
-                    <!-- Resources Details Tab Ends -->
-
-                    <!-- Invoice Details Tab -->
-                    <div class="invoice" id="invoice">
-                        <!-- <div class="display-flex column-align invoice-details">
-                            
-                        </div> -->
-                        <div class="invoice-content display-flex column-align">
-                            <div class="display-flex invoice-generate">
-                                <span>
-                                    Number of working days : 
-                                    <input type="tel" name="days" id="days" class="days" maxlength="3" autocomplete="off">
-                                </span>
-                                <span class="invoice-generate--button" id="invoice-generate--button">Generate Invoice</span>
-                            </div>
-                            <div class="display-flex">
-                                <table class="tables">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Rate/hour</th>
-                                            <th>Amount</th> 
-                                          </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Jill</td>
-                                            <td>50</td>
-                                            <td>50</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eve</td>
-                                            <td>94</td>
-                                            <td>94</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="remove-background"></td>
-                                            <td>Total Amount</td>
-                                            <td>Amount in number</td>
-                                        </tr>                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Invoice Details Tab Ends -->
-
                 </div>
             </div>
+
         </section>
          
     </main>
