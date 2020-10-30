@@ -18,6 +18,7 @@ newProject.addEventListener('click', (event) => {
     document.getElementById("modal-content--delete-resource").style.display = "none"
 })
 
+
 // Edit Project
 editProject.addEventListener('click', (e) => {
     modal.style.display = "flex"
@@ -102,7 +103,7 @@ projectList = document.getElementById("project-list")
 // Set height of each tab
 const setHeight = (tab, limit, height) => {
     if(limit == "minimum") tab.style.minHeight = `${height}px`
-    else tab.style.maxHeight = `${height + detailsTab.offsetHeight - 8}px`
+    else tab.style.maxHeight = `${height + detailsTab.offsetHeight}px`
 }
 
 setHeight(document.getElementById("project-details-tab"), "minimum", tabHeight)
