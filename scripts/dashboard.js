@@ -4,6 +4,7 @@ newProject = document.getElementById("new-project"),
 editProject = document.getElementById("project-headings--edit"), 
 addResource = document.getElementById("add-resource-icon"),
 editResource = document.getElementsByClassName("edit-icon"),
+deleteResource = document.getElementsByClassName("delete-icon"),
 billable = document.getElementById("billable")
 
 // New Project
@@ -14,6 +15,7 @@ newProject.addEventListener('click', (event) => {
     document.getElementById("form-project-progress").style.display = "none"
     document.getElementById("add-project").value = "Add Project"
     document.getElementById("modal-content--resource").style.display = "none"
+    document.getElementById("modal-content--delete-resource").style.display = "none"
 })
 
 // Edit Project
@@ -24,6 +26,7 @@ editProject.addEventListener('click', (e) => {
     // Display slider and change button text
     document.getElementById("form-project-progress").style.display = "block"
     document.getElementById("add-project").value = "Update Project"
+    document.getElementById("modal-content--delete-resource").style.display = "none"
 })
 
 // Add Resource
@@ -31,6 +34,7 @@ addResource.addEventListener('click', (e) => {
     modal.style.display = "flex"
     document.getElementById("modal-content-project").style.display = "none"
     document.getElementById("modal-content--resource").style.display = "block"
+    document.getElementById("modal-content--delete-resource").style.display = "none"
 })
 
 // Edit Resource
@@ -39,6 +43,17 @@ for (let eachResource of editResource) {
         modal.style.display = "flex"
         document.getElementById("modal-content-project").style.display = "none"
         document.getElementById("modal-content--resource").style.display = "block"
+        document.getElementById("modal-content--delete-resource").style.display = "none"
+    })
+}
+
+// Delete Resource
+for (let eachResource of deleteResource) {
+    eachResource.addEventListener('click', (e) => {
+        modal.style.display = "flex"
+        document.getElementById("modal-content-project").style.display = "none"
+        document.getElementById("modal-content--resource").style.display = "none"
+        document.getElementById("modal-content--delete-resource").style.display = "block"
     })
 }
 
@@ -129,8 +144,3 @@ invoiceTab.addEventListener('click', _ => {
     document.getElementById("project-headings--edit").style.display = "none"
     setVisibility("invoice", "flex")
 })
-
-// Close Forms
-const closeProject = document.getElementById("close"), closeResource = document.getElementById("close-resource")
-closeProject.onclick = () => modal.style.display = "none"
-closeResource.onclick = () => modal.style.display = "none"

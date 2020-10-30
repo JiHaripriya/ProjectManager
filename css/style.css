@@ -93,16 +93,16 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(244, 248, 255, 0.4); 
+    background-color: rgba(227, 235, 255, 0.6);
     align-items: center;
 }
 
 /* Modal Content */
 .modal-content {
-    background-color: var(--icy-blue);
+    background-color: transparent;
     margin: auto;
     width: 40%;
-    box-shadow: 0 4px 8px 0 rgba(1, 18, 72, 0.2), 0 6px 20px 0 rgba(1, 18, 72,0.19);
+    box-shadow: 0 4px 8px 0 rgba(1, 18, 72, 0.2), 0 6px 20px 0 rgba(1, 18, 72, 0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
@@ -118,19 +118,17 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
     from {top:-70px; opacity:0}
     to {top:0; opacity:1}
 }
-/* The Close Button */
-.close {font-size: 28px; font-weight: bold; }
-.close:hover {cursor: pointer;}
 
 .modal-header {
     background-color: var(--dark-blue);
     justify-content: space-between;
     align-items: center; 
     box-shadow: 0 8px 10px 0 rgba(1, 18, 72, 0.2); 
+    padding: 5px 0;
 }
 
 .modal-header * {padding: 5px 20px; color: var(--white);}
-.modal-body { padding: 20px 20px 0 20px;}
+.modal-body { padding: 20px 20px 0 20px; background-color: var(--icy-blue);}
 .rounded-corners {border-radius: 3px; border: 0.3px solid;}
 .round-top-corners {border-radius: 3px 3px 0 0; }
 .round-bottom-corners {border-radius: 0 0 3px 3px;}
@@ -151,6 +149,9 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
     width: 30%;
     background-color: var(--white);
     border: 0.6px solid var(--light-blue);
+}
+.question-mark {
+    width: 50px;
 }
 
 /* 5.2. PROJECT LIST SECTION */
