@@ -1,7 +1,9 @@
-// Add new project form validation
+/**************************************************** 
+        *   PROJECT FORM VALIDATION  * 
+*****************************************************/
+
 const addProject = document.getElementById("add-project"),
 cancelProject = document.getElementById("cancel"),
-cancelResource = document.getElementById("cancel-resource"),
 progress = document.getElementById("range")
 
 // Project Progress
@@ -24,6 +26,8 @@ const formatDate = (date) => {
 }
 startDate.setAttribute("min", formatDate(new Date()))
 endDate.setAttribute("min", formatDate(new Date()))
+// Number of days left value
+const daysLeft = Math.round(Math.abs(((new Date("10/31/2020").getTime() - new Date().getTime())/ (24 * 60 * 60 * 1000))))
 
 // Get form details
 const projectName = document.getElementById("project-name"), //keyup
@@ -38,9 +42,7 @@ const displayTimedMessage = (htmlElement, color, displayType) => {
 }
 
 //Check whether input has only alphabets
-RegExp.prototype.isAlpha = function (input) {
-    return /^[A-Za-z ]*$/.test(input)
-}
+RegExp.prototype.isAlpha = function (input) { return /^[A-Za-z ]*$/.test(input) }
 
 const checkTextLength = (textElement, minLength, maxLength) => {
     if ( textElement.length >= minLength && textElement.length <= maxLength) return true
@@ -48,21 +50,20 @@ const checkTextLength = (textElement, minLength, maxLength) => {
 }
 
 newProjectForm.addEventListener('keyup', (e) => {
-    if (checkTextLength(e.target.value, e.target.getAttribute('minlength'), e.target.getAttribute('maxlength'))) {
-        if(RegExp.prototype.isAlpha(e.target.value)) {
-            displayTimedMessage(e.target, "green", "show")
-            displayTimedMessage(e.target, "", "hide")
+    if (e.target.type != "button") {
+        if (checkTextLength(e.target.value, e.target.getAttribute('minlength'), e.target.getAttribute('maxlength'))) {
+            if(RegExp.prototype.isAlpha(e.target.value)) {
+                displayTimedMessage(e.target, "green", "show")
+                displayTimedMessage(e.target, "", "hide")
+            }
+            else displayTimedMessage(e.target, "red", "show")
         }
-        else displayTimedMessage(e.target, "red", "show")
-    }
-    else {
-        displayTimedMessage(e.target, "red", "show")
+        else {displayTimedMessage(e.target, "red", "show")}
     }
 })
 
 newProjectForm.addEventListener('submit', (e) => {
     e.preventDefault()
-
     const projectNameStatus = checkTextLength(projectName.value, projectName.getAttribute('minlength'), projectName.getAttribute('maxlength')),
     clientNameStatus = checkTextLength(clientName.value, clientName.getAttribute('minlength'), clientName.getAttribute('maxlength')),
     projectManagerStatus = checkTextLength(projectManager.value, projectManager.getAttribute('minlength'), projectManager.getAttribute('maxlength')),
@@ -79,10 +80,8 @@ newProjectForm.addEventListener('submit', (e) => {
             description: description.value
         }
         window.location.reload()
-
         console.log(projectDetails)
-
-    }
+    } // Display error messages
     else {
         if(!(startDate.value < endDate.value)) {
             document.getElementById("dates-error").style.display = "block"
@@ -94,4 +93,10 @@ newProjectForm.addEventListener('submit', (e) => {
 })
 
 cancelProject.addEventListener('click', _ => window.location.reload())
+
+
+/**************************************************** 
+        *   RESOURCE FORM VALIDATION  * 
+*****************************************************/
+const cancelResource = document.getElementById("cancel-resource")
 cancelResource.addEventListener('click', _ => window.location.reload())

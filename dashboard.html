@@ -60,7 +60,7 @@
                         </label>
 
                         <label for="technologies">Technologies</label>
-                        <input type="text" name="technologies" id="technologies" required class="modal-body__content rounded-corners">
+                        <input type="text" name="technologies" id="technologies" required class="modal-body__content rounded-corners" readonly>
 
                         <span id="form-project-progress">Progress
                             <span class="display-flex progress modal-body__content"><input id="range" type="range" class="range" min="0" max="100" value="0"><label class="range-label" for="range">0</label></span> <!-- If new project, DO NOT DISPLAY progress bar -->
@@ -125,6 +125,14 @@
                         </span>
                     </span>                   
                 </div>
+                <div class="project-list__item" id="project-2">
+                    <span class="display-flex project-progress">
+                        <span class="stretch-heading" id="project-list-project-name"> Lorem ipsum dolor  dolorum</span>
+                        <span id="progress-bar" class="circular display-flex flex-center">
+                            <span id="progress-percent" class="inner display-flex flex-center">0 %</span>
+                        </span>
+                    </span>                   
+                </div>
             </div>
 
             <!-- Details of each Project Section -->
@@ -149,7 +157,171 @@
                     <div class="project-details-tab" id="project-details-tab">
                         <div class="main-details display-flex" id="main-details">
                             <div class="section1 display-flex column-align">
-                                <span style="font-size: 25px;">Project Name</span>
+                                <span style="font-size: 25px;">Project 1</span>
+                                <span>Client Name</span>
+                                <span>Project Manager</span>
+                                <span>Project Status</span>
+                            </div>
+                            <div class="section2">
+                                <span class="display-flex project-progress--main">
+                                    <span id="progress-bar-main" class="circular--main display-flex flex-center">
+                                        <span id="progress-percent-main" class="inner--main display-flex flex-center">0 %</span>
+                                    </span>
+                                </span>       
+                            </div>
+                            <div class="section3 display-flex column-align">
+                                <span>Start Date</span>
+                                <span>Days left</span>
+                                <span>End Date</span>
+                            </div>
+                        </div>
+    
+                        <div class="project-technology display-flex">
+                            <span class="project-technology--heading"><i>Technology :</i> </span>
+                            <span class="project-technology--tags ">
+                                <i>
+                                    <span class="tags">HTML</span>
+                                    <span class="tags">CSS</span>
+                                </i>
+                            </span>
+                        </div>
+    
+                        <div class="project-description">
+                            <div class="description-content display-flex column-align">
+                                <span>Project Description</span>
+                                <span id="display-content" class="display-content">
+                                    <i>
+                                        iunkygbyubti <br>
+                                        jutfbiufiu <br>
+                                        hjtfjyfh <br>
+                                        kutiyfiu <br>
+                                        ytfytui <br>
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Project Details Tab Ends -->
+
+                    <!-- Resources Details Tab -->
+                    <div class="resource" id="resource">
+                        <div class="display-flex column-align resource-details">
+                            <div class=" display-flex column-align">
+                                <span style="font-size: 25px;padding: 5px;">Resource Name</span>
+                            </div>
+                            <div class="display-flex">
+                                <table class="tables">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Role</th> 
+                                            <th>Email</th>
+                                            <th>Billable</th>
+                                            <th>Rate/hour</th>
+                                            <th class="remove-background"></th>
+                                            <th class="remove-background"></th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Jill</td>
+                                            <td>Smith</td>
+                                            <td>smith@gmail.com</td>
+                                            <td>True</td>
+                                            <td>50</td>
+                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon">   </td>
+                                            <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Eve</td>
+                                            <td>Jackson</td>
+                                            <td>jackson@gmail.com</td>
+                                            <td>True</td>
+                                            <td>94</td>
+                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon"></td>
+                                            <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons"> </td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="add-resource" id="add-resource-icon">
+                            <img src="images/add-icon.png" alt="Plus symbol" class="logo" >
+                        </div>
+                    </div>
+                    <!-- Resources Details Tab Ends -->
+
+                    <!-- Invoice Details Tab -->
+                    <div class="invoice" id="invoice">
+                        <!-- <div class="display-flex column-align invoice-details">
+                            
+                        </div> -->
+                        <div class="invoice-content display-flex column-align">
+                            <div class="display-flex invoice-generate">
+                                <span>
+                                    Number of working days : 
+                                    <input type="tel" name="days" id="days" class="days" maxlength="3" autocomplete="off">
+                                </span>
+                                <span class="invoice-generate--button" id="invoice-generate--button">Generate Invoice</span>
+                            </div>
+                            <div class="display-flex">
+                                <table class="tables">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Rate/hour</th>
+                                            <th>Amount</th> 
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Jill</td>
+                                            <td>50</td>
+                                            <td>50</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Eve</td>
+                                            <td>94</td>
+                                            <td>94</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="remove-background"></td>
+                                            <td>Total Amount</td>
+                                            <td>Amount in number</td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Invoice Details Tab Ends -->
+
+                </div>
+            </div>
+
+            <!-- Details of each Project Section -->
+            <div class="project-details" id="project-2--content" >
+                <div class="project-headings display-flex">
+                    <!-- Tabs availble for each project -->
+                    <div class="project-headings--main display-flex" id="project-headings--main">
+                        <span class="project-headings--details" id="project-headings--details"> Details</span>
+                        <span class="project-headings--resources" id="project-headings--resources"> Resources </span>
+                        <span class="project-headings--invoice" id="project-headings--invoice"> Invoice </span>
+                    </div>
+
+                    <!-- Pencil edit icon -->
+                    <span class="project-headings--edit" id="project-headings--edit"> 
+                        <img src="images/edit.png" alt="Pen icon" class="project-headings--edit-logo">      
+                    </span>
+                </div>
+
+                <div class="project-tabs" id="project-tabs">
+
+                    <!-- Project Details Tab -->
+                    <div class="project-details-tab" id="project-details-tab">
+                        <div class="main-details display-flex" id="main-details">
+                            <div class="section1 display-flex column-align">
+                                <span style="font-size: 25px;">Project 2</span>
                                 <span>Client Name</span>
                                 <span>Project Manager</span>
                                 <span>Project Status</span>

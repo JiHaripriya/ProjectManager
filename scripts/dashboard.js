@@ -49,13 +49,27 @@ billable.addEventListener('click', (e) => {
     else document.getElementById("rate-label").style.display = "none"
 })
 
+// TOGGLE PROJECT
+// Add some button animation
+const project1Name = document.getElementById("project-1"), project2Name = document.getElementById("project-2"),
+project1 = document.getElementById("project-1--content"), project2 = document.getElementById("project-2--content")
+
+project1Name.addEventListener('click', e => {
+    project1.style.display = "block"
+    project2.style.display = "none"
+})
+
+project2Name.addEventListener('click', e => {
+    project2.style.display = "block"
+    project1.style.display = "none"
+})
 
 // Get progress bar
 const progressBar = document.getElementById("progress-bar"),
 progressPercent = document.getElementById("progress-percent"),
 progressBarMain = document.getElementById("progress-bar-main"),
 progressPercentMain = document.getElementById("progress-percent-main"),
-percent = 50 // <-- Value fpr each project
+percent = 50 // <-- Value for each project
 progressPercent.innerText = percent + "%"
 progressPercentMain.innerText = percent + " %"
 progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${percent}%, var(--light-blue) 1%)`
@@ -88,18 +102,15 @@ const setVisibility = (id, propertyValue) => {
     currentTab.style.display = propertyValue
 
     // Set visibility and color for other tabs
-    headingId.filter(item => item != id).forEach (
-        eachTab => {
+    headingId.filter(item => item != id).forEach (eachTab => {
             currentTab = document.getElementById(eachTab)
             currentTab.style.display = "none"
             // Toggle color for each tab (Details, Resources and Invoice)
             if(currentTab.id.toLowerCase().includes("detail")){ detailsTab.style.backgroundColor = "rgb(227, 235, 255)"}
             if(currentTab.id.toLowerCase().includes("resource")){ resourceTab.style.backgroundColor = "rgb(227, 235, 255)"}
             if(currentTab.id.toLowerCase().includes("invoice")){ invoiceTab.style.backgroundColor = "rgb(227, 235, 255)"}
-        }
-    )
+    })
 }
-
 
 detailsTab.addEventListener('click', _ => {
     detailsTab.style.backgroundColor = "rgb(255, 255, 255)"
