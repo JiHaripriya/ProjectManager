@@ -185,7 +185,7 @@ resourceForm.addEventListener('submit', e => {
 })
 
 const cancelResource = document.getElementById("cancel-resource")
-cancelResource.addEventListener('click', _ => window.location.reload())
+cancelResource.addEventListener('click', _ => modal.style.display = "none")
 
 const cancelDeleteResource = document.getElementById("cancel-delete-resource")
 cancelDeleteResource.onclick = () => modal.style.display = "none"

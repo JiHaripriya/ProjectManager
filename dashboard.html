@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,63 +8,74 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script defer src="scripts/utility.js"></script>
     <script defer src="scripts/dashboard.js"></script>
     <script defer src="scripts/formValidations.js"></script>
 </head>
+
 <body class="display-flex column-align">
     <!-- Header begins-->
     <header id="header" class="header">
         <div class="display-flex container">
             <!-- Logo Section -->
-            <h1 class="header__logo"><a href="dashboard.html"><img src="images/logo.png" alt="ProjectManager Logo" class="logo"></a></h1>
+            <h1 class="header__logo"><a href="dashboard.html"><img src="images/logo.png" alt="ProjectManager Logo"
+                        class="logo"></a></h1>
             <!-- User Section -->
             <span class="user"> Welcome, User </span>
             <a href="dashboard.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a>
         </div>
     </header>
     <!-- Header ends-->
-    
+
     <!-- Main content begins-->
     <main id="main" class="main">
 
         <!-- New Project Button Area-->
         <banner class="display-flex container">
-            <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span> &ensp; Add Project</button>
+            <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span> &ensp; Add
+                Project</button>
             <!-- The Modal -->
             <div id="new-project-modal" class="modal">
 
                 <!-- PROJECT FORMS -->
                 <div class="modal-content" id="modal-content-project">
                     <span class="display-flex modal-header round-top-corners">
-                        <h3> Project Form Title </h3> <!-- ADD OR UPDATE PROJECT HEADING -->
+                        <h3 id='project-form--title'> Project Form Title </h3> <!-- ADD OR UPDATE PROJECT HEADING -->
                     </span>
                     <form class="modal-body display-flex column-align  round-bottom-corners" id="project-form">
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="project-name"> Project Name </label>
-                            <input type="text" name="project-name" id="project-name" class="modal-body__content margin-top5 rounded-corners" maxlength="100" autocomplete="off"> <!-- If update project, Project Name is readonly-->
+                            <input type="text" name="project-name" id="project-name"
+                                class="modal-body__content margin-top5 rounded-corners" maxlength="100"
+                                autocomplete="off"> <!-- If update project, Project Name is readonly-->
                             <span id="pname-error" class="margin-top5"></span>
                         </div>
-                        
+
                         <div class="display-flex column-align margin-bottom20">
                             <label for="client-name"> Client Name </label>
-                            <input type="text" name="client-name" id="client-name"  class="modal-body__content margin-top5 rounded-corners" maxlength="50" autocomplete="off" ><!-- If update project, client Name is readonly-->
+                            <input type="text" name="client-name" id="client-name"
+                                class="modal-body__content margin-top5 rounded-corners" maxlength="50"
+                                autocomplete="off"><!-- If update project, client Name is readonly-->
                             <span id="cname-error" class="margin-top5"></span>
                         </div>
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="project-manager"> Project Manager </label>
-                            <input type="text" name="project-manager" id="project-manager"  class="modal-body__content margin-top5 rounded-corners" autocomplete="off" >
+                            <input type="text" name="project-manager" id="project-manager"
+                                class="modal-body__content margin-top5 rounded-corners" autocomplete="off">
                             <span id="pmname-error" class="margin-top5"></span>
                         </div>
-                        
+
                         <div class="display-flex column-align margin-bottom20">
                             <label for="dates" class="display-flex row-align dates">
                                 <label for="start-date" class="display-flex column-align width-49">Start Date
-                                    <input type="date" name="start-date" id="start-date" required class="modal-body__content margin-top5 rounded-corners" >
+                                    <input type="date" name="start-date" id="start-date" required
+                                        class="modal-body__content margin-top5 rounded-corners">
                                 </label>
                                 <label for="end-date" class="display-flex column-align width-49">End Date
-                                    <input type="date" name="end-date" id="end-date" required class="modal-body__content margin-top5 rounded-corners">
+                                    <input type="date" name="end-date" id="end-date" required
+                                        class="modal-body__content margin-top5 rounded-corners">
                                 </label>
                             </label>
                             <span id="dates-error" class="margin-top5"></span>
@@ -71,22 +83,30 @@
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="technologies">Technologies</label>
-                            <input type="text" name="technologies" id="technologies" required class="modal-body__content margin-top5 rounded-corners" readonly>
+                            <input type="text" name="technologies" id="technologies" required
+                                class="modal-body__content margin-top5 rounded-corners" readonly>
                         </div>
-                        
+
                         <span id="form-project-progress">Progress
-                            <span class="display-flex progress modal-body__content margin-top5 margin-bottom20"><input id="range" type="range" class="range" min="0" max="100" value="0"><label class="range-label" for="range">0</label></span> <!-- If new project, DO NOT DISPLAY progress bar -->
+                            <span class="display-flex progress modal-body__content margin-top5 margin-bottom20"><input
+                                    id="range" type="range" class="range" min="0" max="100" value="0"><label
+                                    class="range-label" for="range">0</label></span>
+                            <!-- If new project, DO NOT DISPLAY progress bar -->
                         </span>
-                        
+
                         <div class="display-flex column-align margin-bottom20">
                             <label for="description">Project Description</label>
-                            <textarea name="description" id="description" rows="6" class="modal-body__content margin-top5 rounded-corners" maxlength="180"></textarea>
+                            <textarea name="description" id="description" rows="6"
+                                class="modal-body__content margin-top5 rounded-corners" maxlength="180"></textarea>
                             <span id="description-error" class="margin-top5"></span>
                         </div>
-                        
-                        <label for="buttons" class="modal-body__content margin-bottom20" style="  display: flex;justify-content: space-evenly;">
+
+                        <label for="buttons" class="modal-body__content margin-bottom20"
+                            style="  display: flex;justify-content: space-evenly;">
                             <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel">
-                            <input type="submit" value="Update Project" class="add-project rounded-corners" id="add-project"> <!--If new project, button text should be ADD PROJECT-->
+                            <input type="submit" value="Update Project" class="add-project rounded-corners"
+                                id="add-project">
+                            <!--If new project, button text should be ADD PROJECT-->
                         </label>
                     </form>
                 </div>
@@ -96,65 +116,80 @@
                 <!-- Add or update form-->
                 <div class="modal-content" id="modal-content--resource">
                     <span class="display-flex modal-header round-top-corners">
-                       <h3> Resource Form Title </h3> <!-- ADD OR UPDATE RESOURCE HEADING -->
+                        <h3> Resource Form Title </h3> <!-- ADD OR UPDATE RESOURCE HEADING -->
                     </span>
-                   <form class="modal-body display-flex column-align  round-bottom-corners" id="resource-form">
-                       <div class="display-flex column-align margin-bottom20">
-                            <label for="name"> Name </label> <!--Update resource : NAME CANNOT BE EDITED & Only alphabets are allowed-->
-                            <input type="text" name="name" id="name"  class="modal-body__content margin-top5 rounded-corners"  maxlength="100" autocomplete="off">
+                    <form class="modal-body display-flex column-align  round-bottom-corners" id="resource-form">
+                        <div class="display-flex column-align margin-bottom20">
+                            <label for="name"> Name </label>
+                            <!--Update resource : NAME CANNOT BE EDITED & Only alphabets are allowed-->
+                            <input type="text" name="name" id="name"
+                                class="modal-body__content margin-top5 rounded-corners" maxlength="100"
+                                autocomplete="off">
                             <span id="name-error" class="margin-top5"></span>
-                       </div>
-                       
+                        </div>
+
                         <div class="display-flex column-align margin-bottom20">
                             <label for="email"> Email </label>
-                            <input type="text" name="email" id="email"  class="modal-body__content margin-top5 rounded-corners" maxlength="50" autocomplete="off"> <!-- Update resource : EMAIL CANNOT BE EDITED -->
+                            <input type="text" name="email" id="email"
+                                class="modal-body__content margin-top5 rounded-corners" maxlength="50"
+                                autocomplete="off"> <!-- Update resource : EMAIL CANNOT BE EDITED -->
                             <span id="email-error" class="margin-top5"></span>
                         </div>
 
-                        <div class="display-flex column-align margin-bottom20"> <!--Only alphabets are allowed-->
+                        <div class="display-flex column-align margin-bottom20">
+                            <!--Only alphabets are allowed-->
                             <label for="role">Role </label>
-                            <input type="text" name="role" id="role"  class="modal-body__content margin-top5 rounded-corners" autocomplete="off"  maxlength="50" >
+                            <input type="text" name="role" id="role"
+                                class="modal-body__content margin-top5 rounded-corners" autocomplete="off"
+                                maxlength="50">
                             <span id="role-error" class="margin-top5"></span>
                         </div>
-                       
 
-                       <label for="billable" class="modal-body__content billable margin-bottom20">Billable 
-                           <input type="checkbox" name="billable" id="billable">
+
+                        <label for="billable" class="modal-body__content billable margin-bottom20">Billable
+                            <input type="checkbox" name="billable" id="billable">
                         </label>
 
-                       <div class="display-flex column-align margin-bottom20">
+                        <div class="display-flex column-align margin-bottom20">
                             <label for="rate" id="rate-label" class="display-flex column-align">Rate per Hour
-                                <input type="number" name="rate" id="rate" class="modal-body__content margin-top5 rounded-corners" autocomplete="off">
+                                <input type="number" name="rate" id="rate"
+                                    class="modal-body__content margin-top5 rounded-corners" autocomplete="off">
                             </label>
                             <span id="rate-error" class="margin-top5"></span>
-                       </div>
-                       
-                       <label for="buttons" class="modal-body__content margin-bottom20" style="  display: flex;justify-content: space-evenly;">
-                           <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel-resource">
-                           <input type="submit" value="Add Resource" class="add-project rounded-corners" id="add-resource">
-                       </label>
-                   </form>
+                        </div>
+
+                        <label for="buttons" class="modal-body__content margin-bottom20"
+                            style="  display: flex;justify-content: space-evenly;">
+                            <input type="button" value="Cancel" class="cancel-project rounded-corners"
+                                id="cancel-resource">
+                            <input type="submit" value="Add Resource" class="add-project rounded-corners"
+                                id="add-resource">
+                        </label>
+                    </form>
                 </div>
 
                 <!-- Delete Resource Form -->
                 <div class="modal-content" id="modal-content--delete-resource">
                     <span class="display-flex modal-header round-top-corners">
-                       <h3> Delete Resource </h3> 
+                        <h3> Delete Resource </h3>
                     </span>
-                   <form class="modal-body display-flex column-align  round-bottom-corners" id="delete-resource-form">
-                       <div class="display-flex column-align margin-bottom20 flex-center">
-                           <img src="images/Question-mark.jpg" alt="Question mark" class="question-mark">
-                           <h3 class="margin-bottom20">Confirm Action</h3> 
+                    <form class="modal-body display-flex column-align  round-bottom-corners" id="delete-resource-form">
+                        <div class="display-flex column-align margin-bottom20 flex-center">
+                            <img src="images/Question-mark.jpg" alt="Question mark" class="question-mark">
+                            <h3 class="margin-bottom20">Confirm Action</h3>
                             <span>This will delete the selected resource.</span>
-                       </div>
-                       
-                       <label for="buttons" class="modal-body__content margin-bottom20" style="  display: flex;justify-content: space-evenly;">
-                           <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel-delete-resource">
-                           <input type="submit" value="Confirm Delete" class="add-project rounded-corners" id="delete-resource">  <!-- Give button action -->
-                       </label>
-                   </form>
+                        </div>
+
+                        <label for="buttons" class="modal-body__content margin-bottom20"
+                            style="  display: flex;justify-content: space-evenly;">
+                            <input type="button" value="Cancel" class="cancel-project rounded-corners"
+                                id="cancel-delete-resource">
+                            <input type="submit" value="Confirm Delete" class="add-project rounded-corners"
+                                id="delete-resource"> <!-- Give button action -->
+                        </label>
+                    </form>
                 </div>
-               <!-- RESOURCE FORM ENDS-->
+                <!-- RESOURCE FORM ENDS-->
 
             </div>
         </banner>
@@ -164,27 +199,10 @@
 
             <!-- Project List -->
             <div class="project-list" id="project-list">
-                <!-- Each Project Project-->
-                <div class="project-list__item" id="project-1">
-                    <span class="display-flex project-progress">
-                        <span class="stretch-heading" id="project-list-project-name"> Lorem ipsum dolor  dolorum</span>
-                        <span id="progress-bar" class="circular display-flex flex-center">
-                            <span id="progress-percent" class="inner display-flex flex-center">0 %</span>
-                        </span>
-                    </span>                   
-                </div>
-                <div class="project-list__item" id="project-2">
-                    <span class="display-flex project-progress">
-                        <span class="stretch-heading" id="project-list-project-name"> Lorem ipsum dolor  dolorum</span>
-                        <span id="progress-bar" class="circular display-flex flex-center">
-                            <span id="progress-percent" class="inner display-flex flex-center">0 %</span>
-                        </span>
-                    </span>                   
-                </div>
             </div>
 
             <!-- Details of each Project Section -->
-            <div class="project-details" id="project-1--content" >
+            <div class="project-details" id="project-1--content">
                 <div class="project-headings display-flex">
                     <!-- Tabs availble for each project -->
                     <div class="project-headings--main display-flex" id="project-headings--main">
@@ -194,8 +212,8 @@
                     </div>
 
                     <!-- Pencil edit icon -->
-                    <span class="project-headings--edit" id="project-headings--edit"> 
-                        <img src="images/edit.png" alt="Pen icon" class="project-headings--edit-logo">      
+                    <span class="project-headings--edit" id="project-headings--edit">
+                        <img src="images/edit.png" alt="Pen icon" class="project-headings--edit-logo">
                     </span>
                 </div>
 
@@ -204,47 +222,50 @@
                     <!-- Project Details Tab -->
                     <div class="project-details-tab" id="project-details-tab">
                         <div class="main-details display-flex" id="main-details">
-                            <div class="section1 display-flex column-align">
-                                <span style="font-size: 25px;">Project 1</span>
+                            <div class="display-flex column-align" id="section1">
+                                <!-- <span style="font-size: 25px;">Project 1</span>
                                 <span>Client Name</span>
                                 <span>Project Manager</span>
-                                <span>Project Status</span>
+                                <span>Project Status</span> -->
                             </div>
-                            <div class="section2">
-                                <span class="display-flex project-progress--main">
-                                    <span id="progress-bar-main" class="circular--main display-flex flex-center">
+                            <div id="section2">
+                                <span class="display-flex" id="project-progress--main">
+                                    <!-- <span id="progress-bar-main" class="circular--main display-flex flex-center">
                                         <span id="progress-percent-main" class="inner--main display-flex flex-center">0 %</span>
-                                    </span>
-                                </span>       
+                                    </span> -->
+                                </span>
                             </div>
-                            <div class="section3 display-flex column-align">
-                                <span>Start Date</span>
+                            <div class="display-flex column-align" id="section3">
+                                <!-- <span>Start Date</span>
                                 <span>Days left</span>
-                                <span>End Date</span>
+                                <span>End Date</span> -->
                             </div>
                         </div>
-    
+
                         <div class="project-technology display-flex">
                             <span class="project-technology--heading"><i>Technology :</i> </span>
-                            <span class="project-technology--tags ">
-                                <i>
-                                    <span class="tags">HTML</span>
-                                    <span class="tags">CSS</span>
+                            <span class="project-technology--tags">
+                                <i id="tag-list">
+                                    <!-- <span class="tags">HTML</span>
+                                    <span class="tags">CSS</span> -->
                                 </i>
                             </span>
                         </div>
-    
+
                         <div class="project-description">
                             <div class="description-content display-flex column-align">
-                                <span>Project Description</span>
+                                <span>Description</span>
                                 <span id="display-content" class="display-content">
-                                    <i>
+                                    <!-- <i>
                                         iunkygbyubti <br>
                                         jutfbiufiu <br>
                                         hjtfjyfh <br>
                                         kutiyfiu <br>
                                         ytfytui <br>
-                                    </i>
+                                    </i> -->
+                                    <p id="project-description">
+
+                                    </p>
                                 </span>
                             </div>
                         </div>
@@ -254,24 +275,24 @@
                     <!-- Resources Details Tab -->
                     <div class="resource" id="resource">
                         <div class="display-flex column-align resource-details">
-                            <div class=" display-flex column-align">
+                            <!-- <div class=" display-flex column-align">
                                 <span style="font-size: 25px;padding: 5px;">Resource Name</span>
-                            </div>
+                            </div> -->
                             <div class="display-flex">
                                 <table class="tables">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Role</th> 
+                                            <th>Role</th>
                                             <th>Email</th>
                                             <th>Billable</th>
                                             <th>Rate/hour</th>
                                             <th class="remove-background"></th>
                                             <th class="remove-background"></th>
-                                          </tr>
+                                        </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="resource-table--body">
+                                        <!-- <tr>
                                             <td>Jill</td>
                                             <td>Smith</td>
                                             <td>smith@gmail.com</td>
@@ -288,13 +309,13 @@
                                             <td>94</td>
                                             <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon"></td>
                                             <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons delete-icon"> </td>
-                                        </tr>                                        
+                                        </tr>                                         -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="add-resource" id="add-resource-icon">
-                            <img src="images/add-icon.png" alt="Plus symbol" class="logo" >
+                            <img src="images/add-icon.png" alt="Plus symbol" class="logo">
                         </div>
                     </div>
                     <!-- Resources Details Tab Ends -->
@@ -306,23 +327,29 @@
                         </div> -->
                         <div class="invoice-content display-flex column-align">
                             <div class="display-flex invoice-generate">
-                                <span>
-                                    Number of working days : 
-                                    <input type="tel" name="days" id="days" class="days" maxlength="3" autocomplete="off">
+                                <span class="display-flex">
+                                    <label for="days">Number of working days: </label>
+                                    <span class="display-flex column-align">
+                                        <input type="number" min=0 name="days" id="days" class="days" maxlength="3"
+                                            autocomplete="off">
+                                        <p id="working-days--errormsg">error</p>
+                                    </span>
                                 </span>
-                                <span class="invoice-generate--button" id="invoice-generate--button">Generate Invoice</span>
+                                <span class="invoice-generate--button" id="invoice-generate--button">Generate
+                                    Invoice</span>
                             </div>
-                            <div class="display-flex">
+                            <!-- Change class name display-on-invoice-generate -->
+                            <div class="display-flex display-on-invoice-generate">
                                 <table class="tables">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>Rate/hour</th>
-                                            <th>Amount</th> 
-                                          </tr>
+                                            <th>Amount</th>
+                                        </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="invoice-table">
+                                        <!-- <tr>
                                             <td>Jill Jill JILL</td>
                                             <td>50</td>
                                             <td>50</td>
@@ -331,14 +358,15 @@
                                             <td>Eve Eve Eve Eve</td>
                                             <td>94</td>
                                             <td>94</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="remove-background"></td>
-                                            <td>Total Amount</td>
-                                            <td>Amount in number</td>
-                                        </tr>                                        
+                                        </tr> -->
+
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="display-flex invoice-generate display-on-invoice-generate">
+                                <span id="total-cost"> 
+                                    
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -347,81 +375,13 @@
                 </div>
             </div>
 
-            <!-- Details of each Project Section -->
-            <div class="project-details" id="project-2--content" >
-                <div class="project-headings display-flex">
-                    <!-- Tabs availble for each project -->
-                    <div class="project-headings--main display-flex" id="project-headings--main">
-                        <span class="project-headings--details" id="project-headings--details"> Details</span>
-                        <span class="project-headings--resources" id="project-headings--resources"> Resources </span>
-                        <span class="project-headings--invoice" id="project-headings--invoice"> Invoice </span>
-                    </div>
 
-                    <!-- Pencil edit icon -->
-                    <span class="project-headings--edit" id="project-headings--edit"> 
-                        <img src="images/edit.png" alt="Pen icon" class="project-headings--edit-logo">      
-                    </span>
-                </div>
-
-                <div class="project-tabs" id="project-tabs">
-
-                    <!-- Project Details Tab -->
-                    <div class="project-details-tab" id="project-details-tab">
-                        <div class="main-details display-flex" id="main-details">
-                            <div class="section1 display-flex column-align">
-                                <span style="font-size: 25px;">Project 2</span>
-                                <span>Client Name</span>
-                                <span>Project Manager</span>
-                                <span>Project Status</span>
-                            </div>
-                            <div class="section2">
-                                <span class="display-flex project-progress--main">
-                                    <span id="progress-bar-main" class="circular--main display-flex flex-center">
-                                        <span id="progress-percent-main" class="inner--main display-flex flex-center">0 %</span>
-                                    </span>
-                                </span>       
-                            </div>
-                            <div class="section3 display-flex column-align">
-                                <span>Start Date</span>
-                                <span>Days left</span>
-                                <span>End Date</span>
-                            </div>
-                        </div>
-    
-                        <div class="project-technology display-flex">
-                            <span class="project-technology--heading"><i>Technology :</i> </span>
-                            <span class="project-technology--tags ">
-                                <i>
-                                    <span class="tags">HTML</span>
-                                    <span class="tags">CSS</span>
-                                </i>
-                            </span>
-                        </div>
-    
-                        <div class="project-description">
-                            <div class="description-content display-flex column-align">
-                                <span>Project Description</span>
-                                <span id="display-content" class="display-content">
-                                    <i>
-                                        iunkygbyubti <br>
-                                        jutfbiufiu <br>
-                                        hjtfjyfh <br>
-                                        kutiyfiu <br>
-                                        ytfytui <br>
-                                    </i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Project Details Tab Ends -->
-                </div>
-            </div>
 
         </section>
-         
+
     </main>
     <!-- Main content ends-->
-    
+
     <!-- Footer begins-->
     <footer id="footer" class="display-flex footer flex-center">
         <span class="footer__content"> Copyright &copy; 2020 ProjectManager </span>
@@ -429,4 +389,5 @@
     <!-- Footer ends-->
 
 </body>
+
 </html>

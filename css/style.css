@@ -156,7 +156,7 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
 
 /* 5.2. PROJECT LIST SECTION */
 
-.section { margin: 25px auto 0 auto; align-items: flex-start;}
+#section { margin: 25px auto 0 auto; align-items: flex-start;}
 
 .project-list {
     background-color: var(--light-blue);
@@ -253,12 +253,12 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
     margin: 0 0 10px 0;
 }
 
-.section1 {flex: 4;}
-.section1 span {margin: 0 0 20px 0;}
-.section2 {flex: 1.5;}
-.section3 {flex: 1; justify-content: space-between;}
+#section1 {flex: 4;}
+#section1 span {margin: 0 0 20px 0;}
+#section2 {flex: 1.5;}
+#section3 {flex: 1; justify-content: space-between;}
 
-.project-progress--main {
+#project-progress--main {
     justify-content: space-between; 
     align-items: center;
 }
