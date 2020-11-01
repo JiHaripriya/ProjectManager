@@ -86,17 +86,18 @@ projectListHeight = document.querySelector('.project-details').offsetHeight,
 resourceBody = document.getElementById("resource"),
 invoiceBody = document.getElementById("invoice"),
 projectList = document.getElementById("project-list")
-console.log(projectListHeight)
+
 // Set height of each tab
 const setHeight = (tab, limit, height) => {
     if(limit == "minimum") tab.style.minHeight = `${height}px`
     else tab.style.maxHeight = `${height}px`
 }
+setHeight(projectList, "maximum", projectListHeight)
 setHeight(resourceBody, "minimum", tabHeight)
 setHeight(invoiceBody, "minimum", tabHeight)
 // // Mobile and desktop view for project list
-// if(screen.availWidth <= 936) setHeight(projectList, "maximum", projectListHeight)
-setHeight(projectList, "maximum", projectListHeight)
+// if(screen.availWidt>h <= 936) setHeight(projectList, "maximum", projectListHeight)
+window.onresize = () => {window.location.reload()}
 
 // Highlight tab on select
 headingId = ["project-details-tab", "resource", "invoice"]
@@ -118,20 +119,33 @@ const setVisibility = (id, propertyValue) => {
 detailsTab.addEventListener('click', _ => {
     detailsTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "block"
-    document.getElementById("add-resource-icon").style.display = "none"
     setVisibility("project-details-tab", "block")
 })
 
 resourceTab.addEventListener('click', _ => {
     resourceTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "none"
-    document.getElementById("add-resource-icon").style.display = "block"
+    
     setVisibility("resource", "flex")
 })
 
 invoiceTab.addEventListener('click', _ => {
     invoiceTab.style.backgroundColor = "rgb(255, 255, 255)"
-    document.getElementById("add-resource-icon").style.display = "none"
     document.getElementById("project-headings--edit").style.display = "none"
     setVisibility("invoice", "flex")
+})
+
+// Expand project
+const expandArrow = document.getElementById('expand-projects'),
+collapseArrow = document.getElementById('collapse-projects')
+expandArrow.addEventListener('click', _ => {
+    projectList.style.display = "block"
+    expandArrow.style.display = "none"
+    collapseArrow.style.display = "block"
+})
+collapseArrow.addEventListener('click', _ => {
+    projectList.style.display = "none"
+    collapseArrow.style.display = "none"
+    expandArrow.style.display = "block"
+
 })

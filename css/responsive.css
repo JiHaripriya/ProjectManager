@@ -2,7 +2,7 @@
     body {overflow-x: hidden;}
 
     /* Header */
-    .hamburger { display: flex; right: 25px;} 
+    .hamburger { display: flex; right: 15px;} 
 
     .options {
         position: absolute;
@@ -57,15 +57,21 @@
         border: 0.05px dotted var(--dark-blue);
         opacity: 0.9;
         box-shadow: 0 4px 8px 0 rgba(1, 18, 72, 0.2), 0 6px 20px 0 rgba(1, 18, 72, 0.19);
+        z-index: 1;
     }
 
     /* Project List */
     .circular, .circular .inner {display: none;}
     .header, .main, .section, .project-list {margin: 0;}
-    .project-list{width: 25%; overflow-y: auto;} 
+    .project-list{
+        width: 25%; 
+        overflow-y: auto;
+        overflow-x: hidden;
+    } 
     .project-list::-webkit-scrollbar-thumb {background: var(--icy-blue); border-radius: 10px;}
     .project-list::-webkit-scrollbar-thumb:hover {box-shadow: inset  0 3px 20px 0 rgba(1, 18, 72, 0.2);}
     .stretch-heading{flex: inherit;}
+
 
     .main-details {flex-wrap: wrap; justify-content: space-between;}
     .main-details > * {flex: 0 1 40%;}
@@ -76,23 +82,31 @@
 
     .modal-content {width: 50%;}
 
-    table, thead, tbody, th, td, tr { 
+    .invoice-content {
+        flex: 0 0 90%;
+    }
+
+}
+
+@media (max-width:860px) {
+    .modal-content{width: 60%;}
+    .resource table, .resource thead, .resource tbody, .resource th, .resource td, .resource tr { 
         display: block; 
     }
     
     /* Hide table headers */
-	thead tr { 
+	.resource thead tr { 
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
     }
-    tr {
+    .resource tr {
         margin-bottom:  10px;
         border: 1px solid var(--dark-blue);
         border-radius: 6px;
         padding: 0 1px;
     }
-    td { 
+    .resource td { 
 		/* Behave  like a "row" */
 		border: none;
         border-bottom: 1px solid #eee; 
@@ -100,7 +114,7 @@
         padding-left: 50%; 
     }
 
-    td:before { 
+    .resource td:before { 
 		/* Now like a table header */
 		position: absolute;
 		/* Top/left values mimic padding */
@@ -119,12 +133,131 @@
     .resource td:nth-of-type(5)::before{content: 'Rate/hour';}
 
     .resource td:nth-last-child(1){
-        padding-left: 35%;
+        padding-left: 25%;
     }
-    .resource .margin-right10 {margin: 0 35% 0 0;}
+    .resource .margin-right10 {margin: 0 50% 0 0;}
 
-    /*Label the Invoice table data*/
-	.invoice td:nth-of-type(1):before { content: "Name"; }
+    /* Horizontal scroll of resource tab */
+    /* .resource-details {
+        overflow-x: auto;
+        display: block;
+    }  */
+}
+
+@media (max-width:671px){
+    .modal-content{width: 70%;}
+    .margin-bottom20 {margin: 0 0 10px 0;}
+
+    .main-details {flex-direction: column;}
+    .main-details > *:nth-last-child(2){order: 1;}
+    .main-details > *:nth-last-child(1){order: 3; }
+    .main-details > *:nth-last-child(3){order: 2;}
+    .section2 > span {margin: 0 0 0 20vh;}
+
+    .invoice-generate {flex-direction: column;}
+    .invoice-generate > span {margin-bottom: 15px;}
+    .invoice-content {flex: 0 0 100%;}
+}
+
+@media (max-width:630px){
+
+    #expand-projects {display: block; z-index: 3;}
+    
+    .project-list {
+        display: none;
+        position: absolute;
+        z-index: 2;
+        width: 50%;
+        height: 200%;
+        animation: expandProjects 0.5s;
+        transition: width 1s ease-in;
+    }
+
+    @keyframes expandProjects {
+        0% {left: -10px;}
+        100% {left: 0;}
+    }
+
+    .project-details{width: 100%;}
+
+    .expand-icon {    
+        height: 25px;
+        left: 10px;
+        position: absolute;
+        top: 105px;
+        animation: expandArrow 0.5s infinite;
+        animation-direction: alternate;
+        cursor: pointer;
+    }
+
+    .icon:hover {animation-play-state: paused;}
+
+    .collapse {
+        top: 105px;
+        height: 25px;
+        left: 80%;
+        z-index: 2;
+        position: absolute;
+        animation: returnArrow 0.5s infinite;
+        animation-direction: alternate;
+        cursor: pointer;
+    }
+
+    .collapse:hover {animation-play-state: paused;}
+    @keyframes expandArrow {
+        0% {left: 10px;}
+        100% {left: 15px;}
+    }
+
+    @keyframes returnArrow {
+        0% {left: 52%;}
+        100% {left: 50%;}
+    }
+    .add-resource {margin: 25px 0 15px 0;}
+}
+
+@media (max-width:480px){
+    .margin-bottom20 {margin: 0 0 10px 0;}
+    .dates {flex-direction: column;}
+    .dates > * {width: 100%;}
+    .dates >:first-child{margin: 0 0 10px 0;}
+
+    .tables {display: block;overflow-x: auto; overflow-wrap: anywhere;}
+
+    /* Hide table headers */
+    .invoice-table thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    .invoice-table tr {
+        margin-bottom:  10px;
+        border: 1px solid var(--dark-blue);
+        border-radius: 6px;
+        padding: 0 1px;
+    }
+    .invoice-table td { 
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee; 
+        position: relative;
+        padding-left: 50%; 
+    }
+
+    .invoice-table td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+    }
+    .invoice-table table, .invoice-table thead, .invoice-table tbody, .invoice-table th, .invoice-table td, .invoice-table tr { 
+        display: block; 
+    }
+    .invoice td:nth-of-type(1):before { content: "Name"; }
 	.invoice td:nth-of-type(2):before { content: "Rate/hour"; }
     .invoice td:nth-of-type(3):before { content: "Amount"; }
     
@@ -136,22 +269,5 @@
     }
     .invoice-table table tbody >:last-child td:nth-of-type(3):before {
         content: 'Sum';
-    }
-}
-
-@media (max-width:800px) {
-    .modal-content{width: 60%;}
-}
-
-@media (max-width:650px){
-    .modal-content{width: 70%;}
-}
-
-@media (max-width:480px){
-    .margin-bottom20 {
-        margin: 0 0 10px 0;
-    }
-    .dates {flex-direction: column;}
-    .dates > * {width: 100%;}
-    .dates >:first-child{margin: 0 0 10px 0;}
+    } 
 }
