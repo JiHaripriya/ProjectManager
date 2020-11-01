@@ -10,13 +10,12 @@
         right: 0;
         display: flex;
         flex-direction: column;
-        max-width: 100vh;
-        width: 25vw;
         border-radius: 0 0 0 10px;
         background-color: var(--dark-blue);
         align-items: center; 
         transform: translateX(100%);
         z-index: 6;
+        padding: 5%;
     }
 
     .options > span {
@@ -25,7 +24,6 @@
         flex-direction: column; 
         padding: 20px;
         border-radius: 8px;
-        
     }
 
     .options > span > span {
@@ -161,7 +159,7 @@
 
 @media (max-width:630px){
 
-    #expand-projects {display: block; z-index: 3;}
+    #expand-projects {display: block;}
     
     .project-list {
         display: none;
@@ -270,4 +268,17 @@
     .invoice-table table tbody >:last-child td:nth-of-type(3):before {
         content: 'Sum';
     } 
+}
+
+@media (max-width:375px){
+    .banner__button {padding: 10px 15px;}
+    .section2 > span {margin: 0 0 0 10vh;}
+    .modal-content {width: 90%;}
+    .section2 > span {margin: 0 0 5vh 5vh;}
+}
+
+@media (max-width:270px){
+    .section2 > span {
+        margin: 0 0 3vh 1vh;
+    }
 }
