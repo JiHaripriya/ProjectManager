@@ -52,7 +52,7 @@ const formatDate = (date) => {
 startDate.setAttribute("min", formatDate(new Date()))
 endDate.setAttribute("min", formatDate(new Date()))
 // Number of days left value
-const daysLeft = Math.round(Math.abs(((new Date("10/31/2020").getTime() - new Date().getTime())/ (24 * 60 * 60 * 1000))))
+const daysLeft = Math.round(Math.abs(((new Date(endDate).getTime() - new Date().getTime())/ (24 * 60 * 60 * 1000))))
 
 // Get form details
 const projectName = document.getElementById("project-name"), //keyup
@@ -180,6 +180,9 @@ resourceForm.addEventListener('submit', e => {
         }
         if(!roleStatus) {
             role.value.length == 0 ? errorMessages(role, "#role-error", "This field cannot be empty") : (RegExp.prototype.isAlpha(role.value) ? _ : errorMessages(role, "#role-error", "Only alphabets and spaces are allowed"))
+        }
+        if (billableStatus.checked) {
+            if (rate.value == 0 || rate.value == "") errorMessages(rate, "#rate-error", "Enter a valid amount")
         }
     }
 })

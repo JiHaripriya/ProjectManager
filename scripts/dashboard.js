@@ -65,20 +65,6 @@ billable.addEventListener('click', (e) => {
     else document.getElementById("rate-label").style.display = "none"
 })
 
-// TOGGLE PROJECT
-// Add some button animation
-const project1Name = document.getElementById("project-1"), project2Name = document.getElementById("project-2"),
-project1 = document.getElementById("project-1--content"), project2 = document.getElementById("project-2--content")
-
-project1Name.addEventListener('click', e => {
-    project1.style.display = "block"
-    project2.style.display = "none"
-})
-
-project2Name.addEventListener('click', e => {
-    project2.style.display = "block"
-    project1.style.display = "none"
-})
 
 // Get progress bar
 const progressBar = document.getElementById("progress-bar"),
@@ -96,20 +82,21 @@ const detailsTab = document.getElementById("project-headings--details"),
 resourceTab = document.getElementById("project-headings--resources"),
 invoiceTab = document.getElementById("project-headings--invoice"),
 tabHeight =  document.getElementById("project-details-tab").offsetHeight,
+projectListHeight = document.querySelector('.project-details').offsetHeight,
 resourceBody = document.getElementById("resource"),
 invoiceBody = document.getElementById("invoice"),
 projectList = document.getElementById("project-list")
-
+console.log(projectListHeight)
 // Set height of each tab
 const setHeight = (tab, limit, height) => {
     if(limit == "minimum") tab.style.minHeight = `${height}px`
-    else tab.style.maxHeight = `${height + detailsTab.offsetHeight}px`
+    else tab.style.maxHeight = `${height}px`
 }
-
-setHeight(document.getElementById("project-details-tab"), "minimum", tabHeight)
 setHeight(resourceBody, "minimum", tabHeight)
 setHeight(invoiceBody, "minimum", tabHeight)
-setHeight(projectList, "maximum", tabHeight)
+// // Mobile and desktop view for project list
+// if(screen.availWidth <= 936) setHeight(projectList, "maximum", projectListHeight)
+setHeight(projectList, "maximum", projectListHeight)
 
 // Highlight tab on select
 headingId = ["project-details-tab", "resource", "invoice"]
@@ -131,17 +118,20 @@ const setVisibility = (id, propertyValue) => {
 detailsTab.addEventListener('click', _ => {
     detailsTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "block"
+    document.getElementById("add-resource-icon").style.display = "none"
     setVisibility("project-details-tab", "block")
 })
 
 resourceTab.addEventListener('click', _ => {
     resourceTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "none"
+    document.getElementById("add-resource-icon").style.display = "block"
     setVisibility("resource", "flex")
 })
 
 invoiceTab.addEventListener('click', _ => {
     invoiceTab.style.backgroundColor = "rgb(255, 255, 255)"
+    document.getElementById("add-resource-icon").style.display = "none"
     document.getElementById("project-headings--edit").style.display = "none"
     setVisibility("invoice", "flex")
 })

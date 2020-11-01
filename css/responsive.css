@@ -1,0 +1,157 @@
+@media (max-width: 936px) {
+    body {overflow-x: hidden;}
+
+    /* Header */
+    .hamburger { display: flex; right: 25px;} 
+
+    .options {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        max-width: 100vh;
+        width: 25vw;
+        border-radius: 0 0 0 10px;
+        background-color: var(--dark-blue);
+        align-items: center; 
+        transform: translateX(100%);
+        z-index: 6;
+    }
+
+    .options > span {
+        width: auto;
+        justify-items: center;
+        flex-direction: column; 
+        padding: 20px;
+        border-radius: 8px;
+        
+    }
+
+    .options > span > span {
+        margin: 0 0 45px 0; 
+        font-size: 22px;
+        border-bottom: 0.2px solid var(--icy-blue);
+        padding: 0 0 5px 0;
+    }
+
+    .options > span > a {
+        padding: 5px 50px; 
+        border: 1px solid var(--icy-blue); 
+        border-radius: 8px;
+        box-shadow: 0 4px 18px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+    }
+
+    .options-active {
+        transform: translateX(0%);
+        transition: transform 0.6s ease-in;
+    }
+    
+    /* Add Project Button */
+    .banner__button {
+        padding: 15px 25px;
+        border-radius: 30px;
+        position: fixed;
+        bottom: 65px;
+        right: 10px;
+        border: 0.05px dotted var(--dark-blue);
+        opacity: 0.9;
+        box-shadow: 0 4px 8px 0 rgba(1, 18, 72, 0.2), 0 6px 20px 0 rgba(1, 18, 72, 0.19);
+    }
+
+    /* Project List */
+    .circular, .circular .inner {display: none;}
+    .header, .main, .section, .project-list {margin: 0;}
+    .project-list{width: 25%; overflow-y: auto;} 
+    .project-list::-webkit-scrollbar-thumb {background: var(--icy-blue); border-radius: 10px;}
+    .project-list::-webkit-scrollbar-thumb:hover {box-shadow: inset  0 3px 20px 0 rgba(1, 18, 72, 0.2);}
+    .stretch-heading{flex: inherit;}
+
+    .main-details {flex-wrap: wrap; justify-content: space-between;}
+    .main-details > * {flex: 0 1 40%;}
+    .section1 {flex: 4;}
+    .section2 > span {margin: 0 0 0 10vh;}
+    .section3 > * {margin: 0 0 20px 0;}
+    .section3 > *:nth-last-child(2){order: 1;}
+
+    .modal-content {width: 50%;}
+
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+    
+    /* Hide table headers */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+    }
+    tr {
+        margin-bottom:  10px;
+        border: 1px solid var(--dark-blue);
+        border-radius: 6px;
+        padding: 0 1px;
+    }
+    td { 
+		/* Behave  like a "row" */
+		border: none;
+        border-bottom: 1px solid #eee; 
+		position: relative;
+        padding-left: 50%; 
+    }
+
+    td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+    }
+
+    /*Label the Resource data*/
+	.resource td:nth-of-type(1):before { content: "Name"; }
+	.resource td:nth-of-type(2):before { content: "Role"; }
+	.resource td:nth-of-type(3):before { content: "Email"; }
+    .resource td:nth-of-type(4):before { content: "Billable"; }
+    .resource td:nth-of-type(5)::before{content: 'Rate/hour';}
+
+    .resource td:nth-last-child(1){
+        padding-left: 35%;
+    }
+    .resource .margin-right10 {margin: 0 35% 0 0;}
+
+    /*Label the Invoice table data*/
+	.invoice td:nth-of-type(1):before { content: "Name"; }
+	.invoice td:nth-of-type(2):before { content: "Rate/hour"; }
+    .invoice td:nth-of-type(3):before { content: "Amount"; }
+    
+    .invoice-table table tbody >:last-child td:nth-of-type(1):before {
+       content: '';
+    }
+    .invoice-table table tbody >:last-child td:nth-of-type(2):before {
+        content: 'Total Amount';
+    }
+    .invoice-table table tbody >:last-child td:nth-of-type(3):before {
+        content: 'Sum';
+    }
+}
+
+@media (max-width:800px) {
+    .modal-content{width: 60%;}
+}
+
+@media (max-width:650px){
+    .modal-content{width: 70%;}
+}
+
+@media (max-width:480px){
+    .margin-bottom20 {
+        margin: 0 0 10px 0;
+    }
+    .dates {flex-direction: column;}
+    .dates > * {width: 100%;}
+    .dates >:first-child{margin: 0 0 10px 0;}
+}
