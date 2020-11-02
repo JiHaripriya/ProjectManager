@@ -11,6 +11,8 @@
     <script defer src="scripts/utility.js"></script>
     <script defer src="scripts/dashboard.js"></script>
     <script defer src="scripts/formValidationsAlt.js"></script>
+    <script defer src="scripts/project.js"></script>
+    <script defer src="scripts/resource.js"></script>
     <!-- <script defer src="scripts/formValidations.js"></script> -->
 </head>
 
@@ -111,7 +113,6 @@
                             <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel">
                             <input type="submit" value="Add Project" class="add-project rounded-corners"
                                 id="submit-project--button">
-                            <!--If new project, button text should be ADD PROJECT-->
                         </label>
                     </form>
                 </div>
@@ -121,7 +122,7 @@
                 <!-- Add or update form-->
                 <div class="modal-content" id="modal-content--resource">
                     <span class="display-flex modal-header round-top-corners">
-                        <h3 id="resource-form--title"> Resource Form Title </h3> <!-- ADD OR UPDATE RESOURCE HEADING -->
+                        <h3 id="resource-form--title"></h3> <!-- ADD OR UPDATE RESOURCE HEADING -->
                     </span>
                     <form class="modal-body display-flex column-align  round-bottom-corners" id="resource-form">
                         <div class="display-flex column-align margin-bottom20">
@@ -142,7 +143,6 @@
                         </div>
 
                         <div class="display-flex column-align margin-bottom20">
-                            <!--Only alphabets are allowed-->
                             <label for="role">Role </label>
                             <input type="text" name="role" id="role"
                                 class="modal-body__content margin-top5 rounded-corners" autocomplete="off"
@@ -157,7 +157,7 @@
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="rate" id="rate-label" class="display-flex column-align">Rate per Hour
-                                <input type="number" name="rate" id="rate"
+                                <input type="number" name="rate" id="rate" min=0
                                     class="modal-body__content margin-top5 rounded-corners" autocomplete="off">
                             </label>
                             <span id="rate-error" class="margin-top5"></span>
@@ -168,7 +168,7 @@
                             <input type="button" value="Cancel" class="cancel-project rounded-corners"
                                 id="cancel-resource">
                             <input type="submit" value="Add Resource" class="add-project rounded-corners"
-                                id="add-resource">
+                                id="resource-submit--button">
                         </label>
                     </form>
                 </div>
@@ -190,7 +190,7 @@
                             <input type="button" value="Cancel" class="cancel-project rounded-corners"
                                 id="cancel-delete-resource">
                             <input type="submit" value="Confirm Delete" class="add-project rounded-corners"
-                                id="delete-resource"> <!-- Give button action -->
+                                id="delete-resource">
                         </label>
                     </form>
                 </div>
@@ -228,16 +228,9 @@
                     <div class="project-details-tab" id="project-details-tab">
                         <div class="main-details display-flex" id="main-details">
                             <div class="display-flex column-align" id="section1">
-                                <!-- <span style="font-size: 25px;">Project 1</span>
-                                <span>Client Name</span>
-                                <span>Project Manager</span>
-                                <span>Project Status</span> -->
                             </div>
                             <div id="section2">
                                 <span class="display-flex" id="project-progress--main">
-                                    <!-- <span id="progress-bar-main" class="circular--main display-flex flex-center">
-                                        <span id="progress-percent-main" class="inner--main display-flex flex-center">0 %</span>
-                                    </span> -->
                                 </span>
                             </div>
                             <div class="display-flex column-align" id="section3">
@@ -251,8 +244,6 @@
                             <span class="project-technology--heading"><i>Technology :</i> </span>
                             <span class="project-technology--tags">
                                 <i id="tag-list">
-                                    <!-- <span class="tags">HTML</span>
-                                    <span class="tags">CSS</span> -->
                                 </i>
                             </span>
                         </div>
@@ -261,15 +252,7 @@
                             <div class="description-content display-flex column-align">
                                 <span>Description</span>
                                 <span id="display-content" class="display-content">
-                                    <!-- <i>
-                                        iunkygbyubti <br>
-                                        jutfbiufiu <br>
-                                        hjtfjyfh <br>
-                                        kutiyfiu <br>
-                                        ytfytui <br>
-                                    </i> -->
                                     <p id="project-description">
-
                                     </p>
                                 </span>
                             </div>
@@ -280,9 +263,6 @@
                     <!-- Resources Details Tab -->
                     <div class="resource" id="resource">
                         <div class="display-flex column-align resource-details">
-                            <!-- <div class=" display-flex column-align">
-                                <span style="font-size: 25px;padding: 5px;">Resource Name</span>
-                            </div> -->
                             <div class="display-flex">
                                 <table class="tables">
                                     <thead>
@@ -297,24 +277,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="resource-table--body">
-                                        <!-- <tr>
-                                            <td>Jill</td>
-                                            <td>Smith</td>
-                                            <td>smith@gmail.com</td>
-                                            <td>True</td>
-                                            <td>50</td>
-                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon">   </td>
-                                            <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons delete-icon"> </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eve</td>
-                                            <td>Jackson</td>
-                                            <td>jackson@gmail.com</td>
-                                            <td>True</td>
-                                            <td>94</td>
-                                            <td class="remove-background addBorder"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon"></td>
-                                            <td class="remove-background addBorder"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons delete-icon"> </td>
-                                        </tr>                                         -->
                                     </tbody>
                                 </table>
                             </div>
@@ -327,9 +289,6 @@
 
                     <!-- Invoice Details Tab -->
                     <div class="invoice" id="invoice">
-                        <!-- <div class="display-flex column-align invoice-details">
-                            
-                        </div> -->
                         <div class="invoice-content display-flex column-align">
                             <div class="display-flex invoice-generate">
                                 <span class="display-flex">
@@ -354,17 +313,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="invoice-table">
-                                        <!-- <tr>
-                                            <td>Jill Jill JILL</td>
-                                            <td>50</td>
-                                            <td>50</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eve Eve Eve Eve</td>
-                                            <td>94</td>
-                                            <td>94</td>
-                                        </tr> -->
-
                                     </tbody>
                                 </table>
                             </div>
