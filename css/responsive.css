@@ -243,7 +243,7 @@
     .add-resource {margin: 25px 0 15px 0;}
 }
 
-@media (max-width:480px){
+@media (max-width:480px) {
     .website-header{transform: scale(0.9);}
     .margin-bottom20 {margin: 0 0 10px 0;}
     .dates {flex-direction: column;}
@@ -303,13 +303,26 @@
     } 
 }
 
-@media (max-width:375px){
+@media (max-width:375px) {
     .website-header {display: none;}
     .hamburger {width: 25px;}
     .banner__button {padding: 10px 15px;}
     .section2 > span {margin: 0 0 0 10vh;}
     .modal-content {width: 90%;}
     .section2 > span {margin: 0 0 5vh 0vh;}
+    .circular--main {
+        height: 10vh;
+        width: 10vh;
+        background-color: var(--light-blue);
+        border-radius: 100%;
+    }
+    .circular--main .inner--main {
+        height: 8vh;
+        width: 8vh;
+        background-color: var(--white);
+        border-radius: 100%;
+        animation: none;
+    }
 }
 
 @media (max-width:270px){
