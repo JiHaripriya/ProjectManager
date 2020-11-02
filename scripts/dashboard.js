@@ -1,38 +1,49 @@
+// Global variables to store data commonly accessed by multiple functions.
 let projects;
 let resources;
 let selectedProjectId = 0;
+
+// Fetches all dashboard data.
 const fetchDashboardData = () => {
     get(urlList.projects, secretKey, storeProjectData);
     get(urlList.resources, secretKey, storeResourceData);
+    selectedProjectId = 0;
     loadProjectList();
 }
 
 fetchDashboardData();
 
+// Loads list of all projects - recently added will come first.
 function loadProjectList() {
     projectArray = projects.projectList;
+    projectArray.reverse();
     if (projectArray.length) {
         const projectList = document.querySelector('#project-list');
         projectArray.forEach(project => {
             const projectCard = document.createElement('div');
             projectCard.classList.add('project-list__item');
-            projectCard.setAttribute('project-id', `${project.projectId}`);
-            const projectInfo = document.createElement('span');
-            projectInfo.classList.add('display-flex', 'project-progress');
-            const projectName = document.createElement('span');
-            projectName.classList.add('stretch-heading');
-            projectName.innerText = `${project.projectName}`;
-            const progressBar = document.createElement('span');
-            progressBar.classList.add('circular', 'display-flex', 'flex-center');
-            progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${project.progress}%, var(--light-blue) 1%)`;
-            const progressPercent = document.createElement('span');
-            progressPercent.classList.add('inner', 'display-flex', 'flex-center');
-            progressPercent.innerText = `${project.progress}%`;
-            progressBar.appendChild(progressPercent);
+            projectCard.setAttribute('data-projectid', `${project.projectId}`);
+
+            const projectInfo = createSpanTag('', ['display-flex', 'project-progress']);
+
+            const projectName = createSpanTag(`${project.projectName}`, ['stretch-heading']);
+
+            const progressChart = createProgressChart(project.progress);
+
             projectInfo.appendChild(projectName);
-            projectInfo.appendChild(progressBar);
+            projectInfo.appendChild(progressChart);
             projectCard.appendChild(projectInfo);
             projectList.appendChild(projectCard);
+
+            // Adds an event listener to each project card.
+            // Invokes function to implement selection of project card.
+            projectCard.addEventListener('click', function (e) {
+                console.log(selectedProjectId);
+
+                const newSelectedProjectId = e.currentTarget.dataset.projectid;
+                selectProject(newSelectedProjectId);
+
+            });
         });
     }
 
@@ -40,40 +51,57 @@ function loadProjectList() {
     loadResources();
 }
 
+// Removes selection class from currently selected project card and 
+// adds it to newly selected project card and loads its details and resources.
+function selectProject(newSelectedProjectId) {
+    const currentProject = document.querySelector(`[data-projectid=${JSON.stringify(selectedProjectId)}]`);
+    currentProject.classList.remove('selection');
+    const selectedProjectId = newSelectedProjectId;
+    const newSelectedProject = document.querySelector(`[data-projectid=${JSON.stringify(selectedProjectId)}]`);
+    newSelectedProject.classList.add('selection');
+    loadDetails();
+    loadResources();
+}
+
+function createProgressChart(percent) {
+    const progressBar = createSpanTag('', ['circular', 'display-flex', 'flex-center']);
+    progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${percent}%, var(--light-blue) 1%)`;
+    const progressPercent = createSpanTag(`${percent}%`, ['inner', 'display-flex', 'flex-center']);
+    progressBar.appendChild(progressPercent);
+    return progressBar;
+}
+
+// Loads project details tab.
 function loadDetails() {
     const selectedProject = projects.projectList[selectedProjectId];
 
+    // Section One - Project name, client name, project manager, project status
     const sectionOne = document.querySelector('#section1');
-    const projectName = document.createElement('span');
+    const projectName = createSpanTag(`${selectedProject.projectName}`);
     projectName.style.fontSize = "25px";
-    projectName.innerText = `${selectedProject.projectName}`;
-    const clientName = document.createElement('span');
-    clientName.innerText = `Client: ${selectedProject.clientName}`;
-    const projectManager = document.createElement('span');
-    projectManager.innerText = `Project Manager: ${selectedProject.projectManager}`;
-    const projectStatus = document.createElement('span');
-    projectStatus.innerText = `Status: ${selectedProject.projectStatus}`;
+    const clientName = createSpanTag(`Client: ${selectedProject.clientName}`);
+    const projectManager = createSpanTag(`Project Manager: ${selectedProject.projectManager}`);
+    const projectStatus = createSpanTag(`Status: ${selectedProject.projectStatus}`);
     sectionOne.appendChild(projectName);
     sectionOne.appendChild(clientName);
     sectionOne.appendChild(projectManager);
     sectionOne.appendChild(projectStatus);
 
+    // Section Two - Project progress pie chart
     const projectProgress = document.querySelector('#project-progress--main');
-    const progressBar = document.createElement('span');
-    progressBar.classList.add('circular--main', 'display-flex', 'flex-center');
-    progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${selectedProject.progress}%, var(--light-blue) 1%)`;
-    const progressPercent = document.createElement('span');
-    progressPercent.classList.add('inner--main', 'display-flex', 'flex-center');
-    progressPercent.innerText = `${selectedProject.progress}%`;
-    progressBar.appendChild(progressPercent);
-    projectProgress.appendChild(progressBar);
 
+    const progressChart = createProgressChart(selectedProject.progress);
+
+    projectProgress.appendChild(progressChart);
+
+    // Section Three - Project start and end dates
     const sectionThree = document.querySelector('#section3');
     const startDate = createSpanTag(`Start Date: ${selectedProject.startDate}`);
     const endDate = createSpanTag(`End Date: ${selectedProject.endDate}`);
     sectionThree.appendChild(startDate);
     sectionThree.appendChild(endDate);
 
+    // Technologies tag list
     const tagList = document.querySelector('#tag-list');
     selectedProject.technologies.forEach(technology => {
         const technologyTag = createSpanTag(technology);
@@ -81,17 +109,23 @@ function loadDetails() {
         tagList.appendChild(technologyTag);
     });
 
+    // Project Description
     const description = document.querySelector('#project-description');
     description.innerText = selectedProject.description;
 }
 
-function createSpanTag(text) {
+// Creates span tag, adds its innerText, and returns the tag.
+function createSpanTag(text = '', classListArray = []) {
     const spanTag = document.createElement('span');
-    spanTag.innerText = text;
+    if (text !== '') { spanTag.innerText = text; }
+    while (classListArray !== []) {
+        className = classListArray.shift();
+        spanTag.classList.add(className);
+    }
     return spanTag;
 }
 
-
+// Loads project resources tab.
 function loadResources() {
     const resourceTableBody = document.querySelector('#resource-table--body');
     let resourceList = resources[selectedProjectId];
@@ -110,6 +144,7 @@ function loadResources() {
         resourceTableBody.appendChild(tableRow);
     });
 }
+
 
 function createTableCell(value) {
     const cell = document.createElement('td');
@@ -180,36 +215,39 @@ function removeTableBodyRows(tableBody) {
 
 const invoiceGenerateButton = document.querySelector('#invoice-generate--button');
 invoiceGenerateButton.addEventListener('click', generateInvoice);
-// Add new project 
-const modal = document.getElementById("new-project-modal"),
-    newProject = document.getElementById("new-project"),
-    editProject = document.getElementById("project-headings--edit"),
-    addResource = document.getElementById("add-resource-icon"),
+
+
+
+// // Add new project 
+// const modal = document.getElementById("new-project-modal"),
+//     newProject = document.getElementById("new-project"),
+//     editProject = document.getElementById("project-headings--edit"),
+const addResource = document.getElementById("add-resource-icon"),
     editResource = document.getElementsByClassName("edit-icon"),
     deleteResource = document.getElementsByClassName("delete-icon"),
     billable = document.getElementById("billable")
 
-// New Project
-newProject.addEventListener('click', (event) => {
-    modal.style.display = "flex"
-    document.getElementById("modal-content-project").style.display = "block"
-    // Hide slider and change button text
-    document.getElementById("form-project-progress").style.display = "none"
-    document.getElementById("add-project").value = "Add Project"
-    document.getElementById("modal-content--resource").style.display = "none"
-    document.getElementById("modal-content--delete-resource").style.display = "none"
-})
+// // New Project
+// newProject.addEventListener('click', (event) => {
+//     modal.style.display = "flex"
+//     document.getElementById("modal-content-project").style.display = "block"
+//     // Hide slider and change button text
+//     document.getElementById("form-project-progress").style.display = "none"
+//     document.getElementById("add-project").value = "Add Project"
+//     document.getElementById("modal-content--resource").style.display = "none"
+//     document.getElementById("modal-content--delete-resource").style.display = "none"
+// })
 
-// Edit Project
-editProject.addEventListener('click', (e) => {
-    modal.style.display = "flex"
-    document.getElementById("modal-content-project").style.display = "block"
-    document.getElementById("modal-content--resource").style.display = "none"
-    // Display slider and change button text
-    document.getElementById("form-project-progress").style.display = "block"
-    document.getElementById("add-project").value = "Update Project"
-    document.getElementById("modal-content--delete-resource").style.display = "none"
-})
+// // Edit Project
+// editProject.addEventListener('click', (e) => {
+//     modal.style.display = "flex"
+//     document.getElementById("modal-content-project").style.display = "block"
+//     document.getElementById("modal-content--resource").style.display = "none"
+//     // Display slider and change button text
+//     document.getElementById("form-project-progress").style.display = "block"
+//     document.getElementById("add-project").value = "Update Project"
+//     document.getElementById("modal-content--delete-resource").style.display = "none"
+// })
 
 // Add Resource
 addResource.addEventListener('click', (e) => {
@@ -280,6 +318,18 @@ const detailsTab = document.getElementById("project-headings--details"),
     resourceBody = document.getElementById("resource"),
     invoiceBody = document.getElementById("invoice"),
     projectList = document.getElementById("project-list")
+
+
+// projectList.addEventListener('click', function(e){
+//     const targetCard = e.currentTarget;
+//     console.log(targetCard);
+//     console.log(e.target);
+//     if(targetCard.dataset.projectid){
+//         selectedProjectId = targetCard.dataset.projectId;
+//         loadDetails();
+//         loadResources();
+//     }
+// })
 
 // Set height of each tab
 const setHeight = (tab, limit, height) => {

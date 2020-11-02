@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="css/style.css">
     <script defer src="scripts/utility.js"></script>
     <script defer src="scripts/dashboard.js"></script>
-    <script defer src="scripts/formValidations.js"></script>
+    <script defer src="scripts/formValidationsAlt.js"></script>
+    <!-- <script defer src="scripts/formValidations.js"></script> -->
 </head>
 
 <body class="display-flex column-align">
@@ -32,32 +33,33 @@
 
         <!-- New Project Button Area-->
         <banner class="display-flex container">
-            <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span> &ensp; Add
+            <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span>
+                &ensp; Add
                 Project</button>
             <!-- The Modal -->
-            <div id="new-project-modal" class="modal">
+            <div id="forms-modal" class="modal">
 
                 <!-- PROJECT FORMS -->
                 <div class="modal-content" id="modal-content-project">
                     <span class="display-flex modal-header round-top-corners">
-                        <h3 id='project-form--title'> Project Form Title </h3> <!-- ADD OR UPDATE PROJECT HEADING -->
+                        <h3 id='project-form--title'>Add Project</h3> <!-- ADD OR UPDATE PROJECT HEADING -->
                     </span>
                     <form class="modal-body display-flex column-align  round-bottom-corners" id="project-form">
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="project-name"> Project Name </label>
                             <input type="text" name="project-name" id="project-name"
-                                class="modal-body__content margin-top5 rounded-corners" maxlength="100"
+                                class="modal-body__content margin-top5 rounded-corners" maxlength="200"
                                 autocomplete="off"> <!-- If update project, Project Name is readonly-->
-                            <span id="pname-error" class="margin-top5"></span>
+                            <span id="pname-error" class="margin-top5 error-msg"></span>
                         </div>
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="client-name"> Client Name </label>
                             <input type="text" name="client-name" id="client-name"
-                                class="modal-body__content margin-top5 rounded-corners" maxlength="50"
+                                class="modal-body__content margin-top5 rounded-corners" maxlength="200"
                                 autocomplete="off"><!-- If update project, client Name is readonly-->
-                            <span id="cname-error" class="margin-top5"></span>
+                            <span id="cname-error" class="margin-top5 error-msg"></span>
                         </div>
 
                         <div class="display-flex column-align margin-bottom20">
@@ -72,40 +74,43 @@
                                 <label for="start-date" class="display-flex column-align width-49">Start Date
                                     <input type="date" name="start-date" id="start-date" required
                                         class="modal-body__content margin-top5 rounded-corners">
+                                        <span id="start-date--error" class="margin-top5 error-msg"></span>
                                 </label>
                                 <label for="end-date" class="display-flex column-align width-49">End Date
                                     <input type="date" name="end-date" id="end-date" required
                                         class="modal-body__content margin-top5 rounded-corners">
+                                        <span id="end-date--error" class="margin-top5 error-msg"></span>
                                 </label>
                             </label>
-                            <span id="dates-error" class="margin-top5"></span>
+                            <span id="dates-error" class="margin-top5 error-msg"></span>
                         </div>
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="technologies">Technologies</label>
                             <input type="text" name="technologies" id="technologies" required
-                                class="modal-body__content margin-top5 rounded-corners" readonly>
+                                class="modal-body__content margin-top5 rounded-corners">
+                            <span id="technologies-error" class="margin-top5 error-msg"></span>
                         </div>
 
                         <span id="form-project-progress">Progress
                             <span class="display-flex progress modal-body__content margin-top5 margin-bottom20"><input
                                     id="range" type="range" class="range" min="0" max="100" value="0"><label
-                                    class="range-label" for="range">0</label></span>
+                                    class="range-label" for="range" id="progress-label"></label></span>
                             <!-- If new project, DO NOT DISPLAY progress bar -->
                         </span>
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="description">Project Description</label>
                             <textarea name="description" id="description" rows="6"
-                                class="modal-body__content margin-top5 rounded-corners" maxlength="180"></textarea>
-                            <span id="description-error" class="margin-top5"></span>
+                                class="modal-body__content margin-top5 rounded-corners" maxlength="300"></textarea>
+                            <span id="description-error" class="margin-top5 error-msg"></span>
                         </div>
 
                         <label for="buttons" class="modal-body__content margin-bottom20"
                             style="  display: flex;justify-content: space-evenly;">
                             <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel">
-                            <input type="submit" value="Update Project" class="add-project rounded-corners"
-                                id="add-project">
+                            <input type="submit" value="Add Project" class="add-project rounded-corners"
+                                id="submit-project--button">
                             <!--If new project, button text should be ADD PROJECT-->
                         </label>
                     </form>
@@ -364,8 +369,8 @@
                                 </table>
                             </div>
                             <div class="display-flex invoice-generate display-on-invoice-generate">
-                                <span id="total-cost"> 
-                                    
+                                <span id="total-cost">
+
                                 </span>
                             </div>
                         </div>

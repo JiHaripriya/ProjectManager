@@ -1,8 +1,8 @@
 const urlList = {
-    "projects": "https://api.jsonbin.io/b/5f9bc786f0402361dceec056",
-    "resources": "https://api.jsonbin.io/b/5f9bc7c6857f4b5f9ae00ced"
+    "projects": "https://api.jsonbin.io/b/5f9fb2c047077d298f5b96db",
+    "resources": "https://api.jsonbin.io/b/5f9fb2fe47077d298f5b96e4"
 }
-const secretKey = "$2b$10$13A5uhCyWMeIqOInL3bdeuAlJSI2Nx5J2h2HciLIGw1nb6Xm/NwRe";
+const secretKey = "$2b$10$WcZYojSTl8qLjgXMXhMOEuLb53qjy34cf.CjEhzeojf8kMdWkYrRW";
 
 let get = function (url, secretKey, callback) {
     let req = new XMLHttpRequest();
@@ -16,6 +16,10 @@ let get = function (url, secretKey, callback) {
     req.open("GET", url, false);
     req.setRequestHeader("secret-key", secretKey);
     req.send();
+}
+
+function printResult(res) {
+    console.log(res);
 }
 
 function storeProjectData(res) {

@@ -136,7 +136,7 @@ body { background-color: var(--icy-blue);  min-height: 100vh;}
 .margin-bottom20 {margin: 0 0 20px 0;}
 .modal-body__content {padding: 3px;}
 .dates {justify-content: space-between;}
-#pname-error, #cname-error, #pmname-error, #description-error, #dates-error {color: rgba(255, 0, 0, 0.639);}
+#pname-error, #cname-error, #pmname-error, #description-error, #start-date--error, #end-date--error, #technologies-error {color: rgba(255, 0, 0, 0.639);}
 
 .add-project {
     background-color: var(--dark-blue);
