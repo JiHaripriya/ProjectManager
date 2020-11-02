@@ -26,7 +26,7 @@ editProject.addEventListener('click', (e) => {
     document.getElementById("modal-content--resource").style.display = "none"
     // Display slider and change button text
     document.getElementById("form-project-progress").style.display = "block"
-    document.getElementById("add-project").value = "Update Project"
+    document.getElementById("add-project").innerText = "Update Project"
     document.getElementById("modal-content--delete-resource").style.display = "none"
 })
 
@@ -45,6 +45,8 @@ for (let eachResource of editResource) {
         document.getElementById("modal-content-project").style.display = "none"
         document.getElementById("modal-content--resource").style.display = "block"
         document.getElementById("modal-content--delete-resource").style.display = "none"
+        document.getElementById("add-resource").value = "Update Resource"
+
     })
 }
 
@@ -95,8 +97,6 @@ const setHeight = (tab, limit, height) => {
 setHeight(projectList, "maximum", projectListHeight)
 setHeight(resourceBody, "minimum", tabHeight)
 setHeight(invoiceBody, "minimum", tabHeight)
-// // Mobile and desktop view for project list
-// if(screen.availWidt>h <= 936) setHeight(projectList, "maximum", projectListHeight)
 window.onresize = () => {window.location.reload()}
 
 // Highlight tab on select

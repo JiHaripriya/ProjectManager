@@ -1,9 +1,16 @@
 @media (max-width: 1550px) {
     .container {max-width: 1300px;}
+    .project-list{font-size: 13px;}
 }
 
+
 @media (max-width: 936px) {
-    body {overflow-x: hidden;}
+    body {
+        overflow-x: hidden;
+        background-color: var(--icy-blue);  
+        min-height: 100vh;
+        font-size: 13px;
+    }
 
     /* Header */
     .hamburger { display: flex; right: 15px;} 
@@ -91,6 +98,7 @@
 }
 
 @media (max-width:860px) {
+    .website-header{transform: scale(0.8);}
     .modal-content{width: 60%;}
     .resource table, .resource thead, .resource tbody, .resource th, .resource td, .resource tr { 
         display: block; 
@@ -168,6 +176,7 @@
 }
 
 @media (max-width:630px){
+    .website-header{transform: scale(0.9);}
     body{font-size: 12px;}
     h1 {font-size: 22px;}
     h3 {font-size: 16px;}
@@ -235,7 +244,7 @@
 }
 
 @media (max-width:480px){
-    .header__logo{transform: scale(0.9);}
+    .website-header{transform: scale(0.9);}
     .margin-bottom20 {margin: 0 0 10px 0;}
     .dates {flex-direction: column;}
     .dates > * {width: 100%;}
@@ -243,6 +252,9 @@
 
     .tables {display: block;overflow-x: auto; overflow-wrap: anywhere;}
 
+    .add-project,
+    .add-resource {width: auto;}
+    
     /* Hide table headers */
     .invoice-table thead tr { 
         position: absolute;
@@ -292,7 +304,7 @@
 }
 
 @media (max-width:375px){
-    .website-header{display: none;}
+    .website-header {display: none;}
     .hamburger {width: 25px;}
     .banner__button {padding: 10px 15px;}
     .section2 > span {margin: 0 0 0 10vh;}
@@ -301,6 +313,14 @@
 }
 
 @media (max-width:270px){
+    body{font-size: 11px;}
+    h3 {font-size: 14px;}
+    .banner__button,
+    .add-project,
+    .add-resource {
+        font: 11px color;
+        font-family: "Rubik-Medium", Arial, Helvetica;
+    }
     .header__logo::before,
     .header__logo::after {
         content: '';
