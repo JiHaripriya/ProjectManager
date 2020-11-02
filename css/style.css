@@ -278,8 +278,15 @@ h3 {font-size: 18px;}
 .margin-bottom20 {margin: 0 0 20px 0;}
 .modal-body__content {padding: 3px;}
 .dates {justify-content: space-between;}
-#pname-error, #cname-error, #pmname-error, #description-error, #dates-error {color: rgba(255, 0, 0, 0.639);}
 
+#pname-error, 
+#cname-error, 
+#pmname-error, 
+#description-error, 
+#dates-error,
+#technologies-error {color: rgba(255, 0, 0, 0.639);}
+
+.form-buttons {display:flex;justify-content: space-evenly;}
 .add-project {
     background-color: var(--dark-blue);
     width: 40%;
@@ -411,7 +418,7 @@ h3 {font-size: 18px;}
 .section1 {flex: 4; margin: 0 10px 0 0;}
 .section1 span {margin: 0 0 20px 0;}
 .section2 {flex:2; margin: 0 10px 0 0;}
-.section3 {flex: 1; justify-content: space-between;}
+.section3 {justify-content: space-between;}
 
 .project-progress--main {
     justify-content: space-between; 
@@ -487,7 +494,9 @@ input[type=range]::-moz-range-thumb {
 .resource-details {flex: 0 0 90%;}
 .billable {align-items: center; padding: 0;}
 #rate-label {display: none;}
-#name-error, #email-error, #role-error, #rate-error {color: rgba(255, 0, 0, 0.639);}
+#name-error, #email-error, #role-error, #rate-error,
+#working-days--errormsg
+{color: rgba(255, 0, 0, 0.639);}
 
 /* 5.5. INVOICE SECTION */
 .invoice {display: none;}

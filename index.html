@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <script src="scripts/utility.js"></script>
     <script defer src="scripts/dashboard.js"></script>
-    <script defer src="scripts/formValidations.js"></script>
+    <script defer src="scripts/projectFormValidation.js"></script>
     <script src="scripts/responsive.js" defer></script>
 </head>
 <body class="display-flex column-align">
@@ -38,11 +39,11 @@
         <banner class="display-flex container">
             <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span> &ensp; Add Project</button>
             <!-- The Modal -->
-            <div id="new-project-modal" class="modal">
+            <div id="forms-modal" class="modal">
                 <!-- PROJECT FORMS -->
                 <div class="modal-content" id="modal-content-project">
                     <span class="display-flex modal-header round-top-corners">
-                        <h3> Project Form Title </h3> <!-- ADD OR UPDATE PROJECT HEADING -->
+                        <h3 id='project-form--title'> Add Project </h3> <!-- ADD OR UPDATE PROJECT HEADING -->
                     </span>
                     <form class="modal-body display-flex column-align  round-bottom-corners" id="project-form">
 
@@ -78,11 +79,12 @@
 
                         <div class="display-flex column-align margin-bottom20">
                             <label for="technologies">Technologies</label>
-                            <input type="text" name="technologies" id="technologies" required class="modal-body__content margin-top5 rounded-corners" readonly>
+                            <input type="text" name="technologies" id="technologies" required class="modal-body__content margin-top5 rounded-corners">
+                            <span id="technologies-error" class="margin-top5"></span>
                         </div>
                         
                         <span id="form-project-progress">Progress
-                            <span class="display-flex progress modal-body__content margin-top5 margin-bottom20"><input id="range" type="range" class="range" min="0" max="100" value="0"><label class="range-label" for="range">0</label></span> <!-- If new project, DO NOT DISPLAY progress bar -->
+                            <span class="display-flex progress modal-body__content margin-top5 margin-bottom20"><input id="range" type="range" class="range" min="0" max="100" value="0"><label id="progress-label" class="range-label" for="range">0</label ></span> <!-- If new project, DO NOT DISPLAY progress bar -->
                         </span>
                         
                         <div class="display-flex column-align margin-bottom20">
@@ -91,9 +93,9 @@
                             <span id="description-error" class="margin-top5"></span>
                         </div>
                         
-                        <label for="buttons" class="modal-body__content margin-bottom20" style="  display: flex;justify-content: space-evenly;">
+                        <label for="buttons" class="modal-body__content margin-bottom20 form-buttons">
                             <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel">
-                            <input type="submit" value="Update Project" class="add-project rounded-corners" id="add-project"> <!--If new project, button text should be ADD PROJECT-->
+                            <input type="submit" value="Add Project" class="add-project rounded-corners" id="submit-project--button"> <!--If new project, button text should be ADD PROJECT-->
                         </label>
                     </form>
                 </div>
@@ -103,7 +105,7 @@
                 <!-- Add or update form-->
                 <div class="modal-content" id="modal-content--resource">
                     <span class="display-flex modal-header round-top-corners">
-                       <h3> Resource Form Title </h3> <!-- ADD OR UPDATE RESOURCE HEADING -->
+                       <h3 id="resource-form--title"> Add Resource </h3> <!-- ADD OR UPDATE RESOURCE HEADING -->
                     </span>
                    <form class="modal-body display-flex column-align  round-bottom-corners" id="resource-form">
                        <div class="display-flex column-align margin-bottom20">
@@ -136,7 +138,7 @@
                             <span id="rate-error" class="margin-top5"></span>
                        </div>
                        
-                       <label for="buttons" class="modal-body__content margin-bottom20" style="  display: flex;justify-content: space-evenly;">
+                       <label for="buttons" class="modal-body__content margin-bottom20 form-buttons">
                            <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel-resource">
                            <input type="submit" value="Add Resource" class="add-project rounded-corners" id="add-resource">
                        </label>
@@ -155,7 +157,7 @@
                             <span>This will delete the selected resource.</span>
                        </div>
                        
-                       <label for="buttons" class="modal-body__content margin-bottom20" style="  display: flex;justify-content: space-evenly;">
+                       <label for="buttons" class="modal-body__content margin-bottom20 form-buttons">
                            <input type="button" value="Cancel" class="cancel-project rounded-corners" id="cancel-delete-resource">
                            <input type="submit" value="Confirm Delete" class="add-project rounded-corners" id="delete-resource">  <!-- Give button action -->
                        </label>
@@ -170,23 +172,15 @@
         <section class="display-flex container section" id="section">
             <img src="images/arrow-right.png" alt="" class="expand-icon" id="expand-projects">
             <img src="images/arrow-left.png" alt="" class="collapse" id="collapse-projects">
+
             <!-- Project List -->
-            <div class="project-list" id="project-list">
-                <!-- Each Project Project-->
-                <div class="project-list__item" id="project-1">
-                    <span class="display-flex project-progress">
-                        <span class="stretch-heading"> Lorem ipsum dolor  dolorum</span>
-                        <span id="progress-bar" class="circular display-flex flex-center">
-                            <span id="progress-percent" class="inner display-flex flex-center">0 %</span>
-                        </span>
-                    </span>                   
-                </div>                         
+            <div class="project-list" id="project-list">                    
             </div>
 
             <!-- Details of each Project Section -->
             <div class="project-details" id="project-1--content" >
                 <div class="project-headings display-flex">
-                    <!-- Tabs availble for each project -->
+                    <!-- Tabs available for each project -->
                     <div class="project-headings--main display-flex" id="project-headings--main">
                         <span class="project-headings--details" id="project-headings--details"> Details</span>
                         <span class="project-headings--resources" id="project-headings--resources"> Resources </span>
@@ -204,60 +198,37 @@
                     <!-- Project Details Tab -->
                     <div class="project-details-tab" id="project-details-tab">
                         <div class="main-details display-flex" id="main-details">
-                            <div class="section1 display-flex column-align">
-                                <span style="font-size: 25px;">Project 1</span>
-                                <span>Client Name</span>
-                                <span>Project Manager rugouegh eoiurghoewiurhg oerkg hndfgho oisuhgoiusrghuerhgo iuhgoiurshgiourhgourhgious hgioush urgo ifudghodsfghoeiurghioure houiergh idsrughiofhgioj dsfhu orgui hosifudghoirugh oidsughoiust iuoh goiugh osidu</span>
-                                <span>Project Status</span>
+
+                            <!-- Section 1 -->
+                            <div class="section1 display-flex column-align" id="section1">
                             </div>
+
+                             <!-- Section 2 -->
                             <div class="section2">
-                                <span class="display-flex project-progress--main">
-                                    <span id="progress-bar-main" class="circular--main display-flex flex-center">
-                                        <span id="progress-percent-main" class="inner--main display-flex flex-center">0 %</span>
-                                    </span>
+                                <span class="display-flex project-progress--main" id="project-progress--main">
                                 </span>       
                             </div>
-                            <div class="section3 display-flex column-align">
-                                <span>Start Date</span>
-                                <span>Days left</span>
-                                <span>End Date</span>
+
+                             <!-- Section 3 -->
+                            <div class="section3 display-flex column-align" id="section3">
                             </div>
                         </div>
-    
+
                         <div class="project-technology display-flex column-align">
                             <span class="project-technology--heading"><i>Technology :</i> </span>
                             <span class="project-technology--tags">
-                                <i>
-                                    <span class="tags">HTML</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">HTML</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">HTML</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                    <span class="tags">CSS</span>
-                                </i>
+                                <!-- List of technologies used -->
+                                <span id="tag-list">
+                                </span>
                             </span>
                         </div>
-    
+
                         <div class="project-description">
                             <div class="description-content display-flex column-align">
                                 <span>Project Description</span>
                                 <span id="display-content" class="display-content">
-                                    <i>
-                                        iunkygbyubti <br>
-                                        jutfbiufiu <br>
-                                        hjtfjyfh <br>
-                                        kutiyfiu <br>
-                                        ytfytui <br>
-                                    </i>
+                                    <!-- Project description Area -->
+                                    <i id="project-description"></i>
                                 </span>
                             </div>
                         </div>
@@ -281,26 +252,10 @@
                                             <th>Billable</th>
                                             <th>Rate/hour</th>
                                             <th class="remove-background"></th>
-                                            <th class="remove-background"></th>
                                           </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Jill Jill JIll </td>
-                                            <td>Smith</td>
-                                            <td>smith@gmail.com</td>
-                                            <td>True</td>
-                                            <td>50</td>
-                                            <td class="remove-background"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon margin-right10"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons delete-icon"> </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eve</td>
-                                            <td>Jackson</td>
-                                            <td>jackson@gmail.com</td>
-                                            <td>True</td>
-                                            <td>94</td>
-                                            <td class="remove-background"><img src="images/edit.png" alt="Pen icon" class="table-icons edit-icon margin-right10"><img src="images/delete-icon.png" alt="Trash bin icon" class="table-icons delete-icon"> </td>
-                                        </tr>                                        
+                                    <!-- Resource table content -->
+                                    <tbody id="resource-table--body">                   
                                     </tbody>
                                 </table>
                             </div>
@@ -317,11 +272,13 @@
                             <div class="display-flex invoice-generate">
                                 <span>
                                     Number of working days : 
-                                    <input type="tel" name="days" id="days" class="days" maxlength="3" autocomplete="off">
+                                    <input type="number" name="days" id="days" class="days" autocomplete="off">
                                 </span>
+
                                 <span class="invoice-generate--button" id="invoice-generate--button">Generate Invoice</span>
                             </div>
-                            <div class="display-flex invoice-table">
+
+                            <div class="display-flex invoice-table display-on-invoice-generate">
                                 <table class="tables">
                                     <thead>
                                         <tr>
@@ -330,42 +287,8 @@
                                             <th>Amount</th> 
                                           </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Jill Jill JILL</td>
-                                            <td>50</td>
-                                            <td>50</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eve Eve Eve Eve</td>
-                                            <td>94</td>
-                                            <td>94</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jill Jill JILL</td>
-                                            <td>50</td>
-                                            <td>50</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eve Eve Eve Eve</td>
-                                            <td>94</td>
-                                            <td>94</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jill Jill JILL</td>
-                                            <td>50</td>
-                                            <td>50</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eve Eve Eve Eve</td>
-                                            <td>94</td>
-                                            <td>94</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="remove-background"></td>
-                                            <td>Total Amount</td>
-                                            <td>Amount in number</td>
-                                        </tr>                                        
+                                    <!-- Invoice table content -->
+                                    <tbody id="invoice-table">                      
                                     </tbody>
                                 </table>
                             </div>
@@ -375,7 +298,6 @@
 
                 </div>
             </div>
-
         </section>
          
     </main>

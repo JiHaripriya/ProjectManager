@@ -3,7 +3,6 @@
     .project-list{font-size: 13px;}
 }
 
-
 @media (max-width: 936px) {
     body {
         overflow-x: hidden;
@@ -83,7 +82,7 @@
 
 
     .main-details {flex-wrap: wrap; justify-content: space-between;}
-    .main-details > * {flex: 0 1 40%;}
+    .main-details > * {flex: 0 1 50%;}
     .section1 {flex: 4;}
     .section2 > span {margin: 0 0 0 10vh;}
     .section3 > * {margin: 0 0 20px 0;}
