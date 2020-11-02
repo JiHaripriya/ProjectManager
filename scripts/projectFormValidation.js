@@ -25,6 +25,7 @@ function addOrUpdateProject() {
     validTechnologies = validateNotEmpty(technologies, technologiesError),
     validDescription = validateNotEmpty(description, descriptionError);
 
+    
     if (validProjectName && validClientName && validProjectManager && validStartDate && validEndDate && validTechnologies && validDescription) {
         const projectDetails = {
             projectId: projects.projectList.length,
@@ -219,51 +220,3 @@ progress.addEventListener("change", (e) => document.querySelector(".range-label"
 
 const cancelProject = document.getElementById("cancel");
 cancelProject.addEventListener('click', _ => {window.location.reload(); addProjectFunction = true;});
-
-const cancelResource = document.getElementById("cancel-resource")
-cancelResource.addEventListener('click', _ => formsContainer.style.display = "none")
-
-const cancelDeleteResource = document.getElementById("cancel-delete-resource")
-cancelDeleteResource.onclick = () => formsContainer.style.display = "none"
-
-
-const addResource = document.getElementById("add-resource-icon"),
-    editResource = document.getElementsByClassName("edit-icon"),
-    deleteResource = document.getElementsByClassName("delete-icon"),
-    billable = document.getElementById("billable")
-
-
-// Add Resource
-addResource.addEventListener('click', _ => {
-    formsContainer.style.display = "flex"
-    document.getElementById("modal-content-project").style.display = "none"
-    document.getElementById("modal-content--resource").style.display = "block"
-    document.getElementById("modal-content--delete-resource").style.display = "none"
-})
-
-// Edit Resource
-for (let eachResource of editResource) {
-    eachResource.addEventListener('click', _ => {
-        formsContainer.style.display = "flex"
-        document.getElementById("modal-content-project").style.display = "none"
-        document.getElementById("modal-content--resource").style.display = "block"
-        document.getElementById("modal-content--delete-resource").style.display = "none"
-    })
-}
-
-// Delete Resource
-for (let eachResource of deleteResource) {
-    eachResource.addEventListener('click', _ => {
-        formsContainer.style.display = "flex"
-        document.getElementById("modal-content-project").style.display = "none"
-        document.getElementById("modal-content--resource").style.display = "none"
-        document.getElementById("modal-content--delete-resource").style.display = "block"
-    })
-}
-
-// Billable status
-billable.addEventListener('click', _ => {
-    const status = billable.checked
-    if (status) document.getElementById("rate-label").style.display = "flex"
-    else document.getElementById("rate-label").style.display = "none"
-})
