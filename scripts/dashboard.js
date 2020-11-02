@@ -24,14 +24,24 @@ function loadProjectList() {
             projectCard.classList.add('project-list__item');
             projectCard.setAttribute('data-projectid', `${project.projectId}`);
 
-            const projectInfo = createSpanTag('', ['display-flex', 'project-progress']);
+            const projectInfo = document.createElement('span');
+            projectInfo.classList.add('display-flex', 'project-progress');
+            
+            const projectName = document.createElement('span');
+            projectName.classList.add('stretch-heading');
+            projectName.innerText = `${project.projectName}`;
 
-            const projectName = createSpanTag(`${project.projectName}`, ['stretch-heading']);
-
-            const progressChart = createProgressChart(project.progress);
-
+            const progressBar = document.createElement('span');
+            progressBar.classList.add('circular', 'display-flex', 'flex-center');
+            progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${project.progress}%, var(--light-blue) 1%)`;
+            
+            const progressPercent = document.createElement('span');
+            progressPercent.classList.add('inner', 'display-flex', 'flex-center');
+            progressPercent.innerText = `${project.progress}%`;
+            
+            progressBar.appendChild(progressPercent);
             projectInfo.appendChild(projectName);
-            projectInfo.appendChild(progressChart);
+            projectInfo.appendChild(progressBar);
             projectCard.appendChild(projectInfo);
             projectList.appendChild(projectCard);
 
@@ -63,14 +73,6 @@ function selectProject(newSelectedProjectId) {
     loadResources();
 }
 
-function createProgressChart(percent) {
-    const progressBar = createSpanTag('', ['circular', 'display-flex', 'flex-center']);
-    progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${percent}%, var(--light-blue) 1%)`;
-    const progressPercent = createSpanTag(`${percent}%`, ['inner', 'display-flex', 'flex-center']);
-    progressBar.appendChild(progressPercent);
-    return progressBar;
-}
-
 // Loads project details tab.
 function loadDetails() {
     const selectedProject = projects.projectList[selectedProjectId];
@@ -89,10 +91,13 @@ function loadDetails() {
 
     // Section Two - Project progress pie chart
     const projectProgress = document.querySelector('#project-progress--main');
-
-    const progressChart = createProgressChart(selectedProject.progress);
-
-    projectProgress.appendChild(progressChart);
+    const progressBar = document.createElement('span');
+    progressBar.classList.add('circular--main', 'display-flex', 'flex-center');
+    progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${selectedProject.progress}%, var(--light-blue) 1%)`;
+    const progressPercent = createSpanTag(`${selectedProject.progress}%`);
+    progressPercent.classList.add('inner--main', 'display-flex', 'flex-center');
+    progressBar.appendChild(progressPercent);
+    projectProgress.appendChild(progressBar);
 
     // Section Three - Project start and end dates
     const sectionThree = document.querySelector('#section3');
@@ -115,13 +120,9 @@ function loadDetails() {
 }
 
 // Creates span tag, adds its innerText, and returns the tag.
-function createSpanTag(text = '', classListArray = []) {
+function createSpanTag(text) {
     const spanTag = document.createElement('span');
-    if (text !== '') { spanTag.innerText = text; }
-    while (classListArray !== []) {
-        className = classListArray.shift();
-        spanTag.classList.add(className);
-    }
+    spanTag.innerText = text;
     return spanTag;
 }
 
@@ -144,7 +145,6 @@ function loadResources() {
         resourceTableBody.appendChild(tableRow);
     });
 }
-
 
 function createTableCell(value) {
     const cell = document.createElement('td');
