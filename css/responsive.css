@@ -96,11 +96,12 @@
 
 }
 
-@media (max-width:860px) {
+@media (max-width:900px) {
     .website-header{transform: scale(0.8);}
     .modal-content{width: 60%;}
     .resource table, .resource thead, .resource tbody, .resource th, .resource td, .resource tr { 
         display: block; 
+        text-align: left;
     }
     
     /* Hide table headers */
@@ -131,7 +132,8 @@
 		left: 6px;
 		width: 45%; 
 		padding-right: 10px; 
-		white-space: nowrap;
+        white-space: nowrap;
+        text-align: left;
     }
 
     /*Label the Resource data*/
@@ -139,7 +141,7 @@
 	.resource td:nth-of-type(2):before { content: "Role"; }
 	.resource td:nth-of-type(3):before { content: "Email"; }
     .resource td:nth-of-type(4):before { content: "Billable"; }
-    .resource td:nth-of-type(5)::before{content: 'Rate/hour';}
+    .resource td:nth-of-type(5)::before {content: 'Rate/hour';}
 
     .resource td:nth-last-child(1){
         padding-left: 25%;
@@ -245,6 +247,8 @@
 @media (max-width:480px) {
     .website-header{transform: scale(0.9);}
     .margin-bottom20 {margin: 0 0 10px 0;}
+
+    .width-49{width: auto;}
     .dates {flex-direction: column;}
     .dates > * {width: 100%;}
     .dates >:first-child{margin: 0 0 10px 0;}
@@ -291,14 +295,16 @@
 	.invoice td:nth-of-type(2):before { content: "Rate/hour"; }
     .invoice td:nth-of-type(3):before { content: "Amount"; }
     
-    .invoice-table table tbody >:last-child td:nth-of-type(1):before {
+    .invoice-table table tbody >:last-child td:nth-of-type(1)::before,
+    .invoice-table table tbody >:last-child td:nth-of-type(1)::after {
        content: '';
     }
-    .invoice-table table tbody >:last-child td:nth-of-type(2):before {
-        content: 'Total Amount';
+    .invoice-table table tbody >:last-child td:nth-of-type(2)::before,
+    .invoice-table table tbody >:last-child td:nth-of-type(2)::after{
+        content: '';
     }
-    .invoice-table table tbody >:last-child td:nth-of-type(3):before {
-        content: 'Sum';
+    .invoice-table table tbody >:last-child td:nth-of-type(3)::before {
+        content: '';
     } 
 }
 

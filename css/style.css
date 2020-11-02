@@ -131,7 +131,7 @@ h3 {font-size: 18px;}
 .column-align {flex-direction: column;}
 .row-align {flex-direction: row;}
 .flex-center{align-items: center; justify-content: center;}
-.width-49 {width: 49%;}
+.width-49 {width: 50%;}
 
 
 /*................................................
@@ -497,6 +497,7 @@ input[type=range]::-moz-range-thumb {
 #name-error, #email-error, #role-error, #rate-error,
 #working-days--errormsg
 {color: rgba(255, 0, 0, 0.639);}
+
 
 /* 5.5. INVOICE SECTION */
 .invoice {display: none;}

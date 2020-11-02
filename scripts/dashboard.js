@@ -136,15 +136,13 @@ function createSpanTag(text) {
 function loadResources() {
     const resourceTableBody = document.querySelector('#resource-table--body');
     let resourceList = resources[selectedProjectId];
+    console.log(resourceList)
     if (resourceList) {
         resourceList.forEach(resource => {
             const tableRow = document.createElement('tr');
             for (const key in resource) {
-                /* ======== WHAT IS THIS? =========== */
-                if (resource.hasOwnProperty(key)) {
-                    const cell = createTableCell(resource[key]);
-                    tableRow.appendChild(cell);
-                }
+                const cell = createTableCell(resource[key]);
+                tableRow.appendChild(cell);
             }
             const buttons = createButtonCell(['edit', 'delete'])
             tableRow.appendChild(buttons);
@@ -169,6 +167,7 @@ function createButtonCell(buttonTypes) {
     cell.classList.add('remove-background', 'addBorder');
     buttonTypes.forEach(buttonType => {
         const [src, alt, classListArray] = buttonType === 'edit' ? ['images/edit.png', 'Pen icon', ['table-icons', 'edit-icon', 'margin-right10']] : ['images/delete-icon.png', 'Trash bin icon', ['table-icons', 'delete-icon']];
+        console.log(src, alt, classListArray)
         cell.appendChild(createImageTag(src, alt, classListArray));
     })
     return cell;
@@ -266,7 +265,7 @@ const setHeight = (tab, limit, height) => {
 setHeight(projectList, "maximum", projectListHeight)
 setHeight(resourceBody, "minimum", tabHeight)
 setHeight(invoiceBody, "minimum", tabHeight)
-window.onresize = () => {window.location.reload()}
+// window.onresize = () => {window.location.reload()}
 
 // Highlight tab on select
 headingId = ["project-details-tab", "resource", "invoice"]
