@@ -29,20 +29,95 @@
     --menu-speed: 0.75s;
 }
 
+html, 
+body
+{
+    margin: 0; 
+    padding: 0;
+    font-family: "Manrope-Medium", Arial, Helvetica;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+
+}
+body { 
+    background-color: var(--icy-blue);  
+    min-height: 100vh;
+    font-size: 14px;
+}
+h1 {font-size: 26px;}
+h3 {font-size: 18px;}
+
 /*................................................
     2. TYPOS/FONT
 .................................................*/
 
+@font-face {
+    font-family: 'Manrope-ExtraBold';
+    src: url('../fonts/Manrope-ExtraBold.woff2') format('woff2'),
+        url('../fonts/Manrope-ExtraBold.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-ExtraLight';
+    src: url('../fonts/Manrope-ExtraLight.woff2') format('woff2'),
+        url('../fonts/Manrope-ExtraLight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-Light';
+    src: url('../fonts/Manrope-Light.woff2') format('woff2'),
+        url('../fonts/Manrope-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-Bold';
+    src: url('../fonts/Manrope-Bold.woff2') format('woff2'),
+        url('../fonts/Manrope-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-Regular';
+    src: url('../fonts/Manrope-Regular.woff2') format('woff2'),
+        url('../fonts/Manrope-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-SemiBold';
+    src: url('../fonts/Manrope-SemiBold.woff2') format('woff2'),
+        url('../fonts/Manrope-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope-Medium';
+    src: url('../fonts/Manrope-Medium.woff2') format('woff2'),
+        url('../fonts/Manrope-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
 
 /*................................................
     3. COMMON CSS CLASSES
 .................................................*/
-
-html, body {margin: 0; padding: 0;}
-body { 
-    background-color: var(--icy-blue);  
-    min-height: 100vh;
-}
 
 .header, .main, .footer {margin: 0 0 25px 0;}
 
@@ -62,9 +137,9 @@ body {
 /*................................................
     4. HEADER SECTION
 .................................................*/
-
+.website-header{color: white;text-decoration: none;}
 .header {background-color: var(--dark-blue); height: 60px;}
-.header__logo {flex: 2; padding-top: 5px;}
+.header__logo {flex: 2; padding-top: 5px;cursor: pointer;}
 .logo {     
     height: 50px;
     flex: 1;
@@ -141,6 +216,7 @@ body {
     color: var(--dark-blue);
     font: 14px color;
     padding: 10px 20px;
+    font-family: "Rubik-Medium", Arial, Helvetica;
 }
 
 .banner__button:hover , 
