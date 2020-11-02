@@ -1,13 +1,13 @@
 // Global variables to store data commonly accessed by multiple functions.
 let projects;
 let resources;
-let selectedProjectId = 0;
+let selectedProjectId;
 
 // Fetches all dashboard data.
 const fetchDashboardData = () => {
     get(urlList.projects, secretKey, storeProjectData);
     get(urlList.resources, secretKey, storeResourceData);
-    selectedProjectId = 0;
+    selectedProjectId = projects.projectList.length - 1;
     loadProjectList();
 }
 
@@ -15,7 +15,7 @@ fetchDashboardData();
 
 // Loads list of all projects - recently added will come first.
 function loadProjectList() {
-    projectArray = projects.projectList;
+    projectArray = projects.projectList.map(element => element);
     projectArray.reverse();
     if (projectArray.length) {
         const projectList = document.querySelector('#project-list');
@@ -26,20 +26,12 @@ function loadProjectList() {
 
             const projectInfo = document.createElement('span');
             projectInfo.classList.add('display-flex', 'project-progress');
-            
-            const projectName = document.createElement('span');
-            projectName.classList.add('stretch-heading');
-            projectName.innerText = `${project.projectName}`;
 
-            const progressBar = document.createElement('span');
-            progressBar.classList.add('circular', 'display-flex', 'flex-center');
-            progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${project.progress}%, var(--light-blue) 1%)`;
-            
-            const progressPercent = document.createElement('span');
-            progressPercent.classList.add('inner', 'display-flex', 'flex-center');
-            progressPercent.innerText = `${project.progress}%`;
-            
-            progressBar.appendChild(progressPercent);
+            const projectName = createSpanTag(`${project.projectName}`);
+            projectName.classList.add('stretch-heading');
+
+            const progressBar = createProgressBar(project.progress);
+
             projectInfo.appendChild(projectName);
             projectInfo.appendChild(progressBar);
             projectCard.appendChild(projectInfo);
@@ -60,6 +52,26 @@ function loadProjectList() {
     loadDetails();
     loadResources();
 }
+
+function createProgressBar(percent, main = false) {
+    const progressBar = document.createElement('span');
+
+    progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${percent}%, var(--light-blue) 1%)`;
+
+    const progressPercent = createSpanTag(`${percent}%`);
+    if (main === true) {
+        progressBar.classList.add('circular--main', 'display-flex', 'flex-center');
+        progressPercent.classList.add('inner--main', 'display-flex', 'flex-center');
+    } else {
+        progressBar.classList.add('circular', 'display-flex', 'flex-center');
+        progressPercent.classList.add('inner', 'display-flex', 'flex-center');
+
+    }
+
+    progressBar.appendChild(progressPercent);
+    return progressBar;
+}
+
 
 // Removes selection class from currently selected project card and 
 // adds it to newly selected project card and loads its details and resources.
@@ -91,12 +103,9 @@ function loadDetails() {
 
     // Section Two - Project progress pie chart
     const projectProgress = document.querySelector('#project-progress--main');
-    const progressBar = document.createElement('span');
-    progressBar.classList.add('circular--main', 'display-flex', 'flex-center');
-    progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${selectedProject.progress}%, var(--light-blue) 1%)`;
-    const progressPercent = createSpanTag(`${selectedProject.progress}%`);
-    progressPercent.classList.add('inner--main', 'display-flex', 'flex-center');
-    progressBar.appendChild(progressPercent);
+
+    const progressBar = createProgressBar(selectedProject.progress, main = true);
+
     projectProgress.appendChild(progressBar);
 
     // Section Three - Project start and end dates
@@ -130,20 +139,24 @@ function createSpanTag(text) {
 function loadResources() {
     const resourceTableBody = document.querySelector('#resource-table--body');
     let resourceList = resources[selectedProjectId];
-    resourceList.forEach(resource => {
-        const tableRow = document.createElement('tr');
-        for (const key in resource) {
-            if (resource.hasOwnProperty(key)) {
-                const cell = createTableCell(resource[key]);
-                tableRow.appendChild(cell);
+    if (resourceList) {
+        resourceList.forEach(resource => {
+            const tableRow = document.createElement('tr');
+            for (const key in resource) {
+                if (resource.hasOwnProperty(key)) {
+                    const cell = createTableCell(resource[key]);
+                    tableRow.appendChild(cell);
+                }
             }
-        }
-        const editButtonCell = createButtonCell('edit');
-        tableRow.appendChild(editButtonCell);
-        const deleteButtonCell = createButtonCell('delete');
-        tableRow.appendChild(deleteButtonCell);
-        resourceTableBody.appendChild(tableRow);
-    });
+            const editButtonCell = createButtonCell('edit');
+            tableRow.appendChild(editButtonCell);
+            const deleteButtonCell = createButtonCell('delete');
+            tableRow.appendChild(deleteButtonCell);
+            resourceTableBody.appendChild(tableRow);
+        });
+    } else {
+        // Add some message saying no resources added.
+    }
 }
 
 function createTableCell(value) {
@@ -175,7 +188,9 @@ function createImageTag(src, alt, classListArray) {
 
 function generateInvoice() {
     const numberOfWorkingDays = document.querySelector('#days');
-    if (numberOfWorkingDays.value.match(/^\d+$/)) {
+    const errorMessage = document.querySelector('#working-days--errormsg');
+    let errorMessageContent = '';
+    if (numberOfWorkingDays.value.match(/^\d+(.0)*$/)) {
         const displayInvoice = document.querySelectorAll('.display-on-invoice-generate');
         displayInvoice.forEach(tag => {
             tag.style.display = 'block';
@@ -185,26 +200,29 @@ function generateInvoice() {
         removeTableBodyRows(invoiceTable);
         let resourceList = resources[selectedProjectId];
         let invoiceAmount = 0;
-        resourceList.forEach(resource => {
-            if (resource.billable === true) {
-                const tableRow = document.createElement('tr');
-                const resourceName = createTableCell(`${resource.name}`);
-                const ratePerHour = createTableCell(`${resource.ratePerHour}`);
-                const resourceCost = createTableCell(`${resource.ratePerHour * workingHoursPerDay * numberOfWorkingDays.value}`);
-                invoiceAmount += parseInt(resourceCost.innerText);
-                tableRow.appendChild(resourceName);
-                tableRow.appendChild(ratePerHour);
-                tableRow.appendChild(resourceCost);
-                invoiceTable.appendChild(tableRow);
-            }
-        });
+        if (resourceList) {
+            resourceList.forEach(resource => {
+                if (resource.billable === true) {
+                    const tableRow = document.createElement('tr');
+                    const resourceName = createTableCell(`${resource.name}`);
+                    const ratePerHour = createTableCell(`${resource.ratePerHour}`);
+                    const resourceCost = createTableCell(`${resource.ratePerHour * workingHoursPerDay * numberOfWorkingDays.value}`);
+                    invoiceAmount += parseInt(resourceCost.innerText);
+                    tableRow.appendChild(resourceName);
+                    tableRow.appendChild(ratePerHour);
+                    tableRow.appendChild(resourceCost);
+                    invoiceTable.appendChild(tableRow);
+                }
+            });
+        }
         const totalCost = document.querySelector('#total-cost');
         totalCost.innerText = `Total Amount: ${invoiceAmount}`;
     } else {
-
+        errorMessageContent = 'Please enter a valid number of working days.'
     }
-
+    return updateErrorMessage(numberOfWorkingDays, errorMessage, errorMessageContent);
 }
+
 
 //Function to remove current rows from table body
 function removeTableBodyRows(tableBody) {
@@ -222,10 +240,7 @@ invoiceGenerateButton.addEventListener('click', generateInvoice);
 // const modal = document.getElementById("new-project-modal"),
 //     newProject = document.getElementById("new-project"),
 //     editProject = document.getElementById("project-headings--edit"),
-const addResource = document.getElementById("add-resource-icon"),
-    editResource = document.getElementsByClassName("edit-icon"),
-    deleteResource = document.getElementsByClassName("delete-icon"),
-    billable = document.getElementById("billable")
+
 
 // // New Project
 // newProject.addEventListener('click', (event) => {
@@ -249,40 +264,7 @@ const addResource = document.getElementById("add-resource-icon"),
 //     document.getElementById("modal-content--delete-resource").style.display = "none"
 // })
 
-// Add Resource
-addResource.addEventListener('click', (e) => {
-    modal.style.display = "flex"
-    document.getElementById("modal-content-project").style.display = "none"
-    document.getElementById("modal-content--resource").style.display = "block"
-    document.getElementById("modal-content--delete-resource").style.display = "none"
-})
 
-// Edit Resource
-for (let eachResource of editResource) {
-    eachResource.addEventListener('click', (e) => {
-        modal.style.display = "flex"
-        document.getElementById("modal-content-project").style.display = "none"
-        document.getElementById("modal-content--resource").style.display = "block"
-        document.getElementById("modal-content--delete-resource").style.display = "none"
-    })
-}
-
-// Delete Resource
-for (let eachResource of deleteResource) {
-    eachResource.addEventListener('click', (e) => {
-        modal.style.display = "flex"
-        document.getElementById("modal-content-project").style.display = "none"
-        document.getElementById("modal-content--resource").style.display = "none"
-        document.getElementById("modal-content--delete-resource").style.display = "block"
-    })
-}
-
-// Billable status
-billable.addEventListener('click', (e) => {
-    const status = billable.checked
-    if (status) document.getElementById("rate-label").style.display = "flex"
-    else document.getElementById("rate-label").style.display = "none"
-})
 
 // TOGGLE PROJECT
 // Add some button animation

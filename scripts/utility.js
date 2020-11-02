@@ -1,8 +1,8 @@
 const urlList = {
-    "projects": "https://api.jsonbin.io/b/5f9fb2c047077d298f5b96db",
-    "resources": "https://api.jsonbin.io/b/5f9fb2fe47077d298f5b96e4"
+    "projects": "https://api.jsonbin.io/b/5f9fab6347077d298f5b955e",
+    "resources": "https://api.jsonbin.io/b/5f9fabb447077d298f5b9576"
 }
-const secretKey = "$2b$10$WcZYojSTl8qLjgXMXhMOEuLb53qjy34cf.CjEhzeojf8kMdWkYrRW";
+const secretKey = "$2b$10$13A5uhCyWMeIqOInL3bdeuAlJSI2Nx5J2h2HciLIGw1nb6Xm/NwRe";
 
 let get = function (url, secretKey, callback) {
     let req = new XMLHttpRequest();
