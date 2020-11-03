@@ -38,12 +38,13 @@ function addOrUpdateProject(e) {
         } else {
             // Update already existing project.
             projects.projectList[selectedProjectId] = projectDetails;
+            loadProjectList();
             loadDetails();
         }
 
         // Function call to update changes to remote storage bin.
         put(urlList.projects, secretKey, projects, printResult);
-        
+
         projectFormModal.style.display = "none";
         formsContainer.style.display = "none";
 

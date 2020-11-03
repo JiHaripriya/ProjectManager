@@ -78,6 +78,7 @@ function createSpanTag(text) {
 function createTableCell(value) {
     const cell = document.createElement('td');
     cell.innerText = value;
+    console.log(value, typeof(value))
     if (typeof (value) === 'number') {
         cell.style.textAlign = 'right';
     }

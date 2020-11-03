@@ -199,18 +199,16 @@ function generateInvoice() {
         removeChildNodes(invoiceTable);
 
         let resourceList = resources[selectedProjectId];
-        console.log(resourceList)
         let invoiceAmount = 0;
 
         if (resourceList) {
             resourceList.forEach(resource => {
-                console.log(resource)
                 if (resource.billable === true) {
                     const tableRow = document.createElement('tr');
                     const resourceName = createTableCell(`${resource.name}`);
-                    const ratePerHour = createTableCell(`${resource.ratePerHour}`);
-                    const resourceCost = createTableCell(`${resource.ratePerHour * workingHoursPerDay * numberOfWorkingDays.value}`);
-                    invoiceAmount += parseInt(resourceCost.innerText);
+                    const ratePerHour = createTableCell(Number(resource.ratePerHour));
+                    const resourceCost = createTableCell(Number(resource.ratePerHour) * Number(workingHoursPerDay) * Number(numberOfWorkingDays.value));
+                    invoiceAmount += Number(resourceCost.innerText);
                     tableRow.appendChild(resourceName);
                     tableRow.appendChild(ratePerHour);
                     tableRow.appendChild(resourceCost);
