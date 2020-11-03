@@ -4,6 +4,7 @@ let addProjectFunction = true;
 
 function addOrUpdateProject(e) {
 
+    e.preventDefault()
     // Check if all form input fields are valid.
     const projectNameStatus = projectName.value.length == 0 ? false : true,
         clientNameStatus = clientName.value.length == 0 ? false : true,
@@ -26,7 +27,7 @@ function addOrUpdateProject(e) {
         }
 
         console.log(projectDetails)
-        
+
         if(addProjectFunction) {
             // Add new project.
             projects.projectList.push(projectDetails);

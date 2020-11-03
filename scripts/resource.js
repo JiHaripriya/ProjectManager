@@ -8,7 +8,6 @@ const addResource = document.getElementById("add-resource-icon"),
     deleteResource = document.querySelectorAll('[data-deleteresourceid]'),
     billable = document.getElementById("billable");
 
-
 // Add resource event listener.
 addResource.addEventListener('click', _ => {
     // Display add resource form.
@@ -34,7 +33,10 @@ const createResourceObject = (name, email, role, billable, rate) => {
 }
 
 // Function to add or update resource.
-function addOrUpdateResource() {
+function addOrUpdateResource(e) {
+
+    e.preventDefault()
+
     const nameStatus = resourceName.value.length != 0 && RegExp.prototype.isAlpha(resourceName.value) ? true : false,
     emailStatus = email.value.length > 0 && emailPatternCheck(email.value) ? true : false
     roleStatus = role.value.length != 0 && RegExp.prototype.isAlpha(role.value) ? true : false,
@@ -54,6 +56,7 @@ function addOrUpdateResource() {
                     // Update already existing resource.
                     resources[selectedProjectId][selectedResource] = resourceDetails;
                 }
+
                 // Function call to update changes to remote storage bin.
                 put(urlList.resources, secretKey, resources, printResult);
                 loadResources();
@@ -76,7 +79,8 @@ let selectedResource;
 // Edit resource event listeners added to all resources.
 for (let eachResource of editResource) {
     eachResource.addEventListener('click', (e) => {
-
+        
+        e.preventDefault()
         selectedResource = e.currentTarget.dataset.editresourceid;
 
         formsContainer.style.display = "flex";
@@ -88,24 +92,18 @@ for (let eachResource of editResource) {
         document.querySelector('#resource-submit--button').value = 'Update Resource';
 
         addResourceFunctionality = false;
-
-        const resourceName = document.querySelector('#name'),
-            emailId = document.querySelector('#email'),
-            resourceRole = document.querySelector('#role'),
-            ratePerHour = document.querySelector('#rate')
-
+        
         resourceList = resources[selectedProjectId];
         const resource = resourceList[selectedResource];
-        resourceName.value = resource.name;
-        emailId.value = resource.email;
-        resourceRole.value = resource.role;
-        billable.checked = resource.billable;
-
-        document.querySelector('#rate-label').style.display = billable.checked ? 'flex' : 'none';
-        ratePerHour.value = resource.ratePerHour;
+        resourceName.value = resource.resourceName;
+        email.value = resource.email;
+        role.value = resource.role;
+        billableStatus.checked = resource.billable;
+        document.querySelector('#rate-label').style.display = billableStatus.checked ? 'flex' : 'none';
+        rate.value = resource.rate;
 
         resourceName.readOnly = true;
-        emailId.readOnly = true;
+        email.readOnly = true;
     });
 }
 
@@ -131,7 +129,7 @@ cancelDeleteResource.onclick = () => formsContainer.style.display = "none";
 
 const deleteResourceButton = document.querySelector('#delete-resource');
 deleteResourceButton.addEventListener('click', function (e) {
-    e.preventDefault();
+    ;
     resources[selectedProjectId].splice(selectedResource, 1);
     put(urlList.resources, secretKey, resources, printResult);
     loadResources();
