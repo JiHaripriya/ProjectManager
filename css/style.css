@@ -193,14 +193,6 @@ h3 {font-size: 18px;}
     justify-content: space-between;
 }
 
-/* Toggler animate to form close button
-.hamburger > div {transform: rotate(135deg);}
-.hamburger > div::before,
-.menu-wrap .toggler:checked + .hamburger > div::after{
-    top: 0;
-    transform: rotate(90deg);
-} */
-
 #expand-projects {display: none;}
 #collapse-projects {display: none;}
 
@@ -306,7 +298,6 @@ h3 {font-size: 18px;}
 /* 5.2. PROJECT LIST SECTION */
 
 .section { margin: 25px auto 0 auto; align-items: inherit;} /*align-items: flex-end; when content overflows*/
-
 
 .project-list {
     background-color: var(--light-blue);
@@ -420,7 +411,7 @@ h3 {font-size: 18px;}
 .section2 {flex:2; margin: 0 10px 0 0;}
 .section3 {justify-content: space-between;}
 
-.project-progress--main {
+#project-progress--main {
     justify-content: space-between; 
     align-items: center;
 }

@@ -7,6 +7,7 @@ let selectedProjectId;
 const fetchDashboardData = () => {
     get(urlList.projects, secretKey, storeProjectData);
     get(urlList.resources, secretKey, storeResourceData);
+
     selectedProjectId = projects.projectList.length - 1;
     loadProjectList();
 }
@@ -20,21 +21,7 @@ function loadProjectList() {
     if (projectArray.length) {
         const projectList = document.querySelector('#project-list');
         projectArray.forEach(project => {
-            const projectCard = document.createElement('div');
-            projectCard.classList.add('project-list__item');
-            projectCard.setAttribute('data-projectid', `${project.projectId}`);
-
-            const projectInfo = document.createElement('span');
-            projectInfo.classList.add('display-flex', 'project-progress');
-
-            const projectName = createSpanTag(`${project.projectName}`);
-            projectName.classList.add('stretch-heading');
-
-            const progressBar = createProgressBar(project.progress);
-
-            projectInfo.appendChild(projectName);
-            projectInfo.appendChild(progressBar);
-            projectCard.appendChild(projectInfo);
+            const projectCard = projectCardConfig(project);
             projectList.appendChild(projectCard);
 
             // Adds an event listener to each project card.
@@ -45,31 +32,29 @@ function loadProjectList() {
             });
         });
     }
-
     loadDetails();
     loadResources();
 }
 
-function createProgressBar(percent, main = false) {
-    const progressBar = document.createElement('span');
+function projectCardConfig(project) {
+    const projectCard = document.createElement('div');
+    projectCard.classList.add('project-list__item');
+    projectCard.setAttribute('data-projectid', `${project.projectId}`);
 
-    progressBar.style.backgroundImage = `linear-gradient(to top, var(--dark-blue) ${percent}%, var(--light-blue) 1%)`;
+    const projectInfo = document.createElement('span');
+    projectInfo.classList.add('display-flex', 'project-progress');
 
-    const progressPercent = createSpanTag(`${percent}%`);
-    if (main === true) {
-        progressBar.classList.add('circular--main', 'display-flex', 'flex-center');
-        progressPercent.classList.add('inner--main', 'display-flex', 'flex-center');
-    } else {
-        progressBar.classList.add('circular', 'display-flex', 'flex-center');
-        progressPercent.classList.add('inner', 'display-flex', 'flex-center');
+    const projectName = createSpanTag(`${project.projectName}`);
+    projectName.classList.add('stretch-heading');
 
-    }
+    const progressBar = createProgressBar(project.progress);
 
-    progressBar.appendChild(progressPercent);
-    return progressBar;
+    projectInfo.appendChild(projectName);
+    projectInfo.appendChild(progressBar);
+    projectCard.appendChild(projectInfo);
+    return projectCard;
 }
 
-/* =============== WHY IS SELECTION CLASS USED HERE? =================== */
 // Removes selection class from currently selected project card and 
 // adds it to newly selected project card and loads its details and resources.
 function selectProject(newSelectedProjectId) {
@@ -125,27 +110,34 @@ function loadDetails() {
     description.innerText = selectedProject.description;
 }
 
-// Creates span tag, adds its innerText, and returns the tag.
-function createSpanTag(text) {
-    const spanTag = document.createElement('span');
-    spanTag.innerText = text;
-    return spanTag;
-}
-
 // Loads project resources tab.
 function loadResources() {
     const resourceTableBody = document.querySelector('#resource-table--body');
+    removeTableBodyRows(resourceTableBody);
     let resourceList = resources[selectedProjectId];
-    console.log(resourceList)
     if (resourceList) {
-        resourceList.forEach(resource => {
+        resourceList.forEach((element, index) => {
             const tableRow = document.createElement('tr');
-            for (const key in resource) {
-                const cell = createTableCell(resource[key]);
-                tableRow.appendChild(cell);
+            for (const key in element) {
+                if (element.hasOwnProperty(key)) {
+                    const cell = createTableCell(element[key]);
+                    tableRow.appendChild(cell);
+                }
             }
-            const buttons = createButtonCell(['edit', 'delete'])
-            tableRow.appendChild(buttons);
+
+            const buttons = [
+                {
+                    buttonType: 'edit',
+                    attribute: 'data-editresourceid',
+                    row: index
+                },
+                {
+                    buttonType: 'delete',
+                    attribute: 'data-deleteresourceid',
+                    row: index
+                }
+            ]
+            tableRow.appendChild(createButtonCell(buttons));
             resourceTableBody.appendChild(tableRow);
         });
     } else {
@@ -153,35 +145,6 @@ function loadResources() {
     }
 }
 
-function createTableCell(value) {
-    const cell = document.createElement('td');
-    cell.innerText = value;
-    if (typeof (value) === 'number') {
-        cell.style.textAlign = 'right';
-    }
-    return cell;
-}
-
-function createButtonCell(buttonTypes) {
-    const cell = document.createElement('td');
-    cell.classList.add('remove-background', 'addBorder');
-    buttonTypes.forEach(buttonType => {
-        const [src, alt, classListArray] = buttonType === 'edit' ? ['images/edit.png', 'Pen icon', ['table-icons', 'edit-icon', 'margin-right10']] : ['images/delete-icon.png', 'Trash bin icon', ['table-icons', 'delete-icon']];
-        console.log(src, alt, classListArray)
-        cell.appendChild(createImageTag(src, alt, classListArray));
-    })
-    return cell;
-}
-
-function createImageTag(src, alt, classListArray) {
-    const imageTag = document.createElement('img');
-    imageTag.src = src;
-    imageTag.alt = alt;
-    classListArray.forEach(className => {
-        imageTag.classList.add(className);
-    });
-    return imageTag;
-}
 
 function generateInvoice() {
     const numberOfWorkingDays = document.querySelector('#days');
@@ -235,15 +198,6 @@ function generateInvoice() {
     }
 }
 
-
-//Function to remove current rows from table body
-function removeTableBodyRows(tableBody) {
-    while (tableBody.firstChild) {
-        tableBody.removeChild(tableBody.firstChild);
-    }
-}
-
-
 const invoiceGenerateButton = document.querySelector('#invoice-generate--button');
 invoiceGenerateButton.addEventListener('click', generateInvoice);
 
@@ -268,19 +222,20 @@ setHeight(invoiceBody, "minimum", tabHeight)
 // window.onresize = () => {window.location.reload()}
 
 // Highlight tab on select
-headingId = ["project-details-tab", "resource", "invoice"]
+headingId = ["project-details-tab", "resource", "invoice"];
 const setVisibility = (id, propertyValue) => {
-    let currentTab = document.getElementById(id)
-    currentTab.style.display = propertyValue
+    let currentTab = document.getElementById(id);
+    currentTab.style.display = propertyValue;
 
     // Set visibility and color for other tabs
-    headingId.filter(item => item != id).forEach (eachTab => {
-            currentTab = document.getElementById(eachTab)
-            currentTab.style.display = "none"
-            // Toggle color for each tab (Details, Resources and Invoice)
-            if(currentTab.id.toLowerCase().includes("detail")){ detailsTab.style.backgroundColor = "rgb(227, 235, 255)"}
-            if(currentTab.id.toLowerCase().includes("resource")){ resourceTab.style.backgroundColor = "rgb(227, 235, 255)"}
-            if(currentTab.id.toLowerCase().includes("invoice")){ invoiceTab.style.backgroundColor = "rgb(227, 235, 255)"}
+    headingId.filter(item => item != id).forEach(eachTab => {
+        currentTab = document.getElementById(eachTab);
+        currentTab.style.display = "none";
+
+        // Toggle color for each tab (Details, Resources and Invoice)
+        if (currentTab.id.toLowerCase().includes("detail")) { detailsTab.style.backgroundColor = "rgb(227, 235, 255)"; }
+        if (currentTab.id.toLowerCase().includes("resource")) { resourceTab.style.backgroundColor = "rgb(227, 235, 255)"; }
+        if (currentTab.id.toLowerCase().includes("invoice")) { invoiceTab.style.backgroundColor = "rgb(227, 235, 255)"; }
     })
 }
 
@@ -288,14 +243,14 @@ detailsTab.addEventListener('click', _ => {
     detailsTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "block"
     setVisibility("project-details-tab", "block")
-})
+});
 
 resourceTab.addEventListener('click', _ => {
     resourceTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "none"
     
     setVisibility("resource", "flex")
-})
+});
 
 invoiceTab.addEventListener('click', _ => {
     invoiceTab.style.backgroundColor = "rgb(255, 255, 255)"
