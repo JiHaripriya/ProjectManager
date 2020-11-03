@@ -281,3 +281,6 @@ const navSlide = () => {
 }
 
 navSlide()
+
+// Detect device oritentation to adjust contents accordingly
+window.onorientationchange = function() {  	window.location.reload(); }
