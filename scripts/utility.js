@@ -1,6 +1,6 @@
 const urlList = {
     "projects": " https://api.jsonbin.io/b/5fa0604647077d298f5bd7ad",
-    "resources": "https://api.jsonbin.io/b/5fa06073ce4aa2289554a13a"
+    "resources": "https://api.jsonbin.io/b/5f9fb2fe47077d298f5b96e4"
 }
 const secretKey = "$2b$10$WcZYojSTl8qLjgXMXhMOEuLb53qjy34cf.CjEhzeojf8kMdWkYrRW";
 
@@ -17,7 +17,6 @@ let get = function (url, secretKey, callback) {
     req.setRequestHeader("secret-key", secretKey);
     req.send();
 }
-
 
 function storeProjectData(res) {
     projects = res;

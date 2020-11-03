@@ -34,18 +34,18 @@ const createResourceObject = (name, email, role, billable, rate) => {
 
 // Function to add or update resource.
 function addOrUpdateResource(e) {
-
     
-
+    e.preventDefault()
     const nameStatus = resourceName.value.length != 0 && RegExp.prototype.isAlpha(resourceName.value) ? true : false,
     emailStatus = email.value.length > 0 && emailPatternCheck(email.value) ? true : false
     roleStatus = role.value.length != 0 && RegExp.prototype.isAlpha(role.value) ? true : false,
     rateStatus = rate.value != "" && billableStatus.checked ? true : false
+    let resourceDetails
 
     if (nameStatus && emailStatus && roleStatus) {
         if (billableStatus.checked) { // Billable true
             if (rateStatus) {
-                const resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, Number(rate.value))
+                resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, Number(rate.value))
                 if (resources[selectedProjectId] === undefined) {
                     resources[selectedProjectId] = [];
                 }
@@ -56,16 +56,21 @@ function addOrUpdateResource(e) {
                     // Update already existing resource.
                     resources[selectedProjectId][selectedResource] = resourceDetails;
                 }
-
-
-                // // Function call to update changes to remote storage bin.
-                put(urlList.resources, secretKey, resources, printResult);
-                loadResources();
             }
             // Rate field empty error
             else errorMessages(rate, "#rate-error", "Enter a valid amount")
         } // billable false
-        else console.log(createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, 0))
+        else resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, 0)
+
+        // Function call to update changes to remote storage bin.
+        put(urlList.resources, secretKey, resources, (response) => {
+            if(response.success) {
+                resources = response.data
+                location.reload()
+            }
+            else console.log('Couldn\'t load resources')
+        });
+
     } // Name or email or role empty OR contains characters other than alphabets and spaces
     else {
         if (!nameStatus) resourceName.value.length == 0 ? errorMessages(resourceName, "#name-error", "This field cannot be empty") : (RegExp.prototype.isAlpha(resourceName.value) ? _ : errorMessages(resourceName, "#name-error", "Only alphabets and spaces are allowed"))
@@ -81,7 +86,7 @@ let selectedResource;
 for (let eachResource of editResource) {
     eachResource.addEventListener('click', (e) => {
         
-        
+        e.preventDefault()
         selectedResource = e.currentTarget.dataset.editresourceid;
 
         formsContainer.style.display = "flex";
@@ -130,10 +135,17 @@ cancelDeleteResource.onclick = () => formsContainer.style.display = "none";
 
 const deleteResourceButton = document.querySelector('#delete-resource');
 deleteResourceButton.addEventListener('click', function (e) {
-    ;
+    e.preventDefault()
     resources[selectedProjectId].splice(selectedResource, 1);
-    put(urlList.resources, secretKey, resources, printResult);
-    loadResources();
+    
+    // Function call to update changes to remote storage bin.
+    put(urlList.resources, secretKey, resources, (response) => {
+        if(response.success) {
+            resources = response.data
+            location.reload()
+        }
+        else console.log('Couldn\'t load resources')
+    });
 });
 
 // Billable status

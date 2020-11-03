@@ -2,8 +2,7 @@
 let addProjectFunction = true;
 
 function addOrUpdateProject(e) {
-
-    
+    e.preventDefault()
     // Check if all form input fields are valid.
     const projectNameStatus = projectName.value.length == 0 ? false : true,
         clientNameStatus = clientName.value.length == 0 ? false : true,
@@ -37,8 +36,14 @@ function addOrUpdateProject(e) {
             projects.projectList[selectedProjectId] = projectDetails;
         }
 
-        put(urlList.projects, secretKey, projects, storeProjectData)
-        loadProjectList()
+        // Function call to update changes to remote storage bin.
+        put(urlList.projects, secretKey, projects, (response) => {
+            if(response.success) {
+                projects = response.data
+                location.reload()
+            }
+            else console.log('Couldn\'t load resources')
+        });
 
     } // Display error messages
     else {
@@ -57,7 +62,6 @@ function addOrUpdateProject(e) {
 const addProject = document.querySelector('#new-project');
 addProject.addEventListener('click', function (e) {
     
-
     formsContainer.style.display = "flex";
     projectFormModal.style.display = "block";
 
@@ -73,7 +77,6 @@ addProject.addEventListener('click', function (e) {
 const updateProject = document.querySelector('#project-headings--edit');
 updateProject.addEventListener('click', function (e) {
     
-
     // Add project functionality set to false. (ie, update functionality is now true.)
     addProjectFunction = false;
 
