@@ -1,8 +1,8 @@
 const urlList = {
-    "projects": " https://api.jsonbin.io/b/5fa0604647077d298f5bd7ad",
-    "resources": "https://api.jsonbin.io/b/5f9fb2fe47077d298f5b96e4"
+    "projects": "https://api.jsonbin.io/b/5fa19223ce4aa22895553d4b",
+    "resources": "https://api.jsonbin.io/b/5fa191f3a03d4a3bab0c3c67"
 }
-const secretKey = "$2b$10$WcZYojSTl8qLjgXMXhMOEuLb53qjy34cf.CjEhzeojf8kMdWkYrRW";
+const secretKey = "$2b$10$ZqxlCvfg0KVF1GkqsbI29u8bwGG1jE7jdHujechv1B2EGDvA.a97q";
 
 let get = function (url, secretKey, callback) {
     let req = new XMLHttpRequest();
@@ -16,6 +16,11 @@ let get = function (url, secretKey, callback) {
     req.open("GET", url, false);
     req.setRequestHeader("secret-key", secretKey);
     req.send();
+}
+
+// Prints whatever is passed to it.
+function printResult(res) {
+    console.log(res);
 }
 
 function storeProjectData(res) {
@@ -84,10 +89,21 @@ function createButtonCell(buttonCollection) {
     const cell = document.createElement('td');
     cell.classList.add('remove-background');
     buttonCollection.forEach(button => {
-        const [src, alt, classListArray, attributeName, attributeValue] = button.buttonType === 'edit' ? ['images/edit.png', 'Pen icon', ['table-icons', 'edit-icon', 'margin-right10'], button.attribute, button.row] : ['images/delete-icon.png', 'Trash bin icon', ['table-icons', 'delete-icon'], button.attribute, button.row];
-        const tableButton = createImageTag(src, alt, classListArray)
-        tableButton.setAttribute(attributeName, attributeValue)
-        cell.appendChild(tableButton)
+        if( button.buttonType === 'edit' ) {
+            [src, alt, classListArray, attributeName, attributeValue] = ['images/edit.png', 'Pen icon', ['table-icons', 'edit-icon', 'margin-right10'], button.attribute, button.row]
+            const tableButton = createImageTag(src, alt, classListArray)
+            tableButton.setAttribute(attributeName, attributeValue)
+            tableButton.addEventListener('click', function(e) {displayEditResourceForm(e);});
+            cell.appendChild(tableButton)
+        }
+        else {
+            [src, alt, classListArray, attributeName, attributeValue] = ['images/delete-icon.png', 'Trash bin icon', ['table-icons', 'delete-icon'], button.attribute, button.row];
+            const tableButton = createImageTag(src, alt, classListArray)
+            tableButton.setAttribute(attributeName, attributeValue)
+            tableButton.addEventListener('click', function(e) { displayDeleteResourceModal(e);});
+            cell.appendChild(tableButton)
+        }
+        
     })
     return cell;
 }
@@ -103,9 +119,9 @@ function createImageTag(src, alt, classListArray) {
     return imageTag;
 }
 
-//Function to remove current rows from table body.
-function removeTableBodyRows(tableBody) {
-    while (tableBody.firstChild) {
-        tableBody.removeChild(tableBody.firstChild);
+//Function to remove all child nodes of parent node.
+function removeChildNodes(parentNode) {
+    while (parentNode.firstChild) {
+        parentNode.removeChild(parentNode.firstChild);
     }
 }

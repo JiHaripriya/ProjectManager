@@ -46,6 +46,7 @@ const formatDate = (date) => {
 
     return [year, month, day].join('-');
 }
+
 startDate.setAttribute("min", formatDate(new Date()))
 endDate.setAttribute("min", formatDate(new Date()))
 

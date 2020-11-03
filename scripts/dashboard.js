@@ -20,6 +20,7 @@ function loadProjectList() {
     projectArray.reverse();
     if (projectArray.length) {
         const projectList = document.querySelector('#project-list');
+        removeChildNodes(projectList);
         projectArray.forEach(project => {
             const projectCard = projectCardConfig(project);
             projectList.appendChild(projectCard);
@@ -34,11 +35,20 @@ function loadProjectList() {
     }
     loadDetails();
     loadResources();
+    resetInvoiceTab();
+    displayDetailsTab();
 }
 
+// Creates and returns a project card.
 function projectCardConfig(project) {
     const projectCard = document.createElement('div');
     projectCard.classList.add('project-list__item');
+
+    if (project.projectId === projects.projectList.length - 1) {
+        projectCard.classList.add('selection');
+        selectedProjectId = project.projectId;
+    }
+
     projectCard.setAttribute('data-projectid', `${project.projectId}`);
 
     const projectInfo = document.createElement('span');
@@ -58,13 +68,19 @@ function projectCardConfig(project) {
 // Removes selection class from currently selected project card and 
 // adds it to newly selected project card and loads its details and resources.
 function selectProject(newSelectedProjectId) {
-    const selectedProjectId = newSelectedProjectId;
-    const currentProject = document.querySelector(`[data-projectid=${JSON.stringify(selectedProjectId)}]`);
+
+    const currentProject = document.querySelector('.selection');
     currentProject.classList.remove('selection');
+
+    selectedProjectId = newSelectedProjectId;
+
     const newSelectedProject = document.querySelector(`[data-projectid=${JSON.stringify(selectedProjectId)}]`);
     newSelectedProject.classList.add('selection');
+
     loadDetails();
     loadResources();
+    resetInvoiceTab();
+    displayDetailsTab();
 }
 
 // Loads project details tab.
@@ -73,8 +89,11 @@ function loadDetails() {
 
     // Section One - Project name, client name, project manager, project status
     const sectionOne = document.querySelector('#section1');
+    removeChildNodes(sectionOne);
+
     const projectName = createSpanTag(`${selectedProject.projectName}`);
     projectName.style.fontSize = "25px";
+
     const clientName = createSpanTag(`Client: ${selectedProject.clientName}`);
     const projectManager = createSpanTag(`Project Manager: ${selectedProject.projectManager}`);
     const projectStatus = createSpanTag(`Status: ${selectedProject.projectStatus}`);
@@ -85,11 +104,14 @@ function loadDetails() {
 
     // Section Two - Project progress pie chart
     const projectProgress = document.querySelector('#project-progress--main');
+    removeChildNodes(projectProgress);
     const progressBar = createProgressBar(selectedProject.progress, main = true);
     projectProgress.appendChild(progressBar);
 
     // Section Three - Project start and end dates
     const sectionThree = document.querySelector('#section3');
+    removeChildNodes(sectionThree);
+
     const startDate = createSpanTag(`Start Date: ${selectedProject.startDate}`);
     const endDate = createSpanTag(`End Date: ${selectedProject.endDate}`);
     const daysLeft = createSpanTag(`Days Left: ${Math.round(Math.abs(((new Date(selectedProject.endDate).getTime() - new Date().getTime())/ (24 * 60 * 60 * 1000))))}`)
@@ -99,6 +121,7 @@ function loadDetails() {
 
     // Technologies tag list
     const tagList = document.querySelector('#tag-list');
+    removeChildNodes(tagList);
     selectedProject.technologies.forEach(technology => {
         const technologyTag = createSpanTag(technology);
         technologyTag.classList.add('tags');
@@ -113,7 +136,8 @@ function loadDetails() {
 // Loads project resources tab.
 function loadResources() {
     const resourceTableBody = document.querySelector('#resource-table--body');
-    removeTableBodyRows(resourceTableBody);
+    removeChildNodes(resourceTableBody);
+
     let resourceList = resources[selectedProjectId];
     if (resourceList) {
         resourceList.forEach((element, index) => {
@@ -129,7 +153,7 @@ function loadResources() {
                 {
                     buttonType: 'edit',
                     attribute: 'data-editresourceid',
-                    row: index
+                    row: index,
                 },
                 {
                     buttonType: 'delete',
@@ -145,44 +169,65 @@ function loadResources() {
     }
 }
 
+// Resets invoice tab.
+function resetInvoiceTab() {
+    const numberOfWorkingDays = document.querySelector('#days');
+    numberOfWorkingDays.value = '';
+
+    const invoiceTable = document.querySelector('#invoice-table');
+    removeChildNodes(invoiceTable);
+
+    const displayInvoice = document.querySelectorAll('.display-on-invoice-generate');
+        displayInvoice.forEach(tag => {
+            tag.style.display = 'none';
+    });
+}
 
 function generateInvoice() {
     const numberOfWorkingDays = document.querySelector('#days');
     let errorMessageContent = '';
+
     if (numberOfWorkingDays.value.match(/^\d+(.0)*$/)) {
+
         const displayInvoice = document.querySelectorAll('.display-on-invoice-generate');
         displayInvoice.forEach(tag => {
             tag.style.display = 'block';
         });
+
         const workingHoursPerDay = 8;
         const invoiceTable = document.querySelector('#invoice-table');
-        removeTableBodyRows(invoiceTable);
+        removeChildNodes(invoiceTable);
+
         let resourceList = resources[selectedProjectId];
+        console.log(resourceList)
         let invoiceAmount = 0;
+
         if (resourceList) {
             resourceList.forEach(resource => {
+                console.log(resource)
                 if (resource.billable === true) {
                     const tableRow = document.createElement('tr');
-                    const resourceName = createTableCell(`${resource.resourceName}`);
-                    const ratePerHour = createTableCell(`${resource.rate}`);
-                    const resourceCost = createTableCell(`${resource.rate * workingHoursPerDay * numberOfWorkingDays.value}`);
+                    const resourceName = createTableCell(`${resource.name}`);
+                    const ratePerHour = createTableCell(`${resource.ratePerHour}`);
+                    const resourceCost = createTableCell(`${resource.ratePerHour * workingHoursPerDay * numberOfWorkingDays.value}`);
                     invoiceAmount += parseInt(resourceCost.innerText);
                     tableRow.appendChild(resourceName);
                     tableRow.appendChild(ratePerHour);
                     tableRow.appendChild(resourceCost);
                     invoiceTable.appendChild(tableRow);
+                
                 }
             });
+            const invoiceRow = document.createElement('tr');
+            const emptyCell = createTableCell('');
+            emptyCell.classList.add('remove-background')
+            const totalAmountText = createTableCell('Total Amount');
+            const totalAmountValue = createTableCell(invoiceAmount);
+            invoiceRow.appendChild(emptyCell);
+            invoiceRow.appendChild(totalAmountText);
+            invoiceRow.appendChild(totalAmountValue);
+            invoiceTable.appendChild(invoiceRow);
         }
-        const invoiceRow = document.createElement('tr');
-        const emptyCell = createTableCell('');
-        emptyCell.classList.add('remove-background')
-        const totalAmountText = createTableCell('Total Amount');
-        const totalAmountValue = createTableCell(invoiceAmount);
-        invoiceRow.appendChild(emptyCell);
-        invoiceRow.appendChild(totalAmountText);
-        invoiceRow.appendChild(totalAmountValue);
-        invoiceTable.appendChild(invoiceRow);
 
     } else {
         // Display error message inside the tag
@@ -198,6 +243,7 @@ function generateInvoice() {
     }
 }
 
+// Invoice generate button event listener.
 const invoiceGenerateButton = document.querySelector('#invoice-generate--button');
 invoiceGenerateButton.addEventListener('click', generateInvoice);
 
@@ -216,13 +262,18 @@ const setHeight = (tab, limit, height) => {
     if(limit == "minimum") tab.style.minHeight = `${height}px`
     else tab.style.maxHeight = `${height}px`
 }
+
 setHeight(projectList, "maximum", projectListHeight)
 setHeight(resourceBody, "minimum", tabHeight)
 setHeight(invoiceBody, "minimum", tabHeight)
 
 // Highlight tab on select
-headingId = ["project-details-tab", "resource", "invoice"];
-const setVisibility = (id, propertyValue) => {
+function setVisibility (id, propertyValue) {
+
+    headingId = ["project-details-tab", "resource", "invoice"];
+    const detailsTab = document.getElementById("project-headings--details"), 
+    resourceTab = document.getElementById("project-headings--resources"),
+    invoiceTab = document.getElementById("project-headings--invoice")
     let currentTab = document.getElementById(id);
     currentTab.style.display = propertyValue;
 
@@ -238,6 +289,15 @@ const setVisibility = (id, propertyValue) => {
     })
 }
 
+// Displays details tab.
+function displayDetailsTab() {
+    console.log("booooyaa")
+    const detailsTab = document.getElementById("project-headings--details")
+    detailsTab.style.backgroundColor = "rgb(255, 255, 255)"
+    document.getElementById("project-headings--edit").style.display = "block"
+    setVisibility("project-details-tab", "block")
+}
+
 detailsTab.addEventListener('click', _ => {
     detailsTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "block"
@@ -247,7 +307,6 @@ detailsTab.addEventListener('click', _ => {
 resourceTab.addEventListener('click', _ => {
     resourceTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "none"
-    
     setVisibility("resource", "flex")
 });
 
@@ -257,7 +316,7 @@ invoiceTab.addEventListener('click', _ => {
     setVisibility("invoice", "flex")
 })
 
-// Expand project
+// Expand project list
 const expandArrow = document.getElementById('expand-projects'),
 collapseArrow = document.getElementById('collapse-projects')
 expandArrow.addEventListener('click', _ => {
@@ -270,7 +329,6 @@ collapseArrow.addEventListener('click', _ => {
     projectList.style.display = "none"
     collapseArrow.style.display = "none"
     expandArrow.style.display = "block"
-
 })
 
 // Expand Menu Option: User name, Logout button
@@ -283,4 +341,4 @@ const navSlide = () => {
 navSlide()
 
 // Detect device oritentation to adjust contents accordingly
-window.onorientationchange = function() {  	window.location.reload(); }
+window.onorientationchange = function() { location.reload() }

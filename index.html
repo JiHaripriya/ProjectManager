@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+
     <script defer src="scripts/utility.js"></script>
     <script defer src="scripts/dashboard.js"></script>
     <script defer src="scripts/formValidations.js"></script>
@@ -76,7 +77,7 @@
                             <input type="text" name="project-name" id="project-name"
                                 class="modal-body__content margin-top5 rounded-corners" maxlength="200"
                                 autocomplete="off"> <!-- If update project, Project Name is readonly-->
-                            <span id="pname-error" class="margin-top5 error-msg"></span>
+                            <span id="pname-error" class="margin-top5 "></span>
                         </div>
 
                         <div class="display-flex column-align margin-bottom20">
@@ -84,7 +85,7 @@
                             <input type="text" name="client-name" id="client-name"
                                 class="modal-body__content margin-top5 rounded-corners" maxlength="200"
                                 autocomplete="off"><!-- If update project, client Name is readonly-->
-                            <span id="cname-error" class="margin-top5 error-msg"></span>
+                            <span id="cname-error" class="margin-top5 "></span>
                         </div>
 
                         <div class="display-flex column-align margin-bottom20">
@@ -99,15 +100,13 @@
                                 <label for="start-date" class="display-flex column-align width-49">Start Date
                                     <input type="date" name="start-date" id="start-date" required
                                         class="modal-body__content margin-top5 rounded-corners">
-                                        <span id="start-date--error" class="margin-top5 error-msg"></span>
                                 </label>
                                 <label for="end-date" class="display-flex column-align width-49">End Date
                                     <input type="date" name="end-date" id="end-date" required
                                         class="modal-body__content margin-top5 rounded-corners">
-                                        <span id="end-date--error" class="margin-top5 error-msg"></span>
                                 </label>
                             </label>
-                            <span id="dates-error" class="margin-top5 error-msg"></span>
+                            <span id="dates-error" class="margin-top5 "></span>
                         </div>
 
                         <div class="display-flex column-align margin-bottom20">
@@ -124,7 +123,7 @@
                             <label for="description">Project Description</label>
                             <textarea name="description" id="description" rows="6"
                                 class="modal-body__content margin-top5 rounded-corners" maxlength="300"></textarea>
-                            <span id="description-error" class="margin-top5 error-msg"></span>
+                            <span id="description-error" class="margin-top5 "></span>
                         </div>
                         
                         <label for="buttons" class="modal-body__content margin-bottom20 form-buttons">
@@ -349,5 +348,4 @@
     <!-- Footer ends-->
 
 </body>
-
 </html>

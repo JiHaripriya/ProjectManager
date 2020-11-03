@@ -528,6 +528,7 @@ tbody tr:nth-child(even) {background-color:  var(--light-blue);} /* Alternate co
 .remove-background {background-color: var(--white); border: none;}
 .table-icons {height: 1.3rem; background-color: var(--white); cursor: pointer;}
 .margin-right10 {margin: 0 10px 0 0;}
+.display-on-invoice-generate {display: none;}
 
 /*................................................
     6. FOOTER SECTION

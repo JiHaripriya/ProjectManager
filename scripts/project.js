@@ -1,5 +1,5 @@
 // Globally accessible variable to store whether function should add a new project or update an existing project.
-let addProjectFunction = true;
+let addProjectFunctionality = true;
 
 function addOrUpdateProject(e) {
     e.preventDefault()
@@ -11,6 +11,9 @@ function addOrUpdateProject(e) {
         descriptionStatus = description.value.length == 0 ? false : true
 
     if (projectNameStatus && clientNameStatus && projectManagerStatus && descriptionStatus && dateStatus) {
+        projectFormModal.style.display = "none";
+        formsContainer.style.display = "none";
+
         const projectDetails = {
             projectId: projects.projectList.length,
             projectName: projectName.value,
@@ -27,23 +30,22 @@ function addOrUpdateProject(e) {
 
         console.log(projectDetails)
 
-        if(addProjectFunction) {
+        if(addProjectFunctionality) {
             // Add new project.
             projects.projectList.push(projectDetails);
             resources[projects.projectList.length] = [];
+            loadProjectList();
         } else {
             // Update already existing project.
             projects.projectList[selectedProjectId] = projectDetails;
+            loadDetails();
         }
 
         // Function call to update changes to remote storage bin.
-        put(urlList.projects, secretKey, projects, (response) => {
-            if(response.success) {
-                projects = response.data
-                location.reload()
-            }
-            else console.log('Couldn\'t load resources')
-        });
+        put(urlList.projects, secretKey, projects, printResult);
+        
+        projectFormModal.style.display = "none";
+        formsContainer.style.display = "none";
 
     } // Display error messages
     else {
@@ -62,15 +64,30 @@ function addOrUpdateProject(e) {
 const addProject = document.querySelector('#new-project');
 addProject.addEventListener('click', function (e) {
     
+    document.querySelector('#project-form').reset();
+
+     // Change form heading and submit button text.
+    const formTitle = document.querySelector('#project-form--title'),
+    submitButton = document.querySelector('#submit-project--button');
+    const updateText = 'Add Project';
+    formTitle.innerText = updateText;
+    submitButton.value = updateText;
+
+    // Display add project form.
     formsContainer.style.display = "flex";
     projectFormModal.style.display = "block";
+    resourceFormModal.style.display = "none";
+    deleteResourceConfirmationModal.style.display = "none";
 
     // Hide progress slider
     document.getElementById("form-project-progress").style.display = "none";
-    resourceFormModal.style.display = "none";
-    deleteResourceConfirmationModal.style.display = "none";
-});
 
+    projectName.readOnly = false;
+    clientName.readOnly = false;
+
+    /* TECHNOLOGY TAGS */
+
+});
 
 
 // Update project details event listener.
@@ -78,8 +95,43 @@ const updateProject = document.querySelector('#project-headings--edit');
 updateProject.addEventListener('click', function (e) {
     
     // Add project functionality set to false. (ie, update functionality is now true.)
-    addProjectFunction = false;
+    addProjectFunctionality  = false;
 
+    const projectNameError = document.querySelector('#pname-error'),
+    clientNameError = document.querySelector('#cname-error'),
+    projectManagerError = document.querySelector("#pmname-error"),
+    datesError = document.querySelector('#dates-error'),
+    descriptionError = document.querySelector("#description-error");
+
+    // const technologiesError = document.querySelector('#technologies-error')
+
+    projectNameError.innerText = '';
+    clientNameError.innerText = '';
+    projectManagerError.innerText = '';
+    datesError.innerText = '';
+    // technologiesError.innerText = '';
+    descriptionError.innerText = '';
+
+    const projectName = document.querySelector('#project-name'),
+    clientName = document.querySelector('#client-name'),
+    projectManager = document.getElementById("project-manager"),
+    startDate = document.querySelector('#start-date'),
+    endDate = document.querySelector('#end-date'),
+    technologies = document.querySelector('#technologies'),
+    progress = document.getElementById("range"),
+    progressLabel = document.querySelector('#progress-label'),
+    description = document.getElementById("description"),
+    formTitle = document.querySelector('#project-form--title'),
+    submitButton = document.querySelector('#submit-project--button');
+
+    projectName.style.border = '0.5px solid var(--dark-blue)';
+    clientName.style.border = '0.5px solid var(--dark-blue)';
+    projectManager.style.border = '0.5px solid var(--dark-blue)';
+    endDate.style.border = '0.5px solid var(--dark-blue)';
+    description.style.border = '0.5px solid var(--dark-blue)';
+
+
+    // Display update project details form.
     formsContainer.style.display = "flex";
     projectFormModal.style.display = "block";
     resourceFormModal.style.display = "none";
@@ -88,39 +140,27 @@ updateProject.addEventListener('click', function (e) {
     // Display slider and change button text
     document.getElementById("form-project-progress").style.display = "block";
     
-    
-    const projectName = document.querySelector('#project-name'),
-        clientName = document.querySelector('#client-name'),
-        projectManager = document.getElementById("project-manager"),
-        startDate = document.querySelector('#start-date'),
-        endDate = document.querySelector('#end-date'),
-        technologies = document.querySelector('#technologies'),
-        progress = document.getElementById("range"),
-        progressLabel = document.querySelector('#progress-label'),
-        description = document.getElementById("description"),
-        formTitle = document.querySelector('#project-form--title'),
-        submitButton = document.querySelector('#submit-project--button');
 
-        // Change form heading and submit button text.
-        const updateText = 'Update Project';
-        formTitle.innerText = updateText;
-        submitButton.value = updateText;
+    // Change form heading and submit button text.
+    const updateText = 'Update Project';
+    formTitle.innerText = updateText;
+    submitButton.value = updateText;
 
-        // Set project name and client name as non-editable.
-        projectName.readOnly = true;
-        clientName.readOnly = true;
+    // Set project name and client name as non-editable.
+    projectName.readOnly = true;
+    clientName.readOnly = true;
 
-        // Identify currently active project and populate update form fields with existing values.
-        selectedProject = projects.projectList[selectedProjectId];
-        projectName.value = selectedProject.projectName;
-        clientName.value = selectedProject.clientName;
-        projectManager.value = selectedProject.projectManager;
-        startDate.value = selectedProject.startDate;
-        endDate.value = selectedProject.endDate;
-        technologies.value = selectedProject.technologies.join(',');
-        progress.value = selectedProject.progress;
-        progressLabel.innerText = selectedProject.progress;
-        description.value = selectedProject.description;
+    // Identify currently active project and populate update form fields with existing values.
+    selectedProject = projects.projectList[selectedProjectId];
+    projectName.value = selectedProject.projectName;
+    clientName.value = selectedProject.clientName;
+    projectManager.value = selectedProject.projectManager;
+    startDate.value = selectedProject.startDate;
+    endDate.value = selectedProject.endDate;
+    technologies.value = selectedProject.technologies.join(',');
+    progress.value = selectedProject.progress;
+    progressLabel.innerText = selectedProject.progress;
+    description.value = selectedProject.description;
 })
 
 // Project form submit button event listener. It calls addOrUpdateProject().
@@ -129,4 +169,4 @@ submitProjectForm.addEventListener('click', addOrUpdateProject);
 
 // Pressing cancel on the project form will reload the page (to clear current form state) and set addProjectFunctionality to true.
 const cancelProject = document.getElementById("cancel");
-cancelProject.addEventListener('click', _ => {window.location.reload(); addProjectFunction = true;});
+cancelProject.addEventListener('click', _ => {formsContainer.style.display = "none"; addProjectFunctionality = true;});
