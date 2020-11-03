@@ -163,9 +163,9 @@ function generateInvoice() {
             resourceList.forEach(resource => {
                 if (resource.billable === true) {
                     const tableRow = document.createElement('tr');
-                    const resourceName = createTableCell(`${resource.name}`);
-                    const ratePerHour = createTableCell(`${resource.ratePerHour}`);
-                    const resourceCost = createTableCell(`${resource.ratePerHour * workingHoursPerDay * numberOfWorkingDays.value}`);
+                    const resourceName = createTableCell(`${resource.resourceName}`);
+                    const ratePerHour = createTableCell(`${resource.rate}`);
+                    const resourceCost = createTableCell(`${resource.rate * workingHoursPerDay * numberOfWorkingDays.value}`);
                     invoiceAmount += parseInt(resourceCost.innerText);
                     tableRow.appendChild(resourceName);
                     tableRow.appendChild(ratePerHour);
@@ -266,9 +266,19 @@ expandArrow.addEventListener('click', _ => {
     expandArrow.style.display = "none"
     collapseArrow.style.display = "block"
 })
+
 collapseArrow.addEventListener('click', _ => {
     projectList.style.display = "none"
     collapseArrow.style.display = "none"
     expandArrow.style.display = "block"
 
 })
+
+// Expand Menu Option: User name, Logout button
+const navSlide = () => {
+    const burger = document.querySelector(".hamburger")
+    const nav = document.querySelector(".options")
+    burger.addEventListener('click', _ => nav.classList.toggle('options-active'))
+}
+
+navSlide()

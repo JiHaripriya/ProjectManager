@@ -1,10 +1,9 @@
 // Globally accessible variable to store whether function should add a new project or update an existing project.
-
 let addProjectFunction = true;
 
 function addOrUpdateProject(e) {
 
-    e.preventDefault()
+    
     // Check if all form input fields are valid.
     const projectNameStatus = projectName.value.length == 0 ? false : true,
         clientNameStatus = clientName.value.length == 0 ? false : true,
@@ -14,6 +13,7 @@ function addOrUpdateProject(e) {
 
     if (projectNameStatus && clientNameStatus && projectManagerStatus && descriptionStatus && dateStatus) {
         const projectDetails = {
+            projectId: projects.projectList.length,
             projectName: projectName.value,
             clientName: clientName.value,
             projectManager: projectManager.value,
@@ -36,7 +36,10 @@ function addOrUpdateProject(e) {
             // Update already existing project.
             projects.projectList[selectedProjectId] = projectDetails;
         }
-        put(urlList.projects, secretKey, projects, printResult);
+
+        put(urlList.projects, secretKey, projects, storeProjectData)
+        loadProjectList()
+
     } // Display error messages
     else {
         if (!projectNameStatus) errorMessages(projectName, "#pname-error", "This field cannot be empty")
@@ -53,7 +56,7 @@ function addOrUpdateProject(e) {
 // Add new project event listener.
 const addProject = document.querySelector('#new-project');
 addProject.addEventListener('click', function (e) {
-    e.preventDefault()
+    
 
     formsContainer.style.display = "flex";
     projectFormModal.style.display = "block";
@@ -69,7 +72,7 @@ addProject.addEventListener('click', function (e) {
 // Update project details event listener.
 const updateProject = document.querySelector('#project-headings--edit');
 updateProject.addEventListener('click', function (e) {
-    e.preventDefault()
+    
 
     // Add project functionality set to false. (ie, update functionality is now true.)
     addProjectFunction = false;

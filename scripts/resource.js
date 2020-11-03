@@ -35,7 +35,7 @@ const createResourceObject = (name, email, role, billable, rate) => {
 // Function to add or update resource.
 function addOrUpdateResource(e) {
 
-    e.preventDefault()
+    
 
     const nameStatus = resourceName.value.length != 0 && RegExp.prototype.isAlpha(resourceName.value) ? true : false,
     emailStatus = email.value.length > 0 && emailPatternCheck(email.value) ? true : false
@@ -57,7 +57,8 @@ function addOrUpdateResource(e) {
                     resources[selectedProjectId][selectedResource] = resourceDetails;
                 }
 
-                // Function call to update changes to remote storage bin.
+
+                // // Function call to update changes to remote storage bin.
                 put(urlList.resources, secretKey, resources, printResult);
                 loadResources();
             }
@@ -80,7 +81,7 @@ let selectedResource;
 for (let eachResource of editResource) {
     eachResource.addEventListener('click', (e) => {
         
-        e.preventDefault()
+        
         selectedResource = e.currentTarget.dataset.editresourceid;
 
         formsContainer.style.display = "flex";

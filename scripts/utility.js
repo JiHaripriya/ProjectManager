@@ -18,9 +18,6 @@ let get = function (url, secretKey, callback) {
     req.send();
 }
 
-function printResult(res) {
-    console.log(res);
-}
 
 function storeProjectData(res) {
     projects = res;

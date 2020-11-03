@@ -245,10 +245,9 @@
 }
 
 @media (max-width:480px) {
+    #start-date, #end-date {width: auto;}
     .website-header{transform: scale(0.9);}
     .margin-bottom20 {margin: 0 0 10px 0;}
-
-    .width-49{width: auto;}
     .dates {flex-direction: column;}
     .dates > * {width: 100%;}
     .dates >:first-child{margin: 0 0 10px 0;}
