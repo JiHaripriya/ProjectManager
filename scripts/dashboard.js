@@ -219,7 +219,7 @@ const setHeight = (tab, limit, height) => {
 setHeight(projectList, "maximum", projectListHeight)
 setHeight(resourceBody, "minimum", tabHeight)
 setHeight(invoiceBody, "minimum", tabHeight)
-window.onresize = () => {window.location.reload()}
+// window.onresize = () => {window.location.reload()}
 
 // Highlight tab on select
 headingId = ["project-details-tab", "resource", "invoice"];
