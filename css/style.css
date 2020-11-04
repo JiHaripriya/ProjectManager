@@ -408,8 +408,9 @@ h3 {font-size: 18px;}
     margin: 0 0 10px 0;
 }
 
+.main-details-label {font-weight: bold; font-family: 'Manrope-Regular';}
 .section1 {flex: 4; margin: 0 10px 0 0;}
-.section1 span {margin: 0 0 20px 0;}
+.section1 div {margin: 0 0 20px 0;}
 .section2 {flex:2; margin: 0 10px 0 0;}
 .section3 {justify-content: space-between;}
 

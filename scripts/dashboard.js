@@ -28,7 +28,7 @@ function loadProjectList() {
             // Adds an event listener to each project card.
             // Invokes function to implement selection of project card.
             projectCard.addEventListener('click', function (e) {
-                
+
                 // If expand arrow is present, on click of a project, hide the project list
                 if (document.getElementById('expand-projects').style.display === "none") collapseContent()
 
@@ -94,17 +94,7 @@ function loadDetails() {
     // Section One - Project name, client name, project manager, project status
     const sectionOne = document.querySelector('#section1');
     removeChildNodes(sectionOne);
-
-    const projectName = createSpanTag(`${selectedProject.projectName}`);
-    projectName.style.fontSize = "25px";
-
-    const clientName = createSpanTag(`Client: ${selectedProject.clientName}`);
-    const projectManager = createSpanTag(`Project Manager: ${selectedProject.projectManager}`);
-    const projectStatus = createSpanTag(`Status: ${selectedProject.projectStatus}`);
-    sectionOne.appendChild(projectName);
-    sectionOne.appendChild(clientName);
-    sectionOne.appendChild(projectManager);
-    sectionOne.appendChild(projectStatus);
+    sectionOne.innerHTML = `<div><span style="font-size: 25px;">${selectedProject.projectName}</span></div><div><span class="main-details-label">Client: </span><span>${selectedProject.clientName}</span></div><div><span class="main-details-label">Project Manager: </span><span>${selectedProject.projectManager}</span></div><div><span class="main-details-label">Status: </span><span>${selectedProject.projectStatus}</span></div>`;
 
     // Section Two - Project progress pie chart
     const projectProgress = document.querySelector('#project-progress--main');
@@ -116,21 +106,17 @@ function loadDetails() {
     const sectionThree = document.querySelector('#section3');
     removeChildNodes(sectionThree);
 
-    const startDate = createSpanTag(`Start Date: ${selectedProject.startDate}`);
-    const endDate = createSpanTag(`End Date: ${selectedProject.endDate}`);
-
     // Number of days left for a project
-    const numberofDays = (new Date(selectedProject.endDate).getTime() - new Date().getTime())/ (24 * 60 * 60 * 1000)
-    let daysLeft
-    if (numberofDays > 0) daysLeft = createSpanTag(`Days Left: ${Math.round(numberofDays)}`)
-    else {
-        daysLeft = createSpanTag(`Days Left: Overdue by ${Math.round(Math.abs(numberofDays))} Days`)
-        daysLeft.style.color = "red" 
+    const numberofDays = (new Date(selectedProject.endDate).getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000);
+    let daysLeft;
+    if (numberofDays > 0) {
+        daysLeft = Math.round(numberofDays);
+        sectionThree.innerHTML = `<div><span class="main-details-label">Start Date: </span><span>${selectedProject.startDate}</span></div><div><span class="main-details-label">End Date: </span><span>${selectedProject.endDate}</span></div><div><span class="main-details-label">Days Left: </span><span>${daysLeft}</span></div>`;
     }
-
-    sectionThree.appendChild(startDate);
-    sectionThree.appendChild(daysLeft)
-    sectionThree.appendChild(endDate);
+    else {
+        daysLeft = `Overdue by ${Math.round(Math.abs(numberofDays))} Days`;
+        sectionThree.innerHTML = `<div><span class="main-details-label">Start Date: </span><span>${selectedProject.startDate}</span></div><div><span class="main-details-label">Days Left: </span><span style="color: red;">${daysLeft}</span></div><div><span class="main-details-label">End Date: </span><span>${selectedProject.endDate}</span></div>`;
+    }
 
     // Technologies tag list
     const tagList = document.querySelector('#tag-list');
@@ -161,7 +147,7 @@ function loadResources() {
                     if (element[key] == true) cell = createTableCell('TRUE');
                     else cell = createTableCell('FALSE');
                 }
-                else  cell = createTableCell(element[key]);
+                else cell = createTableCell(element[key]);
                 tableRow.appendChild(cell);
             }
 
@@ -194,8 +180,8 @@ function resetInvoiceTab() {
     removeChildNodes(invoiceTable);
 
     const displayInvoice = document.querySelectorAll('.display-on-invoice-generate');
-        displayInvoice.forEach(tag => {
-            tag.style.display = 'none';
+    displayInvoice.forEach(tag => {
+        tag.style.display = 'none';
     });
 }
 
@@ -221,7 +207,7 @@ function generateInvoice() {
             resourceList.forEach(resource => {
                 if (resource.billable === true) {
                     const tableRow = document.createElement('tr');
-                    const resourceName = createTableCell(`${resource.name}`);
+                    const resourceName = createTableCell(resource.name);
                     const ratePerHour = createTableCell(resource.ratePerHour);
                     const resourceCost = createTableCell(resource.ratePerHour * workingHoursPerDay * numberOfWorkingDays.value);
                     invoiceAmount += Number(resourceCost.innerText);
@@ -229,7 +215,7 @@ function generateInvoice() {
                     tableRow.appendChild(ratePerHour);
                     tableRow.appendChild(resourceCost);
                     invoiceTable.appendChild(tableRow);
-                
+
                 }
             });
             const invoiceRow = document.createElement('tr');
@@ -261,26 +247,26 @@ const invoiceGenerateButton = document.querySelector('#invoice-generate--button'
 invoiceGenerateButton.addEventListener('click', generateInvoice);
 
 // Tabbed View related functionailities
-const detailsTab = document.getElementById("project-headings--details"), 
-resourceTab = document.getElementById("project-headings--resources"),
-invoiceTab = document.getElementById("project-headings--invoice"),
-resourceBody = document.getElementById("resource"),
-invoiceBody = document.getElementById("invoice"),
-projectList = document.getElementById("project-list")
+const detailsTab = document.getElementById("project-headings--details"),
+    resourceTab = document.getElementById("project-headings--resources"),
+    invoiceTab = document.getElementById("project-headings--invoice"),
+    resourceBody = document.getElementById("resource"),
+    invoiceBody = document.getElementById("invoice"),
+    projectList = document.getElementById("project-list")
 
 // Set height of each tab
-function setHeight (tab, limit, height)  {
-    if(limit == "minimum") tab.style.minHeight = `${height}px`
+function setHeight(tab, limit, height) {
+    if (limit == "minimum") tab.style.minHeight = `${height}px`
     else tab.style.maxHeight = `${height}px`
 }
 
 // Highlight tab on select
-function setVisibility (id, propertyValue) {
+function setVisibility(id, propertyValue) {
 
     headingId = ["project-details-tab", "resource", "invoice"];
-    const detailsTab = document.getElementById("project-headings--details"), 
-    resourceTab = document.getElementById("project-headings--resources"),
-    invoiceTab = document.getElementById("project-headings--invoice")
+    const detailsTab = document.getElementById("project-headings--details"),
+        resourceTab = document.getElementById("project-headings--resources"),
+        invoiceTab = document.getElementById("project-headings--invoice")
     let currentTab = document.getElementById(id);
     currentTab.style.display = propertyValue;
 
@@ -296,8 +282,8 @@ function setVisibility (id, propertyValue) {
     })
 }
 
-const tabHeight =  document.getElementById("project-details-tab").offsetHeight,
-projectListHeight = document.querySelector('.project-details').offsetHeight
+const tabHeight = document.getElementById("project-details-tab").offsetHeight,
+    projectListHeight = document.querySelector('.project-details').offsetHeight
 
 setHeight(projectList, "maximum", projectListHeight)
 setHeight(resourceBody, "minimum", tabHeight)
@@ -331,7 +317,7 @@ invoiceTab.addEventListener('click', _ => {
 
 // Expand project list
 const expandArrow = document.getElementById('expand-projects'),
-collapseArrow = document.getElementById('collapse-projects')
+    collapseArrow = document.getElementById('collapse-projects')
 
 expandArrow.addEventListener('click', _ => {
     projectList.style.display = "block"
@@ -339,7 +325,7 @@ expandArrow.addEventListener('click', _ => {
     collapseArrow.style.display = "block"
 })
 
-function collapseContent () {
+function collapseContent() {
     projectList.style.display = "none"
     collapseArrow.style.display = "none"
     expandArrow.style.display = "block"
@@ -357,7 +343,7 @@ const navSlide = () => {
 navSlide()
 
 // Detect device oritentation to adjust contents accordingly
-window.onorientationchange = function() { location.reload() }
+window.onorientationchange = function () { location.reload() }
 
 window.onclick = function () {
     const projectListHeight = document.querySelector('.project-details').offsetHeight
@@ -365,16 +351,16 @@ window.onclick = function () {
 }
 
 window.onload = function () {
-    const tabHeight =  document.getElementById("project-details-tab").offsetHeight,
-    projectListHeight = document.querySelector('.project-details').offsetHeight
+    const tabHeight = document.getElementById("project-details-tab").offsetHeight,
+        projectListHeight = document.querySelector('.project-details').offsetHeight
     setHeight(projectList, "maximum", projectListHeight)
     setHeight(resourceBody, "minimum", tabHeight)
     setHeight(invoiceBody, "minimum", tabHeight)
 }
 
 window.onresize = function () {
-    const tabHeight =  document.getElementById("project-details-tab").offsetHeight,
-    projectListHeight = document.querySelector('.project-details').offsetHeight
+    const tabHeight = document.getElementById("project-details-tab").offsetHeight,
+        projectListHeight = document.querySelector('.project-details').offsetHeight
     setHeight(projectList, "maximum", projectListHeight)
     setHeight(resourceBody, "minimum", tabHeight)
     setHeight(invoiceBody, "minimum", tabHeight)
