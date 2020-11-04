@@ -262,21 +262,15 @@ invoiceGenerateButton.addEventListener('click', generateInvoice);
 const detailsTab = document.getElementById("project-headings--details"), 
 resourceTab = document.getElementById("project-headings--resources"),
 invoiceTab = document.getElementById("project-headings--invoice"),
-tabHeight =  document.getElementById("project-details-tab").offsetHeight,
-projectListHeight = document.querySelector('.project-details').offsetHeight,
 resourceBody = document.getElementById("resource"),
 invoiceBody = document.getElementById("invoice"),
 projectList = document.getElementById("project-list")
 
 // Set height of each tab
-const setHeight = (tab, limit, height) => {
+function setHeight (tab, limit, height)  {
     if(limit == "minimum") tab.style.minHeight = `${height}px`
     else tab.style.maxHeight = `${height}px`
 }
-
-setHeight(projectList, "maximum", projectListHeight)
-setHeight(resourceBody, "minimum", tabHeight)
-setHeight(invoiceBody, "minimum", tabHeight)
 
 // Highlight tab on select
 function setVisibility (id, propertyValue) {
@@ -299,6 +293,13 @@ function setVisibility (id, propertyValue) {
         if (currentTab.id.toLowerCase().includes("invoice")) { invoiceTab.style.backgroundColor = "rgb(227, 235, 255)"; }
     })
 }
+
+const tabHeight =  document.getElementById("project-details-tab").offsetHeight,
+projectListHeight = document.querySelector('.project-details').offsetHeight
+
+setHeight(projectList, "maximum", projectListHeight)
+setHeight(resourceBody, "minimum", tabHeight)
+setHeight(invoiceBody, "minimum", tabHeight)
 
 // Displays details tab.
 function displayDetailsTab() {
@@ -355,3 +356,16 @@ navSlide()
 
 // Detect device oritentation to adjust contents accordingly
 window.onorientationchange = function() { location.reload() }
+
+window.onclick = function () {
+    const projectListHeight = document.querySelector('.project-details').offsetHeight
+    setHeight(projectList, "maximum", projectListHeight)
+}
+
+window.onload = function () {
+    const tabHeight =  document.getElementById("project-details-tab").offsetHeight,
+    projectListHeight = document.querySelector('.project-details').offsetHeight
+    setHeight(projectList, "maximum", projectListHeight)
+    setHeight(resourceBody, "minimum", tabHeight)
+    setHeight(invoiceBody, "minimum", tabHeight)
+}
