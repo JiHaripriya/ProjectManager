@@ -523,11 +523,11 @@ input[type=range]::-moz-range-thumb {
 .days:focus{width: 50px; border-bottom: 0.6px solid var(--dark-blue); transition: all 0.5s;}
 
 /* 5.6. Resource / Invoice tables */
-.tables { width: 100%; border-collapse: separate; border-spacing: 5px;}
-th {background-color: var(--dark-blue); color: var(--white); border-radius: 3px;}
+.tables { width: 100%;}
+th {background-color: var(--dark-blue); color: var(--white);}
 th, td { padding: 5px ;}
 th {padding: 10px;}
-td {border: 0.5px solid var(--light-blue); border-radius: 3px;}
+td {border-bottom: 0.5px solid var(--light-blue);}
 tbody tr:nth-child(even) {background-color:  var(--light-blue);} /* Alternate colors for table rows */
 .remove-background {background-color: var(--white); border: none;}
 .table-icons {height: 1.3rem; background-color: var(--white); cursor: pointer;}

@@ -2,11 +2,11 @@
 let addResourceFunctionality = true;
 
 // Create resource 
-const createResourceObject = (name, email, role, billable, rate) => {
+const createResourceObject = (name, role, email, billable, rate) => {
     const resourceDetails = {
         name: name,
-        email: email,
         role: role,
+        email: email,
         billable: billable.checked,
         ratePerHour: billable.checked ? Number(rate) : Number(0)
     }
@@ -39,7 +39,7 @@ function addOrUpdateResource(e) {
     if (nameStatus && emailStatus && roleStatus) {
         if (billableStatus.checked) { // Billable true
             if (rateStatus) {
-                resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus, rate.value)
+                resourceDetails = createResourceObject(resourceName.value, role.value, email.value, billableStatus, rate.value)
                 console.log(resourceDetails)
                 addOrUpdateObject(resourceDetails)
             }
@@ -47,7 +47,7 @@ function addOrUpdateResource(e) {
             else errorMessages(rate, "#rate-error", "Enter a valid amount")
         } // billable false
         else{ 
-            resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus, 0)
+            resourceDetails = createResourceObject(resourceName.value, role.value, email.value, billableStatus, 0)
             addOrUpdateObject(resourceDetails)
         }
     
@@ -75,7 +75,7 @@ const addResource = document.getElementById("add-resource-icon");
 // Its callback function displays add resource form.
 addResource.addEventListener('click', _ => {
 
-    document.querySelector('#resource-form').reset();
+    clearErrorMessages();
 
     // Display add resource form.
     formsContainer.style.display = "flex";
@@ -113,6 +113,24 @@ function displayEditResourceForm(e) {
 
     addResourceFunctionality = false;
 
+    clearErrorMessages();
+
+    resourceList = resources[selectedProjectId];
+    const resource = resourceList[selectedResource];
+    console.log(resource)
+    resourceName.value = resource.name;
+    email.value = resource.email;
+    role.value = resource.role;
+    billableStatus.checked = resource.billable;
+
+    document.querySelector('#rate-label').style.display = billableStatus.checked ? 'flex' : 'none';
+    rate.value = resource.ratePerHour;
+
+    resourceName.readOnly = true;
+    email.readOnly = true;
+}
+
+function clearErrorMessages () {
     const resourceNameError = document.querySelector('#name-error'),
     emailIdError = document.querySelector('#email-error'),
     resourceRoleError = document.querySelector('#role-error'),
@@ -127,21 +145,7 @@ function displayEditResourceForm(e) {
     email.style.border = '0.5px solid var(--dark-blue)';
     role.style.border = '0.5px solid var(--dark-blue)';
     rate.style.border = '0.5px solid var(--dark-blue)';
-
-    resourceList = resources[selectedProjectId];
-    const resource = resourceList[selectedResource];
-    resourceName.value = resource.name;
-    email.value = resource.email;
-    role.value = resource.role;
-    billableStatus.checked = resource.billable;
-
-    document.querySelector('#rate-label').style.display = billableStatus.checked ? 'flex' : 'none';
-    rate.value = resource.ratePerHour;
-
-    resourceName.readOnly = true;
-    email.readOnly = true;
 }
-
 
 const cancelResource = document.getElementById("cancel-resource");
 cancelResource.addEventListener('click', _ => {formsContainer.style.display = "none"; document.getElementById("rate-label").style.display = "none"; addResourceFunctionality = true; });

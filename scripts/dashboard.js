@@ -156,10 +156,13 @@ function loadResources() {
         resourceList.forEach((element, index) => {
             const tableRow = document.createElement('tr');
             for (const key in element) {
-                if (element.hasOwnProperty(key)) {
-                    const cell = createTableCell(element[key]);
-                    tableRow.appendChild(cell);
+                let cell;
+                if (key === 'billable') {
+                    if (element[key] == true) cell = createTableCell('TRUE');
+                    else cell = createTableCell('FALSE');
                 }
+                else  cell = createTableCell(element[key]);
+                tableRow.appendChild(cell);
             }
 
             const buttons = [
@@ -231,7 +234,6 @@ function generateInvoice() {
             });
             const invoiceRow = document.createElement('tr');
             const emptyCell = createTableCell('');
-            emptyCell.classList.add('remove-background')
             const totalAmountText = createTableCell('Total Amount');
             const totalAmountValue = createTableCell(invoiceAmount);
             invoiceRow.appendChild(emptyCell);
