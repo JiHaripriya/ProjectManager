@@ -33,14 +33,18 @@ function addOrUpdateProject(e) {
 
         console.log(projectDetails)
 
-        if(addProjectFunctionality) {
+        // If a new user-entered tag is not there in technologies array, add it to the array.
+        projectDetails.technologies.forEach(tech => {
+            if (!projects.technologies.includes(tech)) { projects.technologies.push(tech); }
+        });
+        if (addProjectFunctionality) {
             // Add new project.
             projects.projectList.push(projectDetails);
         } else {
             // Update already existing project.
             projects.projectList[selectedProjectId] = projectDetails;
         }
-        
+
         // Function call to update changes to remote storage bin.
         put(urlList.projects, secretKey, projects, printResult);
         tagify.removeAllTags();
@@ -64,12 +68,12 @@ function addOrUpdateProject(e) {
 // Add new project event listener.
 const addProject = document.querySelector('#new-project');
 addProject.addEventListener('click', function (e) {
-    
+
     document.querySelector('#project-form').reset();
 
-     // Change form heading and submit button text.
+    // Change form heading and submit button text.
     const formTitle = document.querySelector('#project-form--title'),
-    submitButton = document.querySelector('#submit-project--button');
+        submitButton = document.querySelector('#submit-project--button');
     const updateText = 'Add Project';
     formTitle.innerText = updateText;
     submitButton.value = updateText;
@@ -94,15 +98,15 @@ addProject.addEventListener('click', function (e) {
 // Update project details event listener.
 const updateProject = document.querySelector('#project-headings--edit');
 updateProject.addEventListener('click', function (e) {
-    
+
     // Add project functionality set to false. (ie, update functionality is now true.)
-    addProjectFunctionality  = false;
+    addProjectFunctionality = false;
 
     const projectNameError = document.querySelector('#pname-error'),
-    clientNameError = document.querySelector('#cname-error'),
-    projectManagerError = document.querySelector("#pmname-error"),
-    datesError = document.querySelector('#dates-error'),
-    descriptionError = document.querySelector("#description-error");
+        clientNameError = document.querySelector('#cname-error'),
+        projectManagerError = document.querySelector("#pmname-error"),
+        datesError = document.querySelector('#dates-error'),
+        descriptionError = document.querySelector("#description-error");
 
     // const technologiesError = document.querySelector('#technologies-error')
 
@@ -114,16 +118,16 @@ updateProject.addEventListener('click', function (e) {
     descriptionError.innerText = '';
 
     const projectName = document.querySelector('#project-name'),
-    clientName = document.querySelector('#client-name'),
-    projectManager = document.getElementById("project-manager"),
-    startDate = document.querySelector('#start-date'),
-    endDate = document.querySelector('#end-date'),
-    technologies = document.querySelector('#technologies'),
-    progress = document.getElementById("range"),
-    progressLabel = document.querySelector('#progress-label'),
-    description = document.getElementById("description"),
-    formTitle = document.querySelector('#project-form--title'),
-    submitButton = document.querySelector('#submit-project--button');
+        clientName = document.querySelector('#client-name'),
+        projectManager = document.getElementById("project-manager"),
+        startDate = document.querySelector('#start-date'),
+        endDate = document.querySelector('#end-date'),
+        technologies = document.querySelector('#technologies'),
+        progress = document.getElementById("range"),
+        progressLabel = document.querySelector('#progress-label'),
+        description = document.getElementById("description"),
+        formTitle = document.querySelector('#project-form--title'),
+        submitButton = document.querySelector('#submit-project--button');
 
     projectName.style.border = '0.5px solid var(--dark-blue)';
     clientName.style.border = '0.5px solid var(--dark-blue)';
@@ -140,7 +144,7 @@ updateProject.addEventListener('click', function (e) {
 
     // Display slider and change button text
     document.getElementById("form-project-progress").style.display = "block";
-    
+
 
     // Change form heading and submit button text.
     const updateText = 'Update Project';
@@ -172,4 +176,4 @@ submitProjectForm.addEventListener('click', addOrUpdateProject);
 
 // Pressing cancel on the project form will reload the page (to clear current form state) and set addProjectFunctionality to true.
 const cancelProject = document.getElementById("cancel");
-cancelProject.addEventListener('click', _ => {formsContainer.style.display = "none"; addProjectFunctionality = true; tagify.removeAllTags();});
+cancelProject.addEventListener('click', _ => { formsContainer.style.display = "none"; addProjectFunctionality = true; tagify.removeAllTags(); });
