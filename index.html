@@ -24,16 +24,19 @@
     <meta name="msapplication-TileImage" content="images/favicons//ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.20.3/tagify.min.js" integrity="sha512-Ok8DfwnjQhVsq3+9ToFXJjkWPL2h99aJWCg4U8w7iWA6i3kf4zgNLd7cLBdWdCqGZArRevXQAr8FGbucnZqrvw==" crossorigin="anonymous"></script>
     <script defer src="scripts/utility.js"></script>
     <script defer src="scripts/dashboard.js"></script>
     <script defer src="scripts/formValidations.js"></script>
     <script defer src="scripts/project.js"></script>
     <script defer src="scripts/resource.js"></script>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.20.3/tagify.min.css" integrity="sha512-WHUiCHz/wMPvwLomZas+LNiUjd2mMhIdM2ybtlsC2TM6E+EGjn8PIbXnoPgh7sXgYaomLMVQCRVPQpAq2vkZ4g==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body class="display-flex column-align">
@@ -256,7 +259,7 @@
                         </div>
 
                         <div class="project-technology display-flex column-align">
-                            <span class="project-technology--heading"><i>Technology :</i> </span>
+                            <span class="project-technology--heading">Technology : </span>
                             <span class="project-technology--tags">
                                 <!-- List of technologies used -->
                                 <span id="tag-list">
@@ -269,7 +272,7 @@
                                 <span>Description</span>
                                 <span id="display-content" class="display-content">
                                     <!-- Project description Area -->
-                                    <i id="project-description"></i>
+                                    <span id="project-description"></span>
                                 </span>
                             </div>
                         </div>

@@ -1,8 +1,10 @@
+// Urls of remote data storage bin and secret key to access the data.
 const urlList = {
-    "projects": "https://api.jsonbin.io/b/5fa19223ce4aa22895553d4b",
-    "resources": "https://api.jsonbin.io/b/5fa191f3a03d4a3bab0c3c67"
+    "projects": "https://api.jsonbin.io/b/5f9fab6347077d298f5b955e",
+    "resources": "https://api.jsonbin.io/b/5f9fabb447077d298f5b9576"
 }
-const secretKey = "$2b$10$ZqxlCvfg0KVF1GkqsbI29u8bwGG1jE7jdHujechv1B2EGDvA.a97q";
+
+const secretKey = "$2b$10$13A5uhCyWMeIqOInL3bdeuAlJSI2Nx5J2h2HciLIGw1nb6Xm/NwRe";
 
 let get = function (url, secretKey, callback) {
     let req = new XMLHttpRequest();
@@ -124,5 +126,46 @@ function createImageTag(src, alt, classListArray) {
 function removeChildNodes(parentNode) {
     while (parentNode.firstChild) {
         parentNode.removeChild(parentNode.firstChild);
+    }
+}
+
+// Globally accessible variable to tagify technologies input field.
+let tagify;
+// Function initializes tagify variable.
+function inputTags(inputElm, whitelist) {
+    // Initialize Tagify on the received input node reference.
+    tagify = new Tagify(inputElm);
+
+    // Event listener.
+    tagify.on('input', onInput);
+
+    const mockAjax = (function mockAjax() {
+        let timeout;
+        return function (duration) {
+            clearTimeout(timeout); // abort last request
+            return new Promise(function (resolve, reject) {
+                timeout = setTimeout(resolve, duration || 700, whitelist)
+            })
+        }
+    })();
+
+    // On character(s) added/removed (user is typing/deleting)
+    function onInput(e) {
+        tagify.settings.whitelist.length = 0; // reset current whitelist
+        tagify.loading(true) // show the loader animation
+
+        // get new whitelist from a delayed mocked request (Promise)
+        mockAjax()
+            .then(function (result) {
+                // replace tagify "whitelist" array values with new values
+                // and add back the ones already choses as Tags
+                tagify.settings.whitelist.push(...result, ...tagify.value)
+
+                tagify
+                    .loading(false)
+                    // render the suggestions dropdown.
+                    .dropdown.show.call(tagify, e.detail.value);
+            })
+            .catch(err => tagify.dropdown.hide.call(tagify))
     }
 }

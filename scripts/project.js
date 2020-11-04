@@ -1,6 +1,9 @@
 // Globally accessible variable to store whether function should add a new project or update an existing project.
 let addProjectFunctionality = true;
 
+// Invoke function to initialize tagify variable which makes technologies input field a tagged input field.
+inputTags(document.querySelector('#technologies'), projects.technologies);
+
 function addOrUpdateProject(e) {
     e.preventDefault()
     // Check if all form input fields are valid.
@@ -15,7 +18,7 @@ function addOrUpdateProject(e) {
         formsContainer.style.display = "none";
 
         const projectDetails = {
-            projectId: projects.projectList.length,
+            projectId: addProjectFunctionality ? projects.projectList.length : selectedProjectId,
             projectName: projectName.value,
             clientName: clientName.value,
             projectManager: projectManager.value,
@@ -25,7 +28,7 @@ function addOrUpdateProject(e) {
             progress: progress.value || 0,
             technologies: technologies.value,
             description: description.value,
-            technologies: technologies.value.split(',')
+            technologies: JSON.parse(technologies.value).map(tech => tech.value)
         }
 
         console.log(projectDetails)
@@ -41,9 +44,10 @@ function addOrUpdateProject(e) {
             loadProjectList();
             loadDetails();
         }
-
+        
         // Function call to update changes to remote storage bin.
         put(urlList.projects, secretKey, projects, printResult);
+        tagify.removeAllTags();
 
         projectFormModal.style.display = "none";
         formsContainer.style.display = "none";
@@ -162,6 +166,8 @@ updateProject.addEventListener('click', function (e) {
     progress.value = selectedProject.progress;
     progressLabel.innerText = selectedProject.progress;
     description.value = selectedProject.description;
+
+    tagify.addTags(selectedProject.technologies);
 })
 
 // Project form submit button event listener. It calls addOrUpdateProject().
@@ -170,4 +176,4 @@ submitProjectForm.addEventListener('click', addOrUpdateProject);
 
 // Pressing cancel on the project form will reload the page (to clear current form state) and set addProjectFunctionality to true.
 const cancelProject = document.getElementById("cancel");
-cancelProject.addEventListener('click', _ => {formsContainer.style.display = "none"; addProjectFunctionality = true;});
+cancelProject.addEventListener('click', _ => {formsContainer.style.display = "none"; addProjectFunctionality = true; tagify.removeAllTags();});

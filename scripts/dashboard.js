@@ -219,8 +219,8 @@ function generateInvoice() {
                 if (resource.billable === true) {
                     const tableRow = document.createElement('tr');
                     const resourceName = createTableCell(`${resource.name}`);
-                    const ratePerHour = createTableCell(Number(resource.ratePerHour));
-                    const resourceCost = createTableCell(Number(resource.ratePerHour) * Number(workingHoursPerDay) * Number(numberOfWorkingDays.value));
+                    const ratePerHour = createTableCell(resource.ratePerHour);
+                    const resourceCost = createTableCell(resource.ratePerHour * workingHoursPerDay * numberOfWorkingDays.value);
                     invoiceAmount += Number(resourceCost.innerText);
                     tableRow.appendChild(resourceName);
                     tableRow.appendChild(ratePerHour);

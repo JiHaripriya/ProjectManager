@@ -7,8 +7,8 @@ const createResourceObject = (name, email, role, billable, rate) => {
         name: name,
         email: email,
         role: role,
-        billable: billable,
-        ratePerHour: rate
+        billable: billable.checked,
+        ratePerHour: billable.checked ? Number(rate) : Number(0)
     }
     return resourceDetails
 }
@@ -37,11 +37,9 @@ function addOrUpdateResource(e) {
     let resourceDetails;
 
     if (nameStatus && emailStatus && roleStatus) {
-        console.log("Billable status: ", billableStatus.checked)
-        console.log("Rate: ", rate.value)
         if (billableStatus.checked) { // Billable true
             if (rateStatus) {
-                resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, Number(rate.value))
+                resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus, rate.value)
                 console.log(resourceDetails)
                 addOrUpdateObject(resourceDetails)
             }
@@ -49,13 +47,10 @@ function addOrUpdateResource(e) {
             else errorMessages(rate, "#rate-error", "Enter a valid amount")
         } // billable false
         else{ 
-            resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, 0)
+            resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus, 0)
             addOrUpdateObject(resourceDetails)
         }
-        
-        console.log("Outside if Billable status: ", billableStatus.checked)
-        console.log("Outside if Rate: ", rate.value)
-
+    
         // Function call to update changes to remote storage bin.
         console.log("Data stored/updated")
         put(urlList.resources, secretKey, resources, printResult);
