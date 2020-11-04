@@ -36,19 +36,15 @@ function addOrUpdateProject(e) {
         if(addProjectFunctionality) {
             // Add new project.
             projects.projectList.push(projectDetails);
-            resources[projects.projectList.length] = [];
-            loadProjectList();
         } else {
             // Update already existing project.
             projects.projectList[selectedProjectId] = projectDetails;
-            loadProjectList();
-            loadDetails();
         }
         
         // Function call to update changes to remote storage bin.
         put(urlList.projects, secretKey, projects, printResult);
         tagify.removeAllTags();
-
+        loadProjectList();
         projectFormModal.style.display = "none";
         formsContainer.style.display = "none";
 

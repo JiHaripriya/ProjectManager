@@ -92,21 +92,21 @@ function createButtonCell(buttonCollection) {
     const cell = document.createElement('td');
     cell.classList.add('remove-background');
     buttonCollection.forEach(button => {
-        if( button.buttonType === 'edit' ) {
+        if (button.buttonType === 'edit') {
             [src, alt, classListArray, attributeName, attributeValue] = ['images/edit.png', 'Pen icon', ['table-icons', 'edit-icon', 'margin-right10'], button.attribute, button.row]
             const tableButton = createImageTag(src, alt, classListArray)
             tableButton.setAttribute(attributeName, attributeValue)
-            tableButton.addEventListener('click', function(e) {displayEditResourceForm(e);});
+            tableButton.addEventListener('click', function (e) { displayEditResourceForm(e); });
             cell.appendChild(tableButton)
         }
         else {
             [src, alt, classListArray, attributeName, attributeValue] = ['images/delete-icon.png', 'Trash bin icon', ['table-icons', 'delete-icon'], button.attribute, button.row];
             const tableButton = createImageTag(src, alt, classListArray)
             tableButton.setAttribute(attributeName, attributeValue)
-            tableButton.addEventListener('click', function(e) { displayDeleteResourceModal(e);});
+            tableButton.addEventListener('click', function (e) { displayDeleteResourceModal(e); });
             cell.appendChild(tableButton)
         }
-        
+
     })
     return cell;
 }
@@ -134,7 +134,14 @@ let tagify;
 // Function initializes tagify variable.
 function inputTags(inputElm, whitelist) {
     // Initialize Tagify on the received input node reference.
-    tagify = new Tagify(inputElm);
+    tagify = new Tagify(inputElm, {
+        transformTag: transformTag,
+        dropdown: {
+            enabled: 1,            // show suggestion after 1 typed character
+            fuzzySearch: true,    // match only suggestions that starts with the typed characters
+            caseSensitive: false,   // allow adding duplicate items if their case is different
+        }
+    });
 
     // Event listener.
     tagify.on('input', onInput);
@@ -168,4 +175,10 @@ function inputTags(inputElm, whitelist) {
             })
             .catch(err => tagify.dropdown.hide.call(tagify))
     }
+}
+
+// Transforms tag value to lowercase.
+function transformTag(tagData) {
+    // tagData.style = "--tag-bg:" + getRandomColor();
+    tagData.value = tagData.value.toLowerCase();
 }
