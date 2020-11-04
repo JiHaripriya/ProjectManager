@@ -369,3 +369,11 @@ window.onload = function () {
     setHeight(resourceBody, "minimum", tabHeight)
     setHeight(invoiceBody, "minimum", tabHeight)
 }
+
+window.onresize = function () {
+    const tabHeight =  document.getElementById("project-details-tab").offsetHeight,
+    projectListHeight = document.querySelector('.project-details').offsetHeight
+    setHeight(projectList, "maximum", projectListHeight)
+    setHeight(resourceBody, "minimum", tabHeight)
+    setHeight(invoiceBody, "minimum", tabHeight)
+}
