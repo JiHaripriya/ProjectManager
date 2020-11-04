@@ -13,8 +13,20 @@ const createResourceObject = (name, email, role, billable, rate) => {
     return resourceDetails
 }
 
-
 // Function to add or update resource.
+function addOrUpdateObject (resourceDetails) {
+    if (!resources[selectedProjectId]) {
+        resources[selectedProjectId] = [];
+    }
+    if (addResourceFunctionality) {
+        // Add new resource.
+        resources[selectedProjectId].push(resourceDetails);
+    } else {
+        // Update already existing resource.
+        resources[selectedProjectId][selectedResource] = resourceDetails;
+    }
+} 
+
 function addOrUpdateResource(e) {
     
     e.preventDefault()
@@ -25,30 +37,31 @@ function addOrUpdateResource(e) {
     let resourceDetails;
 
     if (nameStatus && emailStatus && roleStatus) {
+        console.log("Billable status: ", billableStatus.checked)
+        console.log("Rate: ", rate.value)
         if (billableStatus.checked) { // Billable true
             if (rateStatus) {
                 resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, Number(rate.value))
-                if (!resources[selectedProjectId]) {
-                    resources[selectedProjectId] = [];
-                }
-                if (addResourceFunctionality) {
-                    // Add new resource.
-                    resources[selectedProjectId].push(resourceDetails);
-                } else {
-                    // Update already existing resource.
-                    resources[selectedProjectId][selectedResource] = resourceDetails;
-                }
-                resourceFormModal.style.display = "none";
-                formsContainer.style.display = "none";
+                console.log(resourceDetails)
+                addOrUpdateObject(resourceDetails)
             }
             // Rate field empty error
             else errorMessages(rate, "#rate-error", "Enter a valid amount")
         } // billable false
-        else resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, 0)
+        else{ 
+            resourceDetails = createResourceObject(resourceName.value, email.value, role.value, billableStatus.checked, 0)
+            addOrUpdateObject(resourceDetails)
+        }
+        
+        console.log("Outside if Billable status: ", billableStatus.checked)
+        console.log("Outside if Rate: ", rate.value)
 
         // Function call to update changes to remote storage bin.
+        console.log("Data stored/updated")
         put(urlList.resources, secretKey, resources, printResult);
         loadResources();
+        resourceFormModal.style.display = "none";
+        formsContainer.style.display = "none";
 
     } // Name or email or role empty OR contains characters other than alphabets and spaces
     else {
@@ -80,6 +93,9 @@ addResource.addEventListener('click', _ => {
     document.querySelector('#resource-submit--button').innerText = 'Add Resource';
 
     const resourceName = document.querySelector('#name'), emailId = document.querySelector('#email');
+    
+    document.querySelector('#rate-label').style.display = billableStatus.checked ? 'flex' : 'none';
+
     resourceName.readOnly = false;
     emailId.readOnly = false;
 });

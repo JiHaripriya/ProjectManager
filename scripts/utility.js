@@ -78,12 +78,12 @@ function createSpanTag(text) {
 function createTableCell(value) {
     const cell = document.createElement('td');
     cell.innerText = value;
-    console.log(value, typeof(value))
     if (typeof (value) === 'number') {
         cell.style.textAlign = 'right';
     }
     return cell;
 }
+
 
 // Creates table cell with edit/delete button and returns cell.
 function createButtonCell(buttonCollection) {

@@ -28,6 +28,10 @@ function loadProjectList() {
             // Adds an event listener to each project card.
             // Invokes function to implement selection of project card.
             projectCard.addEventListener('click', function (e) {
+                
+                // If expand arrow is present, on click of a project, hide the project list
+                if (document.getElementById('expand-projects').style.display === "none") collapseContent()
+
                 const newSelectedProjectId = e.currentTarget.dataset.projectid;
                 selectProject(newSelectedProjectId);
             });
@@ -114,7 +118,16 @@ function loadDetails() {
 
     const startDate = createSpanTag(`Start Date: ${selectedProject.startDate}`);
     const endDate = createSpanTag(`End Date: ${selectedProject.endDate}`);
-    const daysLeft = createSpanTag(`Days Left: ${Math.round(Math.abs(((new Date(selectedProject.endDate).getTime() - new Date().getTime())/ (24 * 60 * 60 * 1000))))}`)
+
+    // Number of days left for a project
+    const numberofDays = (new Date(selectedProject.endDate).getTime() - new Date().getTime())/ (24 * 60 * 60 * 1000)
+    let daysLeft
+    if (numberofDays > 0) daysLeft = createSpanTag(`Days Left: ${Math.round(numberofDays)}`)
+    else {
+        daysLeft = createSpanTag(`Days Left: Overdue by ${Math.round(Math.abs(numberofDays))} Days`)
+        daysLeft.style.color = "red" 
+    }
+
     sectionThree.appendChild(startDate);
     sectionThree.appendChild(daysLeft)
     sectionThree.appendChild(endDate);
@@ -289,7 +302,6 @@ function setVisibility (id, propertyValue) {
 
 // Displays details tab.
 function displayDetailsTab() {
-    console.log("booooyaa")
     const detailsTab = document.getElementById("project-headings--details")
     detailsTab.style.backgroundColor = "rgb(255, 255, 255)"
     document.getElementById("project-headings--edit").style.display = "block"
@@ -317,19 +329,22 @@ invoiceTab.addEventListener('click', _ => {
 // Expand project list
 const expandArrow = document.getElementById('expand-projects'),
 collapseArrow = document.getElementById('collapse-projects')
+
 expandArrow.addEventListener('click', _ => {
     projectList.style.display = "block"
     expandArrow.style.display = "none"
     collapseArrow.style.display = "block"
 })
 
-collapseArrow.addEventListener('click', _ => {
+function collapseContent () {
     projectList.style.display = "none"
     collapseArrow.style.display = "none"
     expandArrow.style.display = "block"
-})
+}
 
-// Expand Menu Option: User name, Logout button
+collapseArrow.addEventListener('click', collapseContent)
+
+//Expand Menu Option: User name, Logout button
 const navSlide = () => {
     const burger = document.querySelector(".hamburger")
     const nav = document.querySelector(".options")
