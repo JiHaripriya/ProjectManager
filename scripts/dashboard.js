@@ -252,9 +252,15 @@ const detailsTab = document.getElementById("project-headings--details"),
     invoiceTab = document.getElementById("project-headings--invoice"),
     resourceBody = document.getElementById("resource"),
     invoiceBody = document.getElementById("invoice"),
-    projectList = document.getElementById("project-list")
+    projectList = document.getElementById("project-list"),
+    tabHeight = document.getElementById("project-details-tab").offsetHeight,
+    projectListHeight = document.querySelector('.project-details').offsetHeight
 
 // Set height of each tab
+setHeight(resourceBody, "minimum", tabHeight)
+setHeight(invoiceBody, "minimum", tabHeight)
+
+
 function setHeight(tab, limit, height) {
     if (limit == "minimum") tab.style.minHeight = `${height}px`
     else tab.style.maxHeight = `${height}px`
@@ -360,10 +366,3 @@ navSlide()
 //     setHeight(resourceBody, "minimum", tabHeight)
 //     setHeight(invoiceBody, "minimum", tabHeight)
 // }
-
-// const tabHeight = document.getElementById("project-details-tab").offsetHeight,
-//     projectListHeight = document.querySelector('.project-details').offsetHeight
-
-// setHeight(projectList, "maximum", projectListHeight)
-// setHeight(resourceBody, "minimum", tabHeight)
-// setHeight(invoiceBody, "minimum", tabHeight)
