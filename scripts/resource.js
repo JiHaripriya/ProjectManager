@@ -37,7 +37,7 @@ function addOrUpdateResource(e) {
     let resourceDetails;
 
     let emailDuplicityStatus = false;
-    if (emailStatus && resources[selectedProjectId]) {
+    if (addResourceFunctionality && emailStatus && resources[selectedProjectId]) {
         let emailIdList;
         emailIdList = resources[selectedProjectId].map(resource => resource.email);
         emailDuplicityStatus = emailIdList.includes(email.value);
