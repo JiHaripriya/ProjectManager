@@ -48,7 +48,7 @@ function projectCardConfig(project) {
     const projectCard = document.createElement('div');
     projectCard.classList.add('project-list__item');
 
-    if (project.projectId === projects.projectList.length - 1) {
+    if (project.projectId === selectedProjectId) {
         projectCard.classList.add('selection');
         selectedProjectId = project.projectId;
     }
