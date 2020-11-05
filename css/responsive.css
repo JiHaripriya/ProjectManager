@@ -273,16 +273,18 @@
         top: -9999px;
         left: -9999px;
     }
+
     .invoice-table tr {
         margin-bottom:  10px;
         border: 1px solid var(--dark-blue);
         border-radius: 6px;
         padding: 0 1px;
     }
+    
     .invoice-table td { 
         /* Behave  like a "row" */
         border: none;
-        border-bottom: 1px solid #eee; 
+        border-bottom: 1px solid var(--icy-blue); 
         position: relative;
         padding-left: 50%; 
     }
@@ -321,6 +323,7 @@
 @media (max-width:375px) {
     .website-header {display: none;}
     .hamburger {width: 25px;}
+    h1 {font-size: 10px;}
     .banner__button {padding: 10px 15px;}
     .section2 > span {margin: 0 0 0 10vh;}
     .modal-content {width: 90%;}

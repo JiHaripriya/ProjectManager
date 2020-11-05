@@ -218,15 +218,15 @@ function generateInvoice() {
 
                 }
             });
-            const invoiceRow = document.createElement('tr');
-            const emptyCell = createTableCell('');
-            const totalAmountText = createTableCell('Total Amount');
-            const totalAmountValue = createTableCell(invoiceAmount);
-            invoiceRow.appendChild(emptyCell);
-            invoiceRow.appendChild(totalAmountText);
-            invoiceRow.appendChild(totalAmountValue);
-            invoiceTable.appendChild(invoiceRow);
         }
+        const invoiceRow = document.createElement('tr');
+        const emptyCell = createTableCell('');
+        const totalAmountText = createTableCell('Total Amount');
+        const totalAmountValue = createTableCell(invoiceAmount);
+        invoiceRow.appendChild(totalAmountText);
+        invoiceRow.appendChild(emptyCell);
+        invoiceRow.appendChild(totalAmountValue);
+        invoiceTable.appendChild(invoiceRow);
 
     } else {
         // Display error message inside the tag

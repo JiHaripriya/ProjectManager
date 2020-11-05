@@ -29,7 +29,12 @@
 html, 
 body,
 textarea,
-input[type="date"]{font-family: "Manrope-Medium", Arial, Helvetica;}
+input[type="date"],
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+input[type="email"]
+{font-family: "Manrope-Medium", Arial, Helvetica;}
 
 html, 
 body
@@ -46,7 +51,7 @@ body {
     width: 100%;
     font-size: 14px;
 }
-h1 {font-size: 26px;}
+h1 {font-size: 24px;}
 h3 {font-size: 18px;}
 
 /*................................................
@@ -340,7 +345,6 @@ h3 {font-size: 18px;}
 }
 .project-list__item:hover,
 .selection { border: 0.1px dotted var(--dark-blue); box-shadow: 3px 6px 10px 3px rgba(1, 18, 72, 0.2);}
-.project-list__item:hover {transform: scale(1.05); border: none;}
 
 .circular {
     height: 50px;
@@ -520,10 +524,11 @@ input[type=range]::-moz-range-thumb {
     border-top: none; 
     border-right: none; 
     border-left: none; 
-    width: 30px;
+    border-bottom: 0.6px solid var(--dark-blue);
+    width: 20%;
     margin: 0 0 0 15px;
 }
-.days:focus{width: 50px; border-bottom: 0.6px solid var(--dark-blue); transition: all 0.5s;}
+/* .days:focus{width: 80%; border-bottom: 0.6px solid var(--dark-blue); transition: all 0.5s;} */
 
 /* 5.6. Resource / Invoice tables */
 .tables { width: 100%;}
