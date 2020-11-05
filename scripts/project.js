@@ -48,6 +48,7 @@ function addOrUpdateProject(e) {
         // Function call to update changes to remote storage bin.
         put(urlList.projects, secretKey, projects, printResult);
         tagify.removeAllTags();
+        addProjectFunctionality = true;
         loadProjectList();
         projectFormModal.style.display = "none";
         formsContainer.style.display = "none";
