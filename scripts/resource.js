@@ -14,7 +14,7 @@ const createResourceObject = (name, role, email, billable, rate) => {
 }
 
 // Function to add or update resource.
-function addOrUpdateObject (resourceDetails) {
+function addOrUpdateObject(resourceDetails) {
     if (!resources[selectedProjectId]) {
         resources[selectedProjectId] = [];
     }
@@ -25,18 +25,25 @@ function addOrUpdateObject (resourceDetails) {
         // Update already existing resource.
         resources[selectedProjectId][selectedResource] = resourceDetails;
     }
-} 
+}
 
 function addOrUpdateResource(e) {
-    
+
     e.preventDefault()
     const nameStatus = resourceName.value.length != 0 && RegExp.prototype.isAlpha(resourceName.value) ? true : false,
-    emailStatus = email.value.length > 0 && emailPatternCheck(email.value) ? true : false
+        emailStatus = email.value.length > 0 && emailPatternCheck(email.value) ? true : false
     roleStatus = role.value.length != 0 && RegExp.prototype.isAlpha(role.value) ? true : false,
-    rateStatus = rate.value != "" && billableStatus.checked ? true : false
+        rateStatus = rate.value != "" && billableStatus.checked ? true : false
     let resourceDetails;
 
-    if (nameStatus && emailStatus && roleStatus) {
+    let emailDuplicityStatus = false;
+    if (emailStatus && resources[selectedProjectId]) {
+        let emailIdList;
+        emailIdList = resources[selectedProjectId].map(resource => resource.email);
+        emailDuplicityStatus = emailIdList.includes(email.value);
+    }
+
+    if (nameStatus && emailStatus && !emailDuplicityStatus && roleStatus) {
         if (billableStatus.checked) { // Billable true
             if (rateStatus) {
                 resourceDetails = createResourceObject(resourceName.value, role.value, email.value, billableStatus, rate.value)
@@ -46,11 +53,11 @@ function addOrUpdateResource(e) {
             // Rate field empty error
             else errorMessages(rate, "#rate-error", "Enter a valid amount")
         } // billable false
-        else{ 
+        else {
             resourceDetails = createResourceObject(resourceName.value, role.value, email.value, billableStatus, 0)
             addOrUpdateObject(resourceDetails)
         }
-    
+
         // Function call to update changes to remote storage bin.
         console.log("Data stored/updated")
         put(urlList.resources, secretKey, resources, printResult);
@@ -61,8 +68,11 @@ function addOrUpdateResource(e) {
     } // Name or email or role empty OR contains characters other than alphabets and spaces
     else {
         if (!nameStatus) resourceName.value.length == 0 ? errorMessages(resourceName, "#name-error", "This field cannot be empty") : (RegExp.prototype.isAlpha(resourceName.value) ? _ : errorMessages(resourceName, "#name-error", "Only alphabets and spaces are allowed"))
-        if (!emailStatus)email.value.length == 0 ? errorMessages(email, "#email-error", "This field cannot be empty") : (emailPatternCheck(email.value) ? _ : errorMessages(email, "#email-error", "Invalid email address"))
-        if (!roleStatus)role.value.length == 0 ? errorMessages(role, "#role-error", "This field cannot be empty") : (RegExp.prototype.isAlpha(role.value) ? _ : errorMessages(role, "#role-error", "Only alphabets and spaces are allowed"))
+        if (!emailStatus) email.value.length == 0 ? errorMessages(email, "#email-error", "This field cannot be empty") : (emailPatternCheck(email.value) ? _ : errorMessages(email, "#email-error", "Invalid email address"))
+        else {
+            if(emailDuplicityStatus) { errorMessages(email, "#email-error", "Resource with this email ID has already been allocated to this project"); emailDuplicityStatus = false; }
+        }
+        if (!roleStatus) role.value.length == 0 ? errorMessages(role, "#role-error", "This field cannot be empty") : (RegExp.prototype.isAlpha(role.value) ? _ : errorMessages(role, "#role-error", "Only alphabets and spaces are allowed"))
     }
     resetInvoiceTab();
 }
@@ -75,6 +85,8 @@ const addResource = document.getElementById("add-resource-icon");
 // Its callback function displays add resource form.
 addResource.addEventListener('click', _ => {
 
+    document.querySelector('#resource-form').reset();
+
     clearErrorMessages();
 
     // Display add resource form.
@@ -85,10 +97,10 @@ addResource.addEventListener('click', _ => {
 
     //Set form title text and form submit button text.
     document.querySelector('#resource-form--title').innerText = 'Add Resource';
-    document.querySelector('#resource-submit--button').innerText = 'Add Resource';
+    document.querySelector('#resource-submit--button').value = 'Add Resource';
 
     const resourceName = document.querySelector('#name'), emailId = document.querySelector('#email');
-    
+
     document.querySelector('#rate-label').style.display = billableStatus.checked ? 'flex' : 'none';
 
     resourceName.readOnly = false;
@@ -130,11 +142,11 @@ function displayEditResourceForm(e) {
     email.readOnly = true;
 }
 
-function clearErrorMessages () {
+function clearErrorMessages() {
     const resourceNameError = document.querySelector('#name-error'),
-    emailIdError = document.querySelector('#email-error'),
-    resourceRoleError = document.querySelector('#role-error'),
-    ratePerHourError = document.querySelector('#rate-error');
+        emailIdError = document.querySelector('#email-error'),
+        resourceRoleError = document.querySelector('#role-error'),
+        ratePerHourError = document.querySelector('#rate-error');
 
     resourceNameError.innerText = '';
     emailIdError.innerText = '';
@@ -148,7 +160,7 @@ function clearErrorMessages () {
 }
 
 const cancelResource = document.getElementById("cancel-resource");
-cancelResource.addEventListener('click', _ => {formsContainer.style.display = "none"; document.getElementById("rate-label").style.display = "none"; addResourceFunctionality = true; });
+cancelResource.addEventListener('click', _ => { formsContainer.style.display = "none"; document.getElementById("rate-label").style.display = "none"; addResourceFunctionality = true; });
 
 const submitResourceForm = document.querySelector('#resource-submit--button');
 submitResourceForm.addEventListener('click', addOrUpdateResource);
@@ -170,7 +182,7 @@ const deleteResourceButton = document.querySelector('#delete-resource');
 deleteResourceButton.addEventListener('click', function (e) {
     e.preventDefault()
     resources[selectedProjectId].splice(selectedResource, 1);
-    
+
     resourceFormModal.style.display = "none";
     formsContainer.style.display = "none";
 
