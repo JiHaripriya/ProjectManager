@@ -42,8 +42,7 @@
 <body class="display-flex column-align">
     <!-- Header begins-->
     <header id="header" class="header">
-        <div class="display-flex container">
-
+        <div class="display-flex">
             <!--TRIAL-->
             <div class="hamburger display-flex flex-center" id="more-options"><div></div></div>
             <!-- Logo Section -->
@@ -62,10 +61,11 @@
     <main id="main" class="main">
 
         <!-- New Project Button Area-->
-        <banner class="display-flex container">
-            <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span>
-                &ensp; Add
-                Project</button>
+        <banner class="display-flex">
+            <!-- <div style="
+            flex: 0 0 100%;
+            padding: 15px 0;
+        ">Dashboard</div> -->
             <!-- The Modal -->
             <div id="forms-modal" class="modal">
                 <!-- PROJECT FORMS -->
@@ -218,7 +218,13 @@
             <img src="images/arrow-left.png" alt="" class="collapse" id="collapse-projects">
 
             <!-- Project List -->
-            <div class="project-list" id="project-list">                    
+            <div class="project-list">
+                <button type="button" class="banner__button" id="new-project"><span class="plus">&#43;</span>
+                    &ensp; Add Project
+                </button>
+                <div id="project-list" class="project-list__body">
+                                    
+                </div>
             </div>
 
             <!-- Details of each Project Section -->
