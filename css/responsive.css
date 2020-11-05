@@ -1,5 +1,4 @@
 @media (max-width: 1550px) {
-    .container {max-width: 1300px;}
     .project-list{font-size: 13px;}
 }
 
@@ -60,6 +59,7 @@
     .banner__button {
         padding: 15px 25px;
         border-radius: 30px;
+        width: auto;
         position: fixed;
         bottom: 65px;
         right: 10px;

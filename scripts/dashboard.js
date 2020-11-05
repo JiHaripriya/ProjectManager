@@ -252,9 +252,15 @@ const detailsTab = document.getElementById("project-headings--details"),
     invoiceTab = document.getElementById("project-headings--invoice"),
     resourceBody = document.getElementById("resource"),
     invoiceBody = document.getElementById("invoice"),
-    projectList = document.getElementById("project-list")
+    projectList = document.getElementById("project-list"),
+    tabHeight = document.getElementById("project-details-tab").offsetHeight,
+    projectListHeight = document.querySelector('.project-details').offsetHeight
 
 // Set height of each tab
+setHeight(resourceBody, "minimum", tabHeight)
+setHeight(invoiceBody, "minimum", tabHeight)
+
+
 function setHeight(tab, limit, height) {
     if (limit == "minimum") tab.style.minHeight = `${height}px`
     else tab.style.maxHeight = `${height}px`
@@ -282,12 +288,7 @@ function setVisibility(id, propertyValue) {
     })
 }
 
-const tabHeight = document.getElementById("project-details-tab").offsetHeight,
-    projectListHeight = document.querySelector('.project-details').offsetHeight
 
-setHeight(projectList, "maximum", projectListHeight)
-setHeight(resourceBody, "minimum", tabHeight)
-setHeight(invoiceBody, "minimum", tabHeight)
 
 // Displays details tab.
 function displayDetailsTab() {
@@ -343,25 +344,25 @@ const navSlide = () => {
 navSlide()
 
 // Detect device oritentation to adjust contents accordingly
-window.onorientationchange = function () { location.reload() }
+// window.onorientationchange = function () { location.reload() }
 
-window.onclick = function () {
-    const projectListHeight = document.querySelector('.project-details').offsetHeight
-    setHeight(projectList, "maximum", projectListHeight)
-}
+// window.onclick = function () {
+//     const projectListHeight = document.querySelector('.project-details').offsetHeight
+//     setHeight(projectList, "maximum", projectListHeight)
+// }
 
-window.onload = function () {
-    const tabHeight = document.getElementById("project-details-tab").offsetHeight,
-        projectListHeight = document.querySelector('.project-details').offsetHeight
-    setHeight(projectList, "maximum", projectListHeight)
-    setHeight(resourceBody, "minimum", tabHeight)
-    setHeight(invoiceBody, "minimum", tabHeight)
-}
+// window.onload = function () {
+//     const tabHeight = document.getElementById("project-details-tab").offsetHeight,
+//         projectListHeight = document.querySelector('.project-details').offsetHeight
+//     setHeight(projectList, "maximum", projectListHeight)
+//     setHeight(resourceBody, "minimum", tabHeight)
+//     setHeight(invoiceBody, "minimum", tabHeight)
+// }
 
-window.onresize = function () {
-    const tabHeight = document.getElementById("project-details-tab").offsetHeight,
-        projectListHeight = document.querySelector('.project-details').offsetHeight
-    setHeight(projectList, "maximum", projectListHeight)
-    setHeight(resourceBody, "minimum", tabHeight)
-    setHeight(invoiceBody, "minimum", tabHeight)
-}
+// window.onresize = function () {
+//     const tabHeight = document.getElementById("project-details-tab").offsetHeight,
+//         projectListHeight = document.querySelector('.project-details').offsetHeight
+//     setHeight(projectList, "maximum", projectListHeight)
+//     setHeight(resourceBody, "minimum", tabHeight)
+//     setHeight(invoiceBody, "minimum", tabHeight)
+// }
