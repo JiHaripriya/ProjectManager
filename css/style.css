@@ -27,11 +27,15 @@
 }
 
 html, 
+body,
+textarea,
+input[type="date"]{font-family: "Manrope-Medium", Arial, Helvetica;}
+
+html, 
 body
 {
     margin: 0; 
     padding: 0;
-    font-family: "Manrope-Medium", Arial, Helvetica;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
@@ -120,12 +124,11 @@ h3 {font-size: 18px;}
 .column-align {flex-direction: column;}
 .row-align {flex-direction: row;}
 .flex-center{align-items: center; justify-content: center;}
-.width-49 {width: 49%;}
-.bold {font-weight: bold;}
 
 /*................................................
     4. HEADER SECTION
 .................................................*/
+
 .website-header{color: white;text-decoration: none;}
 .header {background-color: var(--dark-blue); height: 60px; width: 100%;}
 .header__logo {flex: 2; padding-top: 5px;cursor: pointer;}
@@ -192,20 +195,22 @@ h3 {font-size: 18px;}
 /* 5.1. NEW PROJECT AREA SECTION */
 
 .banner__button {
-    border: 1.5px solid var(--light-blue);
+    border: none;
     background-color: var(--light-blue);
     color: var(--dark-blue);
     font: 14px color;
     padding: 10px 20px;
     width: -webkit-fill-available;
+    width: 100%; /* Mozilla */
     border-bottom: 1.5px solid var(--white);
     font-family: "Rubik-Medium", Arial, Helvetica;
 }
 
 .banner__button:hover , 
 .banner__button:hover > .plus {
-    color: var(--icy-blue);
-    background-color: var(--dark-blue);
+    transform: scale(1.1);
+    font-weight: bold;
+    transition: all 0.5s ease-in-out;
 }
 
 /* The Modal (background) */
@@ -261,12 +266,17 @@ h3 {font-size: 18px;}
 .margin-bottom20 {margin: 0 0 20px 0;}
 .modal-body__content {padding: 3px;}
 .dates {justify-content: space-between;}
+.align-date {width: 100%;}
+.align-start-date {margin: 0 10px 0 0;}
+
 #pname-error, 
 #cname-error, 
 #pmname-error, 
 #description-error, 
 #dates-error,
 #technologies-error {color: rgba(255, 0, 0, 0.639);}
+#dates-error{padding: 0 0 0 51%;}
+
 
 .tagify {padding: 0;background-color: var(--white);}
 .tagify .modal-body__content {padding: 0;}
@@ -302,19 +312,11 @@ h3 {font-size: 18px;}
     overflow: scroll;
     overflow-x: hidden;
     -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
 }
 
 .project-list__body {max-height: calc(100vh - 170px);}
-::-webkit-scrollbar {width: 6px;}
-::-webkit-scrollbar-thumb {
-    background: rgba(227, 235, 255, 0.747); 
-    border-radius: 10px; 
-    box-shadow: inset  0 3px 20px 0 rgba(1, 18, 72, 0.2);
-}
-
-.project-list::-webkit-scrollbar {width: 6px;}
-.project-list::-webkit-scrollbar-thumb {background: var(--icy-blue); border-radius: 10px;}
-.project-list::-webkit-scrollbar-thumb:hover {box-shadow: inset  0 3px 20px 0 rgba(1, 18, 72, 0.2);}
+::-webkit-scrollbar {display: none;}
 
 .project-progress {
     justify-content: space-between; 
@@ -323,7 +325,11 @@ h3 {font-size: 18px;}
     overflow-wrap: break-word;
 }
 
-.stretch-heading { flex: 0 0 50%;}
+.stretch-heading {
+    flex: 0 0 50%;
+    max-height: 50px;
+    overflow: auto;
+}
 
 .project-list__item {
     margin: 12px;
@@ -334,6 +340,7 @@ h3 {font-size: 18px;}
 }
 .project-list__item:hover,
 .selection { border: 0.1px dotted var(--dark-blue); box-shadow: 3px 6px 10px 3px rgba(1, 18, 72, 0.2);}
+.project-list__item:hover {transform: scale(1.05); border: none;}
 
 .circular {
     height: 50px;

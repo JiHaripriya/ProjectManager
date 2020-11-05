@@ -252,19 +252,23 @@ const detailsTab = document.getElementById("project-headings--details"),
     invoiceTab = document.getElementById("project-headings--invoice"),
     resourceBody = document.getElementById("resource"),
     invoiceBody = document.getElementById("invoice"),
-    projectList = document.getElementById("project-list"),
-    tabHeight = document.getElementById("project-details-tab").offsetHeight,
-    projectListHeight = document.querySelector('.project-details').offsetHeight
-
-// Set height of each tab
-setHeight(resourceBody, "minimum", tabHeight)
-setHeight(invoiceBody, "minimum", tabHeight)
+    projectList = document.getElementById("project-list")
 
 
-function setHeight(tab, limit, height) {
+function calculateHeight(tab, limit, height) {
     if (limit == "minimum") tab.style.minHeight = `${height}px`
     else tab.style.maxHeight = `${height}px`
+}    
+    
+// Set height of each tab
+function setHeight (){
+    const tabHeight = document.getElementById("project-details-tab").clientHeight,
+        resourceBody = document.getElementById("resource"),
+        invoiceBody = document.getElementById("invoice")
+    calculateHeight(resourceBody, "minimum", tabHeight)
+    calculateHeight(invoiceBody, "minimum", tabHeight)
 }
+
 
 // Highlight tab on select
 function setVisibility(id, propertyValue) {
@@ -321,13 +325,15 @@ const expandArrow = document.getElementById('expand-projects'),
     collapseArrow = document.getElementById('collapse-projects')
 
 expandArrow.addEventListener('click', _ => {
-    projectList.style.display = "block"
+    document.querySelector(".project-list").style.display = "block"
+    document.querySelector(".project-list__body").style.display = "block"
     expandArrow.style.display = "none"
     collapseArrow.style.display = "block"
 })
 
 function collapseContent() {
-    projectList.style.display = "none"
+    document.querySelector(".project-list").style.display = "none"
+    document.querySelector(".project-list__body").style.display = "none"
     collapseArrow.style.display = "none"
     expandArrow.style.display = "block"
 }
@@ -344,25 +350,5 @@ const navSlide = () => {
 navSlide()
 
 // Detect device oritentation to adjust contents accordingly
-// window.onorientationchange = function () { location.reload() }
-
-// window.onclick = function () {
-//     const projectListHeight = document.querySelector('.project-details').offsetHeight
-//     setHeight(projectList, "maximum", projectListHeight)
-// }
-
-// window.onload = function () {
-//     const tabHeight = document.getElementById("project-details-tab").offsetHeight,
-//         projectListHeight = document.querySelector('.project-details').offsetHeight
-//     setHeight(projectList, "maximum", projectListHeight)
-//     setHeight(resourceBody, "minimum", tabHeight)
-//     setHeight(invoiceBody, "minimum", tabHeight)
-// }
-
-// window.onresize = function () {
-//     const tabHeight = document.getElementById("project-details-tab").offsetHeight,
-//         projectListHeight = document.querySelector('.project-details').offsetHeight
-//     setHeight(projectList, "maximum", projectListHeight)
-//     setHeight(resourceBody, "minimum", tabHeight)
-//     setHeight(invoiceBody, "minimum", tabHeight)
-// }
+window.onorientationchange = function () { setHeight() }
+window.onload = function () {setHeight()}
