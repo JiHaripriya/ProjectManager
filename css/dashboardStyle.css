@@ -1,0 +1,105 @@
+body { 
+    background-color: rgb(14, 20, 24);  
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+}
+
+main {justify-content: space-evenly; margin: 25px;}
+main > section {margin: 25px 0;}
+
+.flex-wrap {flex-wrap: wrap;}
+.row-align {flex-direction: row;}
+.space-between {justify-content: space-between;}
+.space-evenly {justify-content: space-evenly;}
+.align-baseline {align-items: baseline;}
+
+section {box-shadow: -1px -1px 4px 2px rgb(43, 64, 75);}
+.card, .card img {
+    height: calc(100vh / 2 - 50px);
+    width: calc(100vw / 2 - 50px);
+    cursor: pointer;
+}
+
+
+.statistics-card {justify-content: space-evenly; align-items: center;}
+.statistics-card > div {
+    height: calc((100vh / 2 - 50px)/ 2 - 50px);
+    width: calc((100vw / 2 - 50px)/ 2 - 50px); 
+    padding: 15px;
+    border: 0.1px dotted var(--secondary-color);
+}
+
+.card-icon {width: 60%; padding: 10px 50px; }
+
+.card-icon img {
+    height: calc((100vh / 2 - 50px)/ 2 - 70px); 
+    width: calc((100vh / 2 - 50px)/ 2 - 70px); 
+    border-radius: 50%;
+}
+
+
+.card-content {align-items: center; width:40%;}
+.count {
+    font-size: 2rem; 
+    animation: glow 2s infinite alternate-reverse;
+}
+
+@keyframes glow {
+    from {text-shadow: 0px 0px 20px var(--font-color);}
+    to {text-shadow: 0px 0px 30px var(--font-color);}
+}
+
+/* Technology Card */
+.technology-project-count {overflow: scroll;}
+.technology-project-count > * {margin-top: 6px; padding: 5px;}
+.project-count {
+    font-size: 2rem; 
+    flex: 1; 
+    margin: 0 25px 0 0; 
+    text-align: center;
+}
+.technology__details {flex: 2.5;}
+.technology-name {text-align: left;}
+
+.progress {
+    height: 6px; 
+    background-color: var(--font-color);
+    margin: 15px 0 0 0;
+}
+
+.progress1 {
+    margin: 15px 3px 0 0;
+    background: var(--font-color);
+	-moz-border-radius: 26px;
+	-webkit-border-radius: 26px;
+	border-radius: 26px;
+    padding: 3px;
+    width: 50%;
+}
+.progress2 {
+    margin: 15px 0 0 0;
+    background: var(--font-color);
+	-moz-border-radius: 26px;
+	-webkit-border-radius: 26px;
+	border-radius: 26px;
+    padding: 3px;
+    width: 66%;
+}
+
+.card-plot__title {
+    padding: 10px 0 6px 20px; 
+    font-size: 11px; 
+    font-weight: lighter;
+    text-transform: uppercase;
+    color: rgba(155, 185, 202, 0.507);
+}
+
+/* Plotting cards */
+.card-plot img {
+    padding: 0;
+    margin: 0 auto;
+    height: calc((100vh / 2 - 50px) - 20px);
+    width: 100%;
+}
+.plot {overflow: hidden;}
