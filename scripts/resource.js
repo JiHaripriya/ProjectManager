@@ -83,7 +83,8 @@ const addResource = document.getElementById("add-resource-icon");
 addResource.addEventListener('click', _ => {
 
     clearErrorMessages();
-
+    document.querySelector('#resource-form').reset();
+    
     // Display add resource form.
     formsContainer.style.display = "flex";
     document.getElementById("modal-content-project").style.display = "none";
@@ -92,7 +93,7 @@ addResource.addEventListener('click', _ => {
 
     //Set form title text and form submit button text.
     document.querySelector('#resource-form--title').innerText = 'Add Resource';
-    document.querySelector('#resource-submit--button').innerText = 'Add Resource';
+    document.querySelector('#resource-submit--button').value = 'Add Resource';
 
     const resourceName = document.querySelector('#name'), emailId = document.querySelector('#email');
     
