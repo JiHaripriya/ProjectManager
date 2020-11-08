@@ -335,18 +335,30 @@ window.onorientationchange = function () { setHeight() }
 window.onload = function () {setHeight()}
 window.onresize = function () { setHeight()}
 
+function collapseContent() {
+    document.querySelector(".project-list").style.display = "none"
+    document.querySelector(".project-list__body").style.display = "none"
+}
+
 // Expand project list
 const expandOrCollapse = document.getElementById('expand-list');
 expandOrCollapse.addEventListener('click', _ => {
     // List in expanded state
     if (document.querySelector(".project-list").style.display == "block") {
-        document.querySelector(".project-list").style.display = "none"
+        collapseContent()
         expandOrCollapse.style.left = "0%"
         expandOrCollapse.textContent = '>'
     }
     else {
         document.querySelector(".project-list").style.display = "block"
+        document.querySelector(".project-list__body").style.display = "block"
         expandOrCollapse.style.left = "50%"
         expandOrCollapse.textContent = '<'
     }
+})
+
+document.querySelector(".project-list__body").addEventListener('click', _ => {
+    collapseContent()
+    expandOrCollapse.style.left = "0%"
+    expandOrCollapse.textContent = '>'
 })

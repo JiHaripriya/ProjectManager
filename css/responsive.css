@@ -2,6 +2,10 @@
     .project-list{font-size: 13px;}
 }
 
+@media (max-width:1100px){
+    .project-list{width: 35%;}
+}
+
 @media (max-width: 936px) {
     body {
         overflow-x: hidden;
@@ -70,9 +74,7 @@
         overflow-x: hidden;
     } 
 
-    
     .stretch-heading{flex: inherit;}
-
 
     .main-details {flex-wrap: wrap; justify-content: space-between;}
     .main-details > * {flex: 0 1 50%;}
@@ -97,7 +99,7 @@
         display: block; 
         text-align: left;
     }
-    
+    .project-list{width: 35%;}
     /* Hide table headers */
 	.resource thead tr { 
 		position: absolute;
@@ -106,7 +108,7 @@
     }
     .resource tr {
         margin-bottom:  10px;
-        border: 1px solid var(--dark-blue);
+        border: 1px solid var(--font-color);
         border-radius: 6px;
         padding: 0 1px;
     }
@@ -159,6 +161,9 @@
     .modal-content{width: 70%;}
     .margin-bottom20 {margin: 0 0 10px 0;}
 
+    .project-list__body {
+        max-height: 90vh;
+    }
     .main-details {flex-direction: column;}
     .main-details > *:nth-last-child(2){order: 1;}
     .main-details > *:nth-last-child(1){order: 3; }
@@ -190,7 +195,6 @@
         position: absolute;
         z-index: 2;
         width: 50%;
-        height: 100%;
         top: 75px;
     }
 
@@ -246,7 +250,7 @@
 
     .invoice-table tr {
         margin-bottom:  10px;
-        border: 1px solid var(--dark-blue);
+        border: 1px solid var(--font-color);
         border-radius: 6px;
         padding: 0 1px;
     }
@@ -254,7 +258,6 @@
     .invoice-table td { 
         /* Behave  like a "row" */
         border: none;
-        border-bottom: 1px solid var(--icy-blue); 
         position: relative;
         padding-left: 50%; 
     }

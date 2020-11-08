@@ -406,7 +406,6 @@ a {text-decoration: none;}
     background-color: rgb(14, 20, 24); 
     width: auto; 
     align-self: center;
-    top: 50%;
 }
 
 .project-headings--main::-webkit-scrollbar {display: none;}
