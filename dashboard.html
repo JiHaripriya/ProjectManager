@@ -6,13 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 minimum-scale=1">
     <title>Project Dashboard</title>
 
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.20.3/tagify.min.js" integrity="sha512-Ok8DfwnjQhVsq3+9ToFXJjkWPL2h99aJWCg4U8w7iWA6i3kf4zgNLd7cLBdWdCqGZArRevXQAr8FGbucnZqrvw==" crossorigin="anonymous"></script>
-    <!-- <script defer src="scripts/utility.js"></script>
-    <script defer src="scripts/projectDetails.js"></script>
-    <script defer src="scripts/formValidations.js"></script>
-    <script defer src="scripts/project.js"></script>
-    <script defer src="scripts/resource.js"></script> -->
-    
+    <script defer src="scripts/dashboard.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.20.3/tagify.min.css" integrity="sha512-WHUiCHz/wMPvwLomZas+LNiUjd2mMhIdM2ybtlsC2TM6E+EGjn8PIbXnoPgh7sXgYaomLMVQCRVPQpAq2vkZ4g==" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/reset.css">
@@ -36,10 +30,8 @@
             <div class="options display-flex"><!-- User Section -->
                 <span><a href="dashboard.html">Dashboard</a></span>
                 <span><a href="project.html">Projects</a></span>
-                <span>
-                    <span class="user"> Welcome, User </span>
-                    <a href="index.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a>
-                </span>
+                <span> <a href="project.html">Welcome, User</a> </span>
+                <span><a href="project.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a></span>
             </div>
         </div>
     </header>
@@ -52,7 +44,7 @@
         <section class="card display-flex flex-wrap statistics-card" id="statistics-card">
             
             <!-- Projects Count Card Begins -->
-            <div class="projects-count display-flex row-align" id="projects-count">
+            <div class="display-flex row-align" id="projects-count">
                 <span class="card-icon"><img src="images/logo.png" alt="Logo"></span>
                 <span class="display-flex column-align space-evenly card-content">
                     <span class="count glow">66</span>
@@ -62,7 +54,7 @@
             <!-- Projects Count Card Ends -->
 
             <!-- Employees Count Card Begins -->
-            <div class="employees-count display-flex row-align" id="employees-count">
+            <div class="display-flex row-align" id="employees-count">
                 <span class="card-icon"><img src="images/logo.png" alt="Logo"></span>
                 <span class="display-flex column-align space-evenly card-content">
                     <span class="count">66</span>
@@ -72,7 +64,7 @@
             <!-- Employees Count Card Ends -->
 
             <!-- Billable Employees Count Card Begins -->
-            <div class="billables display-flex row-align" id="billables">
+            <div class="display-flex row-align" id="billables">
                 <span class="card-icon"><img src="images/logo.png" alt="Logo"></span>
                 <span class="display-flex column-align space-evenly card-content">
                     <span class="count">66</span>
@@ -82,7 +74,7 @@
             <!-- Billable Employees Count Card Ends -->
 
             <!-- Shadow Employees Count Card Begins -->
-            <div class="shadows display-flex row-align" id="shadows">
+            <div class="display-flex row-align" id="shadows">
                 <span class="card-icon"><img src="images/logo.png" alt="Logo"></span>
                 <span class="display-flex column-align space-evenly card-content">
                     <span class="count">66</span>

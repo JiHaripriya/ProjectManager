@@ -29,8 +29,8 @@ function loadProjectList() {
             // Invokes function to implement selection of project card.
             projectCard.addEventListener('click', function (e) {
 
-                // If expand arrow is present, on click of a project, hide the project list
-                if (document.getElementById('expand-projects').style.display === "none") collapseContent()
+                // // If expand arrow is present, on click of a project, hide the project list
+                // if (document.getElementById('expand-projects').style.display === "none") collapseContent()
 
                 const newSelectedProjectId = e.currentTarget.dataset.projectid;
                 selectProject(newSelectedProjectId);
@@ -320,27 +320,8 @@ invoiceTab.addEventListener('click', _ => {
     setVisibility("invoice", "flex")
 })
 
-// Expand project list
-const expandArrow = document.getElementById('expand-projects'),
-    collapseArrow = document.getElementById('collapse-projects')
 
-expandArrow.addEventListener('click', _ => {
-    document.querySelector(".project-list").style.display = "block"
-    document.querySelector(".project-list__body").style.display = "block"
-    expandArrow.style.display = "none"
-    collapseArrow.style.display = "block"
-})
-
-function collapseContent() {
-    document.querySelector(".project-list").style.display = "none"
-    document.querySelector(".project-list__body").style.display = "none"
-    collapseArrow.style.display = "none"
-    expandArrow.style.display = "block"
-}
-
-collapseArrow.addEventListener('click', collapseContent)
-
-//Expand Menu Option: User name, Logout button
+// Expand Menu Option: User name, Logout button
 const navSlide = () => {
     const burger = document.querySelector(".hamburger")
     const nav = document.querySelector(".options")
@@ -352,3 +333,20 @@ navSlide()
 // Detect device oritentation to adjust contents accordingly
 window.onorientationchange = function () { setHeight() }
 window.onload = function () {setHeight()}
+window.onresize = function () { setHeight()}
+
+// Expand project list
+const expandOrCollapse = document.getElementById('expand-list');
+expandOrCollapse.addEventListener('click', _ => {
+    // List in expanded state
+    if (document.querySelector(".project-list").style.display == "block") {
+        document.querySelector(".project-list").style.display = "none"
+        expandOrCollapse.style.left = "0%"
+        expandOrCollapse.textContent = '>'
+    }
+    else {
+        document.querySelector(".project-list").style.display = "block"
+        expandOrCollapse.style.left = "50%"
+        expandOrCollapse.textContent = '<'
+    }
+})

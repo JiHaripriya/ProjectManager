@@ -20,9 +20,6 @@
 
 /* VARIABLES */
 :root {
-    --dark-blue: rgb(1, 18, 72); 
-    --light-blue: rgb(227, 235, 255);
-    --icy-blue: rgb(244, 248, 255);
     --white: rgb(255, 255, 255);
     --primary-color : rgb(28, 44, 53);
     --secondary-color: rgb(43, 64, 75);
@@ -154,7 +151,7 @@ a {text-decoration: none;}
 .header__logo {flex: 2; padding-top: 5px; cursor: pointer;}
 .logo { height: 35px; flex: 1;}
 .user{color: var(--font-color); }
-.icon {height: 25px;}
+.icon {height: 20px;}
 
 /* Hamburger icon section */
 .hamburger {
@@ -164,7 +161,7 @@ a {text-decoration: none;}
     z-index: 1;
     width: 40px;
     height: 40px;
-    padding: 0.6rem;
+    padding: 0.6rem 0.6rem 0 0.6rem;
     background: var(--primary-color);
     cursor: pointer;
     display: none;
@@ -176,7 +173,7 @@ a {text-decoration: none;}
     position: relative;
     width: 100%;
     height: 2px;
-    background-color: var(--secondary-color);
+    background-color: var(--font-color);
     transition: all 0.4s ease;
 }
 
@@ -210,8 +207,7 @@ a {text-decoration: none;}
     color: rgba(255, 255, 255, 0.63);;
     transition: background-color 0.2s ease;
 }
-#expand-projects {display: none;}
-#collapse-projects {display: none;}
+
 
 /*................................................
     5. BODY SECTION
@@ -357,7 +353,7 @@ a {text-decoration: none;}
     scrollbar-width: none;
 }
 
-.project-list__body {max-height: calc(100vh - 155px);}
+.project-list__body {max-height: 80vh;}
 ::-webkit-scrollbar {display: none;}
 
 .project-progress {
@@ -380,6 +376,7 @@ a {text-decoration: none;}
     border-radius: 5px;
     border: 0.1px dotted  rgba(155, 185, 202, 0.445);
     font-size: 15px;
+    cursor: pointer;
 }
 
 
@@ -404,6 +401,13 @@ a {text-decoration: none;}
 }
 
 /* 5.3. PROJECT DETAILS SECTION */
+.expand-list {
+    display: none;
+    background-color: rgb(14, 20, 24); 
+    width: auto; 
+    align-self: center;
+    top: 50%;
+}
 
 .project-headings--main::-webkit-scrollbar {display: none;}
 .project-headings--main {overflow-y:hidden ;overflow-x: auto;}

@@ -5,12 +5,12 @@ body {
     font-size: 14px;
 }
 
-main {
+.main {
     justify-content: space-evenly; 
     margin: 25px; 
     align-items: center;
 }
-main > section {margin: 25px 0;}
+.main > section {margin: 25px 0;}
 
 .flex-wrap {flex-wrap: wrap;}
 .row-align {flex-direction: row;}
@@ -35,17 +35,16 @@ section:first-child {
     height: calc((100vh / 2)/ 2 - 30px);
     width: calc((100vw / 2)/ 2 - 30px); 
     box-shadow: inset 1px 1px 8px 5px rgb(43, 64, 75);
+    justify-content: space-evenly;
 }
 
-
-.card-icon {width: 60%; padding: 15px 20px; }
+.card-icon { align-self: center;}
 
 .card-icon img {
-    height: calc((100vh / 2 - 20px)/ 2 - 70px); 
-    width: calc((100vh / 2 - 20px)/ 2 - 70px); 
+    height: 100px; 
+    width: 100px; 
     border-radius: 50%;
 }
-
 
 .card-content {align-items: center; width:40%;}
 .count {
@@ -63,7 +62,6 @@ section:first-child {
 .technology-project-count > * {margin-top: 6px; padding: 5px;}
 .technology-project-count > div {margin-top: 20px;}
 .technology .count {
-    font-size: 2rem; 
     flex: 1; 
     margin: 0 25px 0 0; 
     text-align: center;
@@ -114,3 +112,47 @@ section:first-child {
 .plot {overflow: hidden;}
 
 .footer {box-shadow: 0 8px 6px -6px rgb(14, 20, 24);}
+
+/***********************************************************************
+    MEDIA QUERIES
+************************************************************************/
+@media (max-width: 937px) {
+    body { 
+        background-color: rgba(14, 20, 24, 0.651);  
+        font-size: 13px;
+    }
+    .card-icon img {
+        height: 80px; 
+        width: 80px; 
+    }
+    .count {
+        font-size: 1.5rem;
+    } 
+}
+
+/* Mobile View */
+@media (max-width: 800px) {
+    .main {flex-direction: column;}
+    .main > section {width: 100%;}
+
+    .statistics-card > div {
+        flex: 0 0 49%;
+        align-content: space-between;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .statistics-card > div {
+        flex: 0 0 49%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .main {flex-wrap: nowrap;}
+    .statistics-card > div {
+        flex: 0 1 100%;
+        height: 120px;
+    }
+}

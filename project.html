@@ -47,16 +47,14 @@
             <div class="hamburger display-flex flex-center" id="more-options"><div></div></div>
             <!-- Logo Section -->
             <h1 class="header__logo website-header">
-                <a href="dashboard.html" ><img src="images/logo.png" alt="ProjectManager Logo" class="logo"></a> 
+                <a href="project.html" ><img src="images/logo.png" alt="ProjectManager Logo" class="logo"></a> 
                 Project Manager 
             </h1>
             <div class="options display-flex"><!-- User Section -->
                 <span><a href="dashboard.html">Dashboard</a></span>
                 <span><a href="project.html">Projects</a></span>
-                <span>
-                    <span class="user"> Welcome, User </span>
-                    <a href="dashboard.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a>
-                </span>
+                <span> <a href="project.html">Welcome, User</a> </span>
+                <span><a href="project.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a></span>
             </div>
         </div>
     </header>
@@ -219,8 +217,6 @@
 
         <!-- Project Details -->
         <section class="display-flex container section" id="section">
-            <img src="images/arrow-right.png" alt="" class="expand-icon" id="expand-projects">
-            <img src="images/arrow-left.png" alt="" class="collapse" id="collapse-projects">
 
             <!-- Project List -->
             <div class="project-list">
@@ -233,6 +229,7 @@
                 </div>
             </div>
 
+            <div id="expand-list" class="expand-list" style="font-size: 2rem;">></div>
             <!-- Details of each Project Section -->
             <div class="project-details" >
                 <div class="project-headings display-flex">
@@ -248,7 +245,6 @@
                         <img src="images/edit.png" alt="Pen icon" class="project-headings--edit-logo">
                     </span>
                 </div>
-
                 <div class="project-tabs" id="project-tabs">
 
                     <!-- Project Details Tab -->
