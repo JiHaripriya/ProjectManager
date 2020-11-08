@@ -27,6 +27,8 @@
     --primary-color : rgb(28, 44, 53);
     --secondary-color: rgb(43, 64, 75);
     --font-color: rgb(155, 185, 202);
+    --tagify-dd-color-primary: var(--primary-color);
+    --tagify-dd-bg-color: var(--font-color);
 }
 
 html, 
@@ -38,7 +40,7 @@ input[type="tel"],
 input[type="number"],
 input[type="email"],
 input[type="checkbox"]
-{font-family: "Manrope-Medium", Arial, Helvetica; color: rgba(255, 255, 255, 0.63); background-color: var(--secondary-color); }
+{font-family: "Manrope-Medium", Arial, Helvetica; color: var(--font-color); background-color: var(--secondary-color); }
 
 html, 
 body
@@ -298,7 +300,11 @@ a {text-decoration: none;}
 #pmname-error, 
 #description-error, 
 #dates-error,
-#technologies-error {color: rgba(255, 0, 0, 0.639); font-size: 12px;}
+#technologies-error,
+#name-error,
+#role-error,
+#rate-error,
+#email-error {color: rgba(255, 0, 0, 0.639); font-size: 12px;}
 #dates-error{padding: 0 0 0 51%;}
 
 #technologies {outline: none;}
@@ -309,14 +315,15 @@ a {text-decoration: none;}
     --tags-border-color:var(--primary-color);
     --tags-hover-border-color: var(--primary-color);
     --tags-focus-border-color: var(--primary-color);
+    --tag-bg : var(--font-color);
+    --tag-hover : var(--font-color);
     --tag-text-color: var(--primary-color);
+    --placeholder-color: var(--primary-color);
 }
-
 .tagify .modal-body__content {padding: 0;}
-.tagify__input {background-color: var(--secondary-color); color: var(--font-color);}
-.tagify.tagify--focus{border-color: var(--primary-color); color: var(--primary-color);}
-.tagify:hover{border-color: var(--primary-color);}
 .tagify__tag-text {color: var(--primary-color);}
+.tagify__dropdown__item {color: var(--primary-color);} 
+.tagify__dropdown__item--active{background:var(--tagify-dd-color-primary); color:var(--font-color)}
 
 .form-buttons {display:flex;justify-content: space-evenly;}
 .add-project {
