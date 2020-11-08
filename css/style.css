@@ -353,7 +353,7 @@ a {text-decoration: none;}
     scrollbar-width: none;
 }
 
-.project-list__body {max-height: 80vh;}
+.project-list__body {max-height: 100vh;}
 ::-webkit-scrollbar {display: none;}
 
 .project-progress {
