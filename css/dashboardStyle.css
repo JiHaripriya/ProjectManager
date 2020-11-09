@@ -86,12 +86,19 @@ section:first-child {
 .technology-name {text-align: left;}
 
 .progress {
-    height: 6px; 
+    /* height: 6px; 
     background-color: var(--font-color);
-    margin: 15px 0 0 0;
+    margin: 15px 0 0 0; */
+    margin: 15px 3px 0 0;
+    background: var(--font-color);
+	-moz-border-radius: 26px;
+	-webkit-border-radius: 26px;
+	border-radius: 26px;
+    padding: 3px;
+    width: 0%;
 }
 
-.progress1 {
+/* .progress1 {
     margin: 15px 3px 0 0;
     background: var(--font-color);
 	-moz-border-radius: 26px;
@@ -108,7 +115,7 @@ section:first-child {
 	border-radius: 26px;
     padding: 3px;
     width: 66%;
-}
+} */
 
 .card-plot__title {
     padding: 10px 0 6px 20px; 
@@ -121,13 +128,14 @@ section:first-child {
 }
 
 /* Plotting cards */
-.card-plot img {
-    padding: 0;
-    margin: 0 auto;
-    height: calc((100vh / 2 - 50px) - 20px);
-    width: 100%;
+.card-plot {
+    padding: 5px 5px 15px 15px;
 }
 .plot {overflow: hidden;}
+
+.chart {
+    height: auto;
+}
 
 .footer {box-shadow: 0 8px 6px -6px rgb(14, 20, 24);}
 
