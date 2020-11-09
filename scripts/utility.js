@@ -56,10 +56,10 @@ RegExp.prototype.isAlpha = function (input) { return /^[A-Za-z ]*$/.test(input) 
 // Function to create circular progress bar. 
 function createProgressBar(percent, main = false) {
     const progressBar = document.createElement('span');
-    
+
     progressBar.style.background = `linear-gradient(to top, var(--primary-color) ${percent}%, var(--font-color) 1%`;
     const progressPercent = createSpanTag(`${percent}%`);
-    if (percent < 50 ) progressPercent.style.color = "var(--primary-color)";
+    if (percent < 50) progressPercent.style.color = "var(--primary-color)";
     if (main === true) {
         progressBar.classList.add('circular--main', 'display-flex', 'flex-center');
         progressPercent.classList.add('inner--main', 'display-flex', 'flex-center');
@@ -183,4 +183,42 @@ function inputTags(inputElm, whitelist) {
 function transformTag(tagData) {
     // tagData.style = "--tag-bg:" + getRandomColor();
     tagData.value = tagData.value.toLowerCase();
+}
+
+// Function to create a chart
+function createChart(canvas, labels, label, dataValues, backgroundColorValue, borderColorValue) {
+    let graph = new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            responsive: true,
+            maintainAspectRatio: false,
+            datasets: [{
+                label: label,
+                data: dataValues,
+                backgroundColor: backgroundColorValue,
+                borderWidth: 1,
+                borderColor: borderColorValue
+            }]
+        },
+        options: {
+            tooltips: {
+                backgroundColor: '#000000',
+                titleFontColor: borderColorValue,
+                bodyFontColor: borderColorValue
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+        }
+    })
 }
