@@ -34,7 +34,7 @@ section {box-shadow: inset 1px 1px 8px 5px rgb(43, 64, 75);}
 .card, .card img {
     height: calc(100vh / 2 - 55px);
     width: calc(100vw / 2 - 55px);
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 section:first-child {
@@ -76,6 +76,9 @@ section:first-child {
 .technology-project-count > * {margin-top: 6px; padding: 5px;}
 .technology-project-count > :nth-child(2) {margin-top: 35px;}
 .technology-project-count > div {margin-top: 20px;}
+.technology-project-count >:last-child {
+    margin-bottom: 20px;
+}
 
 .technology .count {
     flex: 0.5;
@@ -100,9 +103,9 @@ section:first-child {
 
 .card-plot__title {
     padding: 15px 0 6px 20px; 
-    font-size: 11px; 
+    font-size: 13px; 
     font-weight: lighter;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: rgba(155, 185, 202, 0.878);
     position: absolute;
     width: inherit;
@@ -110,7 +113,7 @@ section:first-child {
 
 /* Plotting cards */
 .card-plot {
-    padding: 40px 5px 15px 15px;
+    padding: 45px 5px 15px 25px;
 }
 .plot {overflow: hidden;}
 
