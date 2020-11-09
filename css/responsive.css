@@ -62,6 +62,16 @@
         z-index: 1;
     }
 
+    #logout-button {
+        display: flex;
+        height: inherit;
+        width: inherit;
+        position: relative;
+        top: 0;
+        background: rgb(14, 20, 24);
+        margin: 20px 0 0 0;
+    }
+
     /* Project List */
     .circular, .circular .inner {display: none;}
     .header, .main, .section, .project-list {margin: 0;}
@@ -101,6 +111,7 @@
         text-align: left;
     }
     .project-list{width: 35%;}
+
     /* Hide table headers */
 	.resource thead tr { 
 		position: absolute;
@@ -143,12 +154,6 @@
         padding-left: 25%;
     }
     .resource .margin-right10 {margin: 0 50% 0 0;}
-
-    /* Horizontal scroll of resource tab */
-    /* .resource-details {
-        overflow-x: auto;
-        display: block;
-    }  */
 }
 
 @media (max-width:671px) {
@@ -317,7 +322,6 @@
 }
 
 @media (max-width:270px){
-    /* .project-headings--main{overflow-x: auto;} */
     body{font-size: 11px;}
     h3 {font-size: 14px;}
     .banner__button,

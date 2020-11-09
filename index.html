@@ -52,9 +52,10 @@
             </h1>
             <div class="options display-flex"><!-- User Section -->
                 <span><a href="dashboard.html">Dashboard</a></span>
-                <span><a href="index.html">Projects</a></span>
-                <span> <a href="index.html">Welcome, User</a> </span>
-                <span><a href="index.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a></span>
+                <span class="highlight-tab"><a href="index.html">Projects</a></span>
+                <span id="user"> Welcome, User &ensp; &#9660;
+                    <span id="logout-button"><a href="index.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a></span>
+                </span>
             </div>
         </div>
     </header>
@@ -65,10 +66,6 @@
 
         <!-- New Project Button Area-->
         <banner class="display-flex">
-            <!-- <div style="
-            flex: 0 0 100%;
-            padding: 15px 0;
-        ">Dashboard</div> -->
             <!-- The Modal -->
             <div id="forms-modal" class="modal">
                 <!-- PROJECT FORMS -->

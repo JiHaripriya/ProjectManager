@@ -50,6 +50,20 @@ let put = function (url, secretKey, obj, callback) {
     req.send(JSON.stringify(obj));
 }
 
+// User login options
+document.getElementById('user').addEventListener('click', _ => {
+    const logoutStatus = document.getElementById("logout-button")
+    // Show logout button
+    if (logoutStatus.style.display == "none") {
+        logoutStatus.style.display = "flex"
+        document.getElementById('user').style.cssText = "background-color: rgb(14, 20, 24);"
+    }
+    else {
+        logoutStatus.style.display = "none"
+        document.getElementById('user').style.cssText = "background-color: var(--primary-color);"
+    }
+})
+
 //Check whether input has only alphabets
 RegExp.prototype.isAlpha = function (input) { return /^[A-Za-z ]*$/.test(input) }
 

@@ -29,9 +29,6 @@ function loadProjectList() {
             // Invokes function to implement selection of project card.
             projectCard.addEventListener('click', function (e) {
 
-                // // If expand arrow is present, on click of a project, hide the project list
-                // if (document.getElementById('expand-projects').style.display === "none") collapseContent()
-
                 const newSelectedProjectId = e.currentTarget.dataset.projectid;
                 selectProject(newSelectedProjectId);
             });
@@ -338,8 +335,6 @@ window.onresize = function () {
     if (window.outerWidth > 630) document.querySelector(".project-list__body").style.display = "block"
     else collapseContent()
 }
-
-
 
 // Expand project list
 function collapseContent() {

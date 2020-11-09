@@ -59,12 +59,12 @@
                 <a href="index.html" ><img src="images/logo.png" alt="ProjectManager Logo" class="logo"></a> 
                 <span class="website-header">&ensp; Project Manager </span>
             </h1>
-            <div class="options display-flex">
-                <!-- User Section -->
-                <span><a href="dashboard.html">Dashboard</a></span>
+            <div class="options display-flex"><!-- User Section -->
+                <span class="highlight-tab"><a href="dashboard.html" >Dashboard</a></span>
                 <span><a href="index.html">Projects</a></span>
-                <span> <a href="index.html">Welcome, User</a> </span>
-                <span><a href="index.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a></span>
+                <span id="user"> Welcome, User &ensp; &#9660;
+                    <span id="logout-button"><a href="index.html"><img src="images/logout.png" alt="Logout Icon" class="icon"></a></span>
+                </span>
             </div>
         </div>
     </header>
@@ -122,21 +122,7 @@
         <!-- Cards for Total number of projects per technology -->
         <section class="card display-flex column-align technology-project-count" id="technology-project-count">
             <span class="card-plot__title">Projects</span>
-            <!-- <div class="technology display-flex row-align space-evenly">
-                <span class="count">66</span>
-                <span class="technology__details display-flex column-align">
-                    <span class="technology-name">React Native</span>
-                    <span class="progress1"></span>
-                </span>
-            </div>
-            <div class="technology display-flex row-align space-evenly">
-                <span class="count">66</span>
-                <span class="technology__details display-flex column-align">
-                    <span class="technology-name">React Native</span>
-                    <span class="progress2"></span>
-                </span>
-            </div> -->
-
+            <!-- Details -->
         </section>
 
         <!-- Cards for Total number of projects, number of employees, billables, and shadows -->

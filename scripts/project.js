@@ -6,6 +6,7 @@ inputTags(document.querySelector('#technologies'), projects.technologies);
 
 function addOrUpdateProject(e) {
     e.preventDefault()
+
     // Check if all form input fields are valid.
     const projectNameStatus = projectName.value.length == 0 ? false : true,
         clientNameStatus = clientName.value.length == 0 ? false : true,
@@ -18,7 +19,7 @@ function addOrUpdateProject(e) {
         formsContainer.style.display = "none";
 
         const projectDetails = {
-            projectId: addProjectFunctionality ? projects.projectList.length : selectedProjectId,
+            projectId: addProjectFunctionality ? projects.projectList.length : Number(selectedProjectId),
             projectName: projectName.value,
             clientName: clientName.value,
             projectManager: projectManager.value,
@@ -31,8 +32,6 @@ function addOrUpdateProject(e) {
             technologies: technologies.value ? JSON.parse(technologies.value).map(tech => tech.value) : []
         }
 
-        console.log(projectDetails)
-
         // If a new user-entered tag is not there in technologies array, add it to the array.
         projectDetails.technologies.forEach(tech => {
             if (!projects.technologies.includes(tech)) { projects.technologies.push(tech); }
@@ -40,8 +39,10 @@ function addOrUpdateProject(e) {
         if (addProjectFunctionality) {
             // Add new project.
             projects.projectList.push(projectDetails);
+            selectedProjectId = projects.projectList.length - 1;
         } else {
             // Update already existing project.
+            selectedProjectId = Number(selectedProjectId);
             projects.projectList[selectedProjectId] = projectDetails;
         }
 
@@ -91,8 +92,6 @@ addProject.addEventListener('click', function (e) {
 
     projectName.readOnly = false;
     clientName.readOnly = false;
-
-    /* TECHNOLOGY TAGS */
 
 });
 

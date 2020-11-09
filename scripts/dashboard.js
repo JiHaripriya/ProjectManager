@@ -41,22 +41,17 @@ function totalProjects() {
 
 // Returns total number of distinct resources.
 function totalDistinctResources() {
-    // let distinctResourcesList = [];
-    let distinctResourcesListAlt = [];
+    let distinctResourcesList = [];
     resources.forEach(resourceList => {
         if (resourceList) {
-            // const distinctResources = resourceList.map(resource => resource.email).filter(email => !distinctResourcesList.includes(email));
-            // distinctResourcesList = [...distinctResourcesList, ...distinctResources];
-
-            const distinctResourcesAlt = resourceList.reduce((acc, currVal) => {
-                !distinctResourcesListAlt.includes(currVal.email) ? acc.push(currVal.email) : acc;
+            const distinctResources = resourceList.reduce((acc, currVal) => {
+                !distinctResourcesList.includes(currVal.email) ? acc.push(currVal.email) : acc;
                 return acc;
             }, []);
-            distinctResourcesListAlt = [...distinctResourcesListAlt, ...distinctResourcesAlt];
+            distinctResourcesList = [...distinctResourcesList, ...distinctResources];
         }
     });
-    // console.log(distinctResourcesList);
-    return distinctResourcesListAlt.length;
+    return distinctResourcesList.length;
 }
 
 // Returns total number of billables and shadows.
@@ -85,7 +80,6 @@ function loadProjectsPerTechnology() {
 
     const technologyProjectCount = document.querySelector('#technology-project-count');
     const technologyProjectCountArray = Object.values(projectsPerTechnologyList);
-    console.log(technologyProjectCountArray, projectsPerTechnologyList)
     for (let x in projectsPerTechnologyList) {
         const projectsPerTechnologyListCard = `<div class="technology display-flex row-align space-evenly">
         <span class="count">${projectsPerTechnologyList[x]}</span>
