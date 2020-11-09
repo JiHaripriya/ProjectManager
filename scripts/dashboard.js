@@ -76,9 +76,16 @@ function totalBillableAndShadowResources() {
 
 // Loads projects per technology list.
 function loadProjectsPerTechnology() {
-    const projectsPerTechnologyList = projectsPerTechnology();
+    const sortable = projectsPerTechnology();
+    
+    // Sort projects per technology in descending order
+    const projectsPerTechnologyList = Object.entries(sortable)
+    .sort(([,a],[,b]) => b-a)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+
     const technologyProjectCount = document.querySelector('#technology-project-count');
     const technologyProjectCountArray = Object.values(projectsPerTechnologyList);
+    console.log(technologyProjectCountArray, projectsPerTechnologyList)
     for (let x in projectsPerTechnologyList) {
         const projectsPerTechnologyListCard = `<div class="technology display-flex row-align space-evenly">
         <span class="count">${projectsPerTechnologyList[x]}</span>
