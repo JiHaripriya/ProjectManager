@@ -51,7 +51,7 @@ body
 }
 body { 
     background-color: var(--primary-color);  
-    height: 100vh;
+    height: 100%;
     width: 100%;
     font-size: 14px;
 }
@@ -353,7 +353,8 @@ a {text-decoration: none;}
     scrollbar-width: none;
 }
 
-.project-list__body {max-height: 100vh;}
+.project-list__body {max-height: calc(100vh - 155px);}
+
 ::-webkit-scrollbar {display: none;}
 
 .project-progress {

@@ -333,32 +333,37 @@ navSlide()
 // Detect device oritentation to adjust contents accordingly
 window.onorientationchange = function () { setHeight() }
 window.onload = function () {setHeight()}
-window.onresize = function () { setHeight()}
-
-function collapseContent() {
-    document.querySelector(".project-list").style.display = "none"
-    document.querySelector(".project-list__body").style.display = "none"
+window.onresize = function () { 
+    setHeight(); 
+    if (window.outerWidth > 630) document.querySelector(".project-list__body").style.display = "block"
+    else collapseContent()
 }
 
+
+
 // Expand project list
+function collapseContent() {
+    const expandOrCollapse = document.getElementById('expand-list');
+    document.querySelector(".project-list__body").style.display = "none"
+    expandOrCollapse.style.left = "0%"
+    expandOrCollapse.textContent = '>'
+}
+
 const expandOrCollapse = document.getElementById('expand-list');
 expandOrCollapse.addEventListener('click', _ => {
-    // List in expanded state
-    if (document.querySelector(".project-list").style.display == "block") {
-        collapseContent()
-        expandOrCollapse.style.left = "0%"
-        expandOrCollapse.textContent = '>'
-    }
-    else {
-        document.querySelector(".project-list").style.display = "block"
-        document.querySelector(".project-list__body").style.display = "block"
-        expandOrCollapse.style.left = "50%"
-        expandOrCollapse.textContent = '<'
+    if (window.outerWidth < 630) {
+        // List in expanded state
+        if (document.querySelector(".project-list__body").style.display == "block") {
+            collapseContent()        
+        }
+        else {
+            document.querySelector(".project-list__body").style.display = "block"
+            expandOrCollapse.style.left = "50%"
+            expandOrCollapse.textContent = '<'
+        }
     }
 })
 
 document.querySelector(".project-list__body").addEventListener('click', _ => {
-    collapseContent()
-    expandOrCollapse.style.left = "0%"
-    expandOrCollapse.textContent = '>'
+    if(window.outerWidth < 630) collapseContent()
 })
