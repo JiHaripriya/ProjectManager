@@ -120,7 +120,10 @@ function projectTechnologyChart() {
     const canvasId = document.querySelector('#project-vs-tech-chart').getContext('2d');
     const technologies = Object.keys(technologyCount);
     const projectsNumber = Object.values(technologyCount);
-    createChart(canvasId, technologies, 'Projects', projectsNumber, 'rgba(99, 203, 137, 0.4)', 'rgb(99, 203, 137)');
+    const legendLabel = 'Projects';
+    const graphBarColor = 'rgba(99, 203, 137, 0.4)';
+    const graphBarBorderColor = 'rgb(99, 203, 137)';
+    createChart(canvasId, technologies, legendLabel, projectsNumber, graphBarColor, graphBarBorderColor);
 }
 
 // Returns number of projects per technology.
@@ -138,7 +141,10 @@ function resourceProjectChart() {
     const canvasId = document.querySelector('#resource-vs-project-chart')
     const projectNamesList = projects.projectList.map(project => project.projectName);
     const resourcesNumber = Object.values(resourceCount);
-    createChart(canvasId, projectNamesList, 'Resources', resourcesNumber, 'rgba(201, 203, 207, 0.4)', 'rgb(201, 203, 207)');
+    const legendLabel = 'Resources';
+    const graphBarColor = 'rgba(201, 203, 207, 0.4)';
+    const graphBarBorderColor = 'rgb(201, 203, 207)';
+    createChart(canvasId, projectNamesList, legendLabel, resourcesNumber, graphBarColor, graphBarBorderColor);
     
 }
 

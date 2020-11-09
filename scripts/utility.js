@@ -186,15 +186,15 @@ function transformTag(tagData) {
 }
 
 // Function to create a chart
-function createChart(canvas, labels, label, dataValues, backgroundColorValue, borderColorValue) {
+function createChart(canvas, labels, legendLabel, dataValues, backgroundColorValue, borderColorValue) {
     let graph = new Chart(canvas, {
         type: 'bar',
         data: {
             labels: labels,
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             datasets: [{
-                label: label,
+                label: legendLabel,
                 data: dataValues,
                 backgroundColor: backgroundColorValue,
                 borderWidth: 1,
@@ -215,7 +215,8 @@ function createChart(canvas, labels, label, dataValues, backgroundColorValue, bo
                 }],
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        precision: 0
                     }
                 }]
             },
